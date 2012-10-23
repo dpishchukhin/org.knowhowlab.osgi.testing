@@ -18,6 +18,7 @@ local.properties
 .idea
 *.iml
 target
+eclipse_config
 
 # External tool builders
 .externalToolBuilders/
