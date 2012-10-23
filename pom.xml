@@ -34,7 +34,7 @@
 
     <scm>
         <connection>scm:git:git@github.com:dpishchukhin/org.knowhowlab.osgi.testing.git</connection>
-        <url>scm:git:git@github.com:dpishchukhin/org.knowhowlab.osgi.testing.git</url>
+        <url>git@github.com:dpishchukhin/org.knowhowlab.osgi.testing.git</url>
         <developerConnection>scm:git:git@github.com:dpishchukhin/org.knowhowlab.osgi.testing.git</developerConnection>
     </scm>
 
