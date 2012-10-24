@@ -8,7 +8,7 @@
         <version>1.0.0.M6-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.knowhowlab.osgi.testing</groupId>
+    <groupId>org.knowhowlab.osgi</groupId>
     <artifactId>org.knowhowlab.osgi.testing.utils</artifactId>
     <packaging>bundle</packaging>
 

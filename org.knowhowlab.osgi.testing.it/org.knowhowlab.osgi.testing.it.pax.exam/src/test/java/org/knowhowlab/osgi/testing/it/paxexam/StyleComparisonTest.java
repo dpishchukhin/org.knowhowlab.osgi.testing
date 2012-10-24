@@ -52,7 +52,7 @@ public class StyleComparisonTest extends AbstractTest {
     @Configuration
     public static Option[] customTestConfiguration() {
         return options(
-                mavenBundle().groupId("org.knowhowlab.osgi.testing.it").artifactId("org.knowhowlab.osgi.testing.it.test.bundle").
+                mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.it.test.bundle").
                         version(System.getProperty("project.version")).noStart()
         );
     }
