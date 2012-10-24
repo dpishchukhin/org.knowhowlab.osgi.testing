@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.knowhowlab.osgi</groupId>
-        <artifactId>testing</artifactId>
-        <version>1.0.0.M2-SNAPSHOT</version>
+        <artifactId>org.knowhowlab.osgi.testing</artifactId>
+        <version>1.0.0.M3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.knowhowlab.osgi.testing</groupId>
-    <artifactId>it</artifactId>
+    <artifactId>org.knowhowlab.osgi.testing.it</artifactId>
     <packaging>pom</packaging>
 
     <name>KnowHowLab OSGi Testing - Integration Test</name>
@@ -35,9 +36,8 @@
     </licenses>
 
     <modules>
-        <module>it.pax.exam</module>
-        <module>it.spring.osgi</module>
-        <module>it.test.bundle</module>
+        <module>org.knowhowlab.osgi.testing.it.pax.exam</module>
+        <module>org.knowhowlab.osgi.testing.it.test.bundle</module>
     </modules>
 
     <build>
@@ -46,7 +46,12 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <testFailureIgnore>true</testFailureIgnore>
+                    <systemProperties>
+                        <property>
+                            <name>project.version</name>
+                            <value>${project.version}</value>
+                        </property>
+                    </systemProperties>
                 </configuration>
             </plugin>
         </plugins>

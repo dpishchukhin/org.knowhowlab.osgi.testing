@@ -18,22 +18,24 @@ package org.knowhowlab.osgi.testing.it.paxexam;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.knowhowlab.osgi.testing.it.testbundle.service.Echo;
+import org.knowhowlab.osgi.testing.utils.ServiceUtils;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.Configuration;
 import org.osgi.framework.*;
 import org.osgi.service.packageadmin.PackageAdmin;
-import org.knowhowlab.osgi.testing.it.testbundle.service.Echo;
 import org.osgi.util.tracker.ServiceTracker;
-import org.knowhowlab.osgi.testing.utils.ServiceUtils;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.knowhowlab.osgi.testing.assertions.BundleAssert.assertBundleAvailable;
+import static org.knowhowlab.osgi.testing.assertions.BundleAssert.assertBundleState;
+import static org.knowhowlab.osgi.testing.assertions.ServiceAssert.assertServiceAvailable;
+import static org.knowhowlab.osgi.testing.assertions.ServiceAssert.assertServiceUnavailable;
+import static org.knowhowlab.osgi.testing.utils.BundleUtils.findBundle;
+import static org.knowhowlab.osgi.testing.utils.FilterUtils.*;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import static org.ops4j.pax.exam.CoreOptions.options;
-import static org.knowhowlab.osgi.testing.assertions.BundleAssert.*;
-import static org.knowhowlab.osgi.testing.assertions.ServiceAssert.*;
-import static org.knowhowlab.osgi.testing.utils.BundleUtils.*;
-import static org.knowhowlab.osgi.testing.utils.FilterUtils.*;
 
 /**
  * This is JUnit test that shows difference between tests
@@ -50,8 +52,8 @@ public class StyleComparisonTest extends AbstractTest {
     @Configuration
     public static Option[] customTestConfiguration() {
         return options(
-                mavenBundle().groupId("org.knowhowlab.osgi.testing.it").artifactId("it.commons.test.bundle").
-                        version("1.0-SNAPSHOT").noStart()
+                mavenBundle().groupId("org.knowhowlab.osgi.testing.it").artifactId("org.knowhowlab.osgi.testing.it.test.bundle").
+                        version(System.getProperty("project.version")).noStart()
         );
     }
 
@@ -71,7 +73,7 @@ public class StyleComparisonTest extends AbstractTest {
         PackageAdmin packageAdmin = (PackageAdmin) packageAdminTracker.getService();
         Assert.assertNotNull(packageAdmin);
         packageAdminTracker.close();
-        Bundle[] bundles = packageAdmin.getBundles("org.knowhowlab.osgi.testing.it.commons.test.bundle", null);
+        Bundle[] bundles = packageAdmin.getBundles("org.knowhowlab.osgi.testing.it.test.bundle", null);
         // asserts that test bundle is installed
         Assert.assertNotNull(bundles);
         Assert.assertTrue(bundles.length > 0);
@@ -79,7 +81,7 @@ public class StyleComparisonTest extends AbstractTest {
         Bundle bundle = bundles[0];
         // asserts that test bundle is resolved
         Assert.assertEquals(Bundle.RESOLVED, bundle.getState());
-        ServiceTracker serviceTracker1 = new ServiceTracker(bc, "org.knowhowlab.osgi.testing.it.commons.testbundle.service.Echo", null);
+        ServiceTracker serviceTracker1 = new ServiceTracker(bc, "org.knowhowlab.osgi.testing.it.testbundle.service.Echo", null);
         serviceTracker1.open();
         Assert.assertEquals(0, serviceTracker1.size());
         // start bundle
@@ -90,7 +92,7 @@ public class StyleComparisonTest extends AbstractTest {
         Assert.assertNotNull(serviceTracker1.waitForService(2000));
         // asserts that test service with custom properties is available
         ServiceTracker serviceTracker2 = new ServiceTracker(bc, FrameworkUtil.createFilter(
-                "(&(" + Constants.OBJECTCLASS + "=org.knowhowlab.osgi.testing.it.commons.testbundle.service.Echo)" +
+                "(&(" + Constants.OBJECTCLASS + "=org.knowhowlab.osgi.testing.it.testbundle.service.Echo)" +
                         "(testkey=testvalue))"), null);
         serviceTracker2.open();
         Assert.assertTrue(serviceTracker2.size() > 0);
@@ -117,19 +119,19 @@ public class StyleComparisonTest extends AbstractTest {
     @Test
     public void test_With_OSGiAssertions() throws BundleException, InvalidSyntaxException {
         // asserts that test bundle is installed
-        assertBundleAvailable("org.knowhowlab.osgi.testing.it.commons.test.bundle");
+        assertBundleAvailable("org.knowhowlab.osgi.testing.it.test.bundle");
         // asserts that test bundle is resolved
-        assertBundleState(Bundle.RESOLVED, "org.knowhowlab.osgi.testing.it.commons.test.bundle");
+        assertBundleState(Bundle.RESOLVED, "org.knowhowlab.osgi.testing.it.test.bundle");
         // gets bundle instance
-        Bundle bundle = findBundle(bc, "org.knowhowlab.osgi.testing.it.commons.test.bundle");
+        Bundle bundle = findBundle(bc, "org.knowhowlab.osgi.testing.it.test.bundle");
         // asserts that test service is unavailable
-        assertServiceUnavailable("org.knowhowlab.osgi.testing.it.commons.testbundle.service.Echo");
+        assertServiceUnavailable("org.knowhowlab.osgi.testing.it.testbundle.service.Echo");
         // start bundle
         bundle.start();
         // asserts that test bundle is active
-        assertBundleState(Bundle.ACTIVE, "org.knowhowlab.osgi.testing.it.commons.test.bundle");
+        assertBundleState(Bundle.ACTIVE, "org.knowhowlab.osgi.testing.it.test.bundle");
         // asserts that test service is available within 2 seconds
-        assertServiceAvailable("org.knowhowlab.osgi.testing.it.commons.testbundle.service.Echo", 2, TimeUnit.SECONDS);
+        assertServiceAvailable("org.knowhowlab.osgi.testing.it.testbundle.service.Echo", 2, TimeUnit.SECONDS);
         // asserts that test service with custom properties is available
         assertServiceAvailable(and(create(Echo.class), eq("testkey", "testvalue")));
         // gets service by class and filter
@@ -139,7 +141,7 @@ public class StyleComparisonTest extends AbstractTest {
         // stops bundle
         bundle.stop();
         // asserts that test bundle is resolved
-        assertBundleState(Bundle.RESOLVED, "org.knowhowlab.osgi.testing.it.commons.test.bundle");
+        assertBundleState(Bundle.RESOLVED, "org.knowhowlab.osgi.testing.it.test.bundle");
         // asserts that test service is unregistered
         assertServiceUnavailable(Echo.class);
     }

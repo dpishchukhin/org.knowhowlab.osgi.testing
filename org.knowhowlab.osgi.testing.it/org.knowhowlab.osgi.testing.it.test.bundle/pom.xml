@@ -2,13 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.knowhowlab.osgi.testing</groupId>
-        <artifactId>it</artifactId>
-        <version>1.0.0.M2-SNAPSHOT</version>
+        <artifactId>org.knowhowlab.osgi.testing.it</artifactId>
+        <version>1.0.0.M3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.knowhowlab.osgi.testing.it</groupId>
-    <artifactId>it.test.bundle</artifactId>
+    <artifactId>org.knowhowlab.osgi.testing.it.test.bundle</artifactId>
 
     <packaging>bundle</packaging>
 
@@ -56,11 +56,12 @@
                 <configuration>
                     <instructions>
                         <Export-Package>
-                            org.knowhowlab.osgi.testing.it.commons.testbundle.service
+                            org.knowhowlab.osgi.testing.it.testbundle.service
                         </Export-Package>
                         <Import-Package>
                             org.osgi*
                         </Import-Package>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Activator>org.knowhowlab.osgi.testing.it.testbundle.Activator</Bundle-Activator>
                         <Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
                         <_removeheaders>

@@ -3,8 +3,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.knowhowlab.osgi</groupId>
-    <artifactId>testing</artifactId>
-    <version>1.0.0.M2-SNAPSHOT</version>
+    <artifactId>org.knowhowlab.osgi.testing</artifactId>
+    <version>1.0.0.M3-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     <name>KnowHowLab OSGi Testing</name>
@@ -39,9 +39,9 @@
 
 
     <modules>
-        <module>utils</module>
-        <module>assertions</module>
-        <module>it</module>
+        <module>org.knowhowlab.osgi.testing.utils</module>
+        <module>org.knowhowlab.osgi.testing.assertions</module>
+        <module>org.knowhowlab.osgi.testing.it</module>
     </modules>
 
     <dependencyManagement>

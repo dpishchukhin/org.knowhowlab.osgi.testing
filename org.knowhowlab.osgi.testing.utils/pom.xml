@@ -4,12 +4,12 @@
 
     <parent>
         <groupId>org.knowhowlab.osgi</groupId>
-        <artifactId>testing</artifactId>
-        <version>1.0.0.M2-SNAPSHOT</version>
+        <artifactId>org.knowhowlab.osgi.testing</artifactId>
+        <version>1.0.0.M3-SNAPSHOT</version>
     </parent>
 
     <groupId>org.knowhowlab.osgi.testing</groupId>
-    <artifactId>utils</artifactId>
+    <artifactId>org.knowhowlab.osgi.testing.utils</artifactId>
     <packaging>bundle</packaging>
 
     <name>KnowHowLab OSGi Testing - Utils</name>
@@ -61,6 +61,7 @@
                         <Import-Package>
                             org.osgi*,
                         </Import-Package>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
                         <_removeheaders>
                             Bnd-LastModified, Built-By, Private-Package,
