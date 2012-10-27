@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Dmytro Pishchukhin (http://knowhowlab.org)
+ * Copyright (c) 2010-2012 Dmytro Pishchukhin (http://knowhowlab.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@
 package org.knowhowlab.osgi.testing.it.paxexam;
 
 import org.junit.Test;
+import org.ops4j.pax.exam.Option;
+import org.ops4j.pax.exam.junit.Configuration;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.service.packageadmin.PackageAdmin;
 import org.knowhowlab.osgi.testing.assertions.ServiceAssert;
@@ -27,7 +29,12 @@ import org.knowhowlab.osgi.testing.utils.FilterUtils;
  *
  * @author dmytro.pishchukhin
  */
-public class ServicesTest extends AbstractTest {
+public class ServicesIntegrationTest extends AbstractTest {
+    @Configuration
+    public static Option[] customTestConfiguration() {
+        return baseConfiguration();
+    }
+
     @Test
     public void simpleTest() throws InvalidSyntaxException {
         // assert PackageAdmin service is available in OSGi registry

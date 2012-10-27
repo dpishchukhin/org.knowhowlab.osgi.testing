@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Dmytro Pishchukhin (http://knowhowlab.org)
+ * Copyright (c) 2010-2012 Dmytro Pishchukhin (http://knowhowlab.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,21 +18,23 @@ package org.knowhowlab.osgi.testing.assertions;
 
 import junit.framework.Assert;
 import org.knowhowlab.osgi.testing.utils.BundleUtils;
+import org.knowhowlab.osgi.testing.utils.ServiceUtils;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.Version;
 import org.osgi.service.packageadmin.PackageAdmin;
-import org.knowhowlab.osgi.testing.utils.ServiceUtils;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * A set of OSGi Bundle specific assertion methods useful for writing tests.
  * <p/>
  * Before use it should be initialized
- * {@link OSGiAssert#init(org.osgi.framework.BundleContext)}
+ * {@link OSGiAssert#setDefaultBundleContext(org.osgi.framework.BundleContext)}
  *
  * @author dmytro.pishchukhin
  * @version 1.0
  * @see java.lang.AssertionError
- * @see OSGiAssert
+ * @see org.knowhowlab.osgi.testing.assertions.OSGiAssert
  */
 public class BundleAssert extends OSGiAssert {
     /**
@@ -79,6 +81,45 @@ public class BundleAssert extends OSGiAssert {
 
     /**
      * Asserts that Bundle with symbolic name has given state value. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param state           bundle state value
+     * @param symbolicName    symbolic name
+     * @param timeoutInMillis time interval to wait. If zero, the method will wait indefinitely.
+     */
+    public static void assertBundleState(int state, String symbolicName, long timeoutInMillis) {
+        assertBundleState(null, state, symbolicName, null, timeoutInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Asserts that Bundle with symbolic name has given state value. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param message         message
+     * @param state           bundle state value
+     * @param symbolicName    symbolic name
+     * @param timeoutInMillis time interval to wait. If zero, the method will wait indefinitely.
+     */
+    public static void assertBundleState(String message, int state, String symbolicName, long timeoutInMillis) {
+        assertBundleState(message, state, symbolicName, null, timeoutInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Asserts that Bundle with symbolic name has given state value. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param message      message
+     * @param state        bundle state value
+     * @param symbolicName symbolic name
+     * @param timeout      time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit     timeout time unit
+     */
+    public static void assertBundleState(String message, int state, String symbolicName, long timeout, TimeUnit timeUnit) {
+        assertBundleState(message, state, symbolicName, null, timeout, timeUnit);
+    }
+
+    /**
+     * Asserts that Bundle with symbolic name has given state value. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
      * @param message      message
@@ -93,6 +134,24 @@ public class BundleAssert extends OSGiAssert {
     }
 
     /**
+     * Asserts that Bundle with symbolic name has given state value. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message      message
+     * @param state        bundle state value
+     * @param symbolicName symbolic name
+     * @param version      version
+     * @param timeout      time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit     timeout time unit
+     */
+    public static void assertBundleState(String message, int state, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
+        Assert.assertNotNull("SymbolicName is null", symbolicName);
+        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        Bundle bundle = BundleUtils.findBundle(getBundleContext(), symbolicName, version, state, timeout, timeUnit);
+        Assert.assertNotNull(message, bundle);
+    }
+
+    /**
      * Asserts that Bundle with symbolic name and version has given state value. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
@@ -102,6 +161,33 @@ public class BundleAssert extends OSGiAssert {
      */
     public static void assertBundleState(int state, String symbolicName, Version version) {
         assertBundleState(null, state, symbolicName, version);
+    }
+
+    /**
+     * Asserts that Bundle with symbolic name and version has given state value. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param state        bundle state value
+     * @param symbolicName symbolic name
+     * @param version      version
+     * @param timeout      time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit     timeout time unit
+     */
+    public static void assertBundleState(int state, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
+        assertBundleState(null, state, symbolicName, version, timeout, timeUnit);
+    }
+
+    /**
+     * Asserts that Bundle with symbolic name has given state value. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param state        bundle state value
+     * @param symbolicName symbolic name
+     * @param timeout      time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit     timeout time unit
+     */
+    public static void assertBundleState(int state, String symbolicName, long timeout, TimeUnit timeUnit) {
+        assertBundleState(null, state, symbolicName, null, timeout, timeUnit);
     }
 
     /**

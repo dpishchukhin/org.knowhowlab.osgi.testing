@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Dmytro Pishchukhin (http://knowhowlab.org)
+ * Copyright (c) 2010-2012 Dmytro Pishchukhin (http://knowhowlab.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import org.osgi.framework.*;
 import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.util.tracker.ServiceTracker;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import static org.knowhowlab.osgi.testing.assertions.BundleAssert.assertBundleAvailable;
@@ -35,7 +36,6 @@ import static org.knowhowlab.osgi.testing.assertions.ServiceAssert.assertService
 import static org.knowhowlab.osgi.testing.utils.BundleUtils.findBundle;
 import static org.knowhowlab.osgi.testing.utils.FilterUtils.*;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
-import static org.ops4j.pax.exam.CoreOptions.options;
 
 /**
  * This is JUnit test that shows difference between tests
@@ -43,7 +43,7 @@ import static org.ops4j.pax.exam.CoreOptions.options;
  *
  * @author dmytro.pishchukhin
  */
-public class StyleComparisonTest extends AbstractTest {
+public class StyleComparisonIntegrationTest extends AbstractTest {
     /**
      * Install test bundle
      *
@@ -51,19 +51,24 @@ public class StyleComparisonTest extends AbstractTest {
      */
     @Configuration
     public static Option[] customTestConfiguration() {
-        return options(
+        Option[] options = baseConfiguration();
+        System.out.println(options.length);
+        Option[] newOptions = Arrays.copyOf(options, options.length + 1);
+        newOptions[newOptions.length - 1] =
                 mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.it.test.bundle").
-                        version(System.getProperty("project.version")).noStart()
-        );
+                        version(System.getProperty("project.version")).noUpdate().noStart();
+        System.out.println(newOptions.length);
+        System.out.println(newOptions[newOptions.length - 1]);
+        return newOptions;
     }
 
     /**
      * Test bundle and service without OSGi assertions/utils
      *
      * @throws org.osgi.framework.BundleException
-     *          bundle start/stop problems
+     *                              bundle start/stop problems
      * @throws org.osgi.framework.InvalidSyntaxException
-     *          filter creation problems
+     *                              filter creation problems
      * @throws InterruptedException wait exception
      */
     @Test
@@ -76,11 +81,10 @@ public class StyleComparisonTest extends AbstractTest {
         Bundle[] bundles = packageAdmin.getBundles("org.knowhowlab.osgi.testing.it.test.bundle", null);
         // asserts that test bundle is installed
         Assert.assertNotNull(bundles);
-        Assert.assertTrue(bundles.length > 0);
         // gets bundle instance
         Bundle bundle = bundles[0];
         // asserts that test bundle is resolved
-        Assert.assertEquals(Bundle.RESOLVED, bundle.getState());
+        Assert.assertTrue(bundle.getState() == Bundle.INSTALLED || bundle.getState() == Bundle.RESOLVED);
         ServiceTracker serviceTracker1 = new ServiceTracker(bc, "org.knowhowlab.osgi.testing.it.testbundle.service.Echo", null);
         serviceTracker1.open();
         Assert.assertEquals(0, serviceTracker1.size());
@@ -121,7 +125,7 @@ public class StyleComparisonTest extends AbstractTest {
         // asserts that test bundle is installed
         assertBundleAvailable("org.knowhowlab.osgi.testing.it.test.bundle");
         // asserts that test bundle is resolved
-        assertBundleState(Bundle.RESOLVED, "org.knowhowlab.osgi.testing.it.test.bundle");
+        assertBundleState(Bundle.INSTALLED | Bundle.RESOLVED, "org.knowhowlab.osgi.testing.it.test.bundle", 5, TimeUnit.SECONDS);
         // gets bundle instance
         Bundle bundle = findBundle(bc, "org.knowhowlab.osgi.testing.it.test.bundle");
         // asserts that test service is unavailable

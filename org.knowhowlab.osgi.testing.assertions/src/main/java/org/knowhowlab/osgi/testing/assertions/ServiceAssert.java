@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Dmytro Pishchukhin (http://knowhowlab.org)
+ * Copyright (c) 2010-2012 Dmytro Pishchukhin (http://knowhowlab.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,8 @@
 package org.knowhowlab.osgi.testing.assertions;
 
 import junit.framework.Assert;
-import org.osgi.framework.Filter;
 import org.knowhowlab.osgi.testing.utils.ServiceUtils;
+import org.osgi.framework.Filter;
 
 import java.util.concurrent.TimeUnit;
 
@@ -26,12 +26,12 @@ import java.util.concurrent.TimeUnit;
  * A set of OSGi services specific assertion methods useful for writing tests.
  * <p/>
  * Before use it should be initialized
- * {@link OSGiAssert#init(org.osgi.framework.BundleContext)}
+ * {@link OSGiAssert#setDefaultBundleContext(org.osgi.framework.BundleContext)}
  *
  * @author dmytro.pishchukhin
  * @version 1.0
  * @see java.lang.AssertionError
- * @see OSGiAssert
+ * @see org.knowhowlab.osgi.testing.assertions.OSGiAssert
  */
 public class ServiceAssert extends OSGiAssert {
     /**
@@ -55,7 +55,7 @@ public class ServiceAssert extends OSGiAssert {
      * {@link AssertionError} is thrown with the given message
      *
      * @param message message
-     * @param clazz service class
+     * @param clazz   service class
      */
     public static void assertServiceAvailable(String message, Class clazz) {
         Assert.assertNotNull("Class is null", clazz);
@@ -65,34 +65,34 @@ public class ServiceAssert extends OSGiAssert {
     }
 
     /**
-     * Asserts that service with class is available in OSGi registry within given timeout. If it not as expected
+     * Asserts that service with class is available in OSGi registry within given timeoutInMillis. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param clazz service class
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param clazz           service class
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      */
-    public static void assertServiceAvailable(Class clazz, long timeout) {
-        assertServiceAvailable(null, clazz, timeout);
+    public static void assertServiceAvailable(Class clazz, long timeoutInMillis) {
+        assertServiceAvailable(null, clazz, timeoutInMillis);
     }
 
     /**
-     * Asserts that service with class is available in OSGi registry within given timeout. If it not as expected
+     * Asserts that service with class is available in OSGi registry within given timeoutInMillis. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
-     * @param message message
-     * @param clazz service class
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param message         message
+     * @param clazz           service class
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      */
-    public static void assertServiceAvailable(String message, Class clazz, long timeout) {
-        assertServiceAvailable(message, clazz, timeout, TimeUnit.MILLISECONDS);
+    public static void assertServiceAvailable(String message, Class clazz, long timeoutInMillis) {
+        assertServiceAvailable(message, clazz, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
      * Asserts that service with class is available in OSGi registry within given timeout. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param clazz service class
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param clazz    service class
+     * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
      */
     public static void assertServiceAvailable(Class clazz, long timeout, TimeUnit timeUnit) {
@@ -103,9 +103,9 @@ public class ServiceAssert extends OSGiAssert {
      * Asserts that service with class is available in OSGi registry within given timeout. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
-     * @param message message
-     * @param clazz service class
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param message  message
+     * @param clazz    service class
+     * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
      */
     public static void assertServiceAvailable(String message, Class clazz, long timeout, TimeUnit timeUnit) {
@@ -130,7 +130,7 @@ public class ServiceAssert extends OSGiAssert {
      * Asserts that service with class name is available in OSGi registry. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
-     * @param message message
+     * @param message   message
      * @param className service class name
      */
     public static void assertServiceAvailable(String message, String className) {
@@ -141,26 +141,26 @@ public class ServiceAssert extends OSGiAssert {
     }
 
     /**
-     * Asserts that service with class name is available in OSGi registry within given timeout. If it not as expected
+     * Asserts that service with class name is available in OSGi registry within given timeoutInMillis. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param className service class name
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param className       service class name
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      */
-    public static void assertServiceAvailable(String className, long timeout) {
-        assertServiceAvailable(null, className, timeout);
+    public static void assertServiceAvailable(String className, long timeoutInMillis) {
+        assertServiceAvailable(null, className, timeoutInMillis);
     }
 
     /**
-     * Asserts that service with class name is available in OSGi registry within given timeout. If it not as expected
+     * Asserts that service with class name is available in OSGi registry within given timeoutInMillis. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
-     * @param message message
-     * @param className service class name
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param message         message
+     * @param className       service class name
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      */
-    public static void assertServiceAvailable(String message, String className, long timeout) {
-        assertServiceAvailable(message, className, timeout, TimeUnit.MILLISECONDS);
+    public static void assertServiceAvailable(String message, String className, long timeoutInMillis) {
+        assertServiceAvailable(message, className, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -168,8 +168,8 @@ public class ServiceAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param className service class name
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
-     * @param timeUnit timeout time unit
+     * @param timeout   time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit  timeout time unit
      */
     public static void assertServiceAvailable(String className, long timeout, TimeUnit timeUnit) {
         assertServiceAvailable(null, className, timeout, timeUnit);
@@ -179,10 +179,10 @@ public class ServiceAssert extends OSGiAssert {
      * Asserts that service with class name is available in OSGi registry within given timeout. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
-     * @param message message
+     * @param message   message
      * @param className service class name
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
-     * @param timeUnit timeout time unit
+     * @param timeout   time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit  timeout time unit
      */
     public static void assertServiceAvailable(String message, String className, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("Class name is null", className);
@@ -207,7 +207,7 @@ public class ServiceAssert extends OSGiAssert {
      * {@link AssertionError} is thrown with the given message
      *
      * @param message message
-     * @param filter service filter
+     * @param filter  service filter
      */
     public static void assertServiceAvailable(String message, Filter filter) {
         Assert.assertNotNull("Filter is null", filter);
@@ -217,34 +217,34 @@ public class ServiceAssert extends OSGiAssert {
     }
 
     /**
-     * Asserts that service with filter is available in OSGi registry within given timeout. If it not as expected
+     * Asserts that service with filter is available in OSGi registry within given timeoutInMillis. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param filter service filter
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param filter          service filter
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      */
-    public static void assertServiceAvailable(Filter filter, long timeout) {
-        assertServiceAvailable(null, filter, timeout);
+    public static void assertServiceAvailable(Filter filter, long timeoutInMillis) {
+        assertServiceAvailable(null, filter, timeoutInMillis);
     }
 
     /**
-     * Asserts that service with filter is available in OSGi registry within given timeout. If it not as expected
+     * Asserts that service with filter is available in OSGi registry within given timeoutInMillis. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
-     * @param message message
-     * @param filter service filter
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param message         message
+     * @param filter          service filter
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      */
-    public static void assertServiceAvailable(String message, Filter filter, long timeout) {
-        assertServiceAvailable(message, filter, timeout, TimeUnit.MILLISECONDS);
+    public static void assertServiceAvailable(String message, Filter filter, long timeoutInMillis) {
+        assertServiceAvailable(message, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
      * Asserts that service with filter is available in OSGi registry within given timeout. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param filter service filter
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param filter   service filter
+     * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
      */
     public static void assertServiceAvailable(Filter filter, long timeout, TimeUnit timeUnit) {
@@ -255,9 +255,9 @@ public class ServiceAssert extends OSGiAssert {
      * Asserts that service with filter is available in OSGi registry within given timeout. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
-     * @param message message
-     * @param filter service filter
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param message  message
+     * @param filter   service filter
+     * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
      */
     public static void assertServiceAvailable(String message, Filter filter, long timeout, TimeUnit timeUnit) {
@@ -283,7 +283,7 @@ public class ServiceAssert extends OSGiAssert {
      * {@link AssertionError} is thrown with the given message
      *
      * @param message message
-     * @param clazz service class
+     * @param clazz   service class
      */
     public static void assertServiceUnavailable(String message, Class clazz) {
         Assert.assertNotNull("Class is null", clazz);
@@ -293,34 +293,34 @@ public class ServiceAssert extends OSGiAssert {
     }
 
     /**
-     * Asserts that service with class is unavailable in OSGi registry within given timeout. If it not as expected
+     * Asserts that service with class is unavailable in OSGi registry within given timeoutInMillis. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param clazz service class
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param clazz           service class
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      */
-    public static void assertServiceUnavailable(Class clazz, long timeout) {
-        assertServiceUnavailable(null, clazz, timeout);
+    public static void assertServiceUnavailable(Class clazz, long timeoutInMillis) {
+        assertServiceUnavailable(null, clazz, timeoutInMillis);
     }
 
     /**
-     * Asserts that service with class is unavailable in OSGi registry within given timeout. If it not as expected
+     * Asserts that service with class is unavailable in OSGi registry within given timeoutInMillis. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
-     * @param message message
-     * @param clazz service class
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param message         message
+     * @param clazz           service class
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      */
-    public static void assertServiceUnavailable(String message, Class clazz, long timeout) {
-        assertServiceUnavailable(message, clazz, timeout, TimeUnit.MILLISECONDS);
+    public static void assertServiceUnavailable(String message, Class clazz, long timeoutInMillis) {
+        assertServiceUnavailable(message, clazz, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
      * Asserts that service with class is unavailable in OSGi registry within given timeout. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param clazz service class
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param clazz    service class
+     * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
      */
     public static void assertServiceUnavailable(Class clazz, long timeout, TimeUnit timeUnit) {
@@ -331,9 +331,9 @@ public class ServiceAssert extends OSGiAssert {
      * Asserts that service with class is unavailable in OSGi registry within given timeout. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
-     * @param message message
-     * @param clazz service class
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param message  message
+     * @param clazz    service class
+     * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
      */
     public static void assertServiceUnavailable(String message, Class clazz, long timeout, TimeUnit timeUnit) {
@@ -358,7 +358,7 @@ public class ServiceAssert extends OSGiAssert {
      * Asserts that service with class name is unavailable in OSGi registry. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
-     * @param message message
+     * @param message   message
      * @param className service class name
      */
     public static void assertServiceUnavailable(String message, String className) {
@@ -369,26 +369,26 @@ public class ServiceAssert extends OSGiAssert {
     }
 
     /**
-     * Asserts that service with class name is unavailable in OSGi registry within given timeout. If it not as expected
+     * Asserts that service with class name is unavailable in OSGi registry within given timeoutInMillis. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param className service class name
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param className       service class name
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      */
-    public static void assertServiceUnavailable(String className, long timeout) {
-        assertServiceUnavailable(null, className, timeout);
+    public static void assertServiceUnavailable(String className, long timeoutInMillis) {
+        assertServiceUnavailable(null, className, timeoutInMillis);
     }
 
     /**
-     * Asserts that service with class name is unavailable in OSGi registry within given timeout. If it not as expected
+     * Asserts that service with class name is unavailable in OSGi registry within given timeoutInMillis. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
-     * @param message message
-     * @param className service class name
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param message         message
+     * @param className       service class name
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      */
-    public static void assertServiceUnavailable(String message, String className, long timeout) {
-        assertServiceUnavailable(message, className, timeout, TimeUnit.MILLISECONDS);
+    public static void assertServiceUnavailable(String message, String className, long timeoutInMillis) {
+        assertServiceUnavailable(message, className, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -396,8 +396,8 @@ public class ServiceAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param className service class name
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
-     * @param timeUnit timeout time unit
+     * @param timeout   time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit  timeout time unit
      */
     public static void assertServiceUnavailable(String className, long timeout, TimeUnit timeUnit) {
         assertServiceUnavailable(null, className, timeout, timeUnit);
@@ -407,10 +407,10 @@ public class ServiceAssert extends OSGiAssert {
      * Asserts that service with class name is unavailable in OSGi registry within given timeout. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
-     * @param message message
+     * @param message   message
      * @param className service class name
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
-     * @param timeUnit timeout time unit
+     * @param timeout   time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit  timeout time unit
      */
     public static void assertServiceUnavailable(String message, String className, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("Class name is null", className);
@@ -435,7 +435,7 @@ public class ServiceAssert extends OSGiAssert {
      * {@link AssertionError} is thrown with the given message
      *
      * @param message message
-     * @param filter service filter
+     * @param filter  service filter
      */
     public static void assertServiceUnavailable(String message, Filter filter) {
         Assert.assertNotNull("Filter is null", filter);
@@ -445,34 +445,34 @@ public class ServiceAssert extends OSGiAssert {
     }
 
     /**
-     * Asserts that service with filter is unavailable in OSGi registry within given timeout. If it not as expected
+     * Asserts that service with filter is unavailable in OSGi registry within given timeoutInMillis. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param filter service filter
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param filter  service filter
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      */
-    public static void assertServiceUnavailable(Filter filter, long timeout) {
-        assertServiceUnavailable(null, filter, timeout);
+    public static void assertServiceUnavailable(Filter filter, long timeoutInMillis) {
+        assertServiceUnavailable(null, filter, timeoutInMillis);
     }
 
     /**
-     * Asserts that service with filter is unavailable in OSGi registry within given timeout. If it not as expected
+     * Asserts that service with filter is unavailable in OSGi registry within given timeoutInMillis. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
      * @param message message
-     * @param filter service filter
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param filter  service filter
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      */
-    public static void assertServiceUnavailable(String message, Filter filter, long timeout) {
-        assertServiceUnavailable(message, filter, timeout, TimeUnit.MILLISECONDS);
+    public static void assertServiceUnavailable(String message, Filter filter, long timeoutInMillis) {
+        assertServiceUnavailable(message, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
      * Asserts that service with filter is unavailable in OSGi registry within given timeout. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param filter service filter
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param filter   service filter
+     * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
      */
     public static void assertServiceUnavailable(Filter filter, long timeout, TimeUnit timeUnit) {
@@ -483,9 +483,9 @@ public class ServiceAssert extends OSGiAssert {
      * Asserts that service with filter is unavailable in OSGi registry within given timeout. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
-     * @param message message
-     * @param filter service filter
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param message  message
+     * @param filter   service filter
+     * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
      */
     public static void assertServiceUnavailable(String message, Filter filter, long timeout, TimeUnit timeUnit) {

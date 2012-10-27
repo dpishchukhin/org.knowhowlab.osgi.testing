@@ -77,25 +77,37 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.1</version>
+            <version>4.10</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.ops4j.pax.exam</groupId>
-            <artifactId>pax-exam</artifactId>
-            <version>1.2.0</version>
+            <artifactId>pax-exam-container-paxrunner</artifactId>
+            <version>2.5.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ops4j.pax.runner</groupId>
+            <artifactId>pax-runner-no-jcl</artifactId>
+            <version>1.7.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.ops4j.pax.exam</groupId>
-            <artifactId>pax-exam-junit</artifactId>
-            <version>1.2.0</version>
+            <artifactId>pax-exam-junit4</artifactId>
+            <version>2.5.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.ops4j.pax.exam</groupId>
-            <artifactId>pax-exam-container-default</artifactId>
-            <version>1.2.0</version>
+            <artifactId>pax-exam-link-mvn</artifactId>
+            <version>2.5.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-atinject_1.0_spec</artifactId>
+            <version>1.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -105,21 +117,52 @@
             <plugin>
                 <groupId>org.ops4j.pax.exam</groupId>
                 <artifactId>maven-paxexam-plugin</artifactId>
-                <version>1.2.0</version>
+                <version>1.2.4</version>
                 <executions>
                     <execution>
-                        <id>generate-config</id>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>generate-depends-file</goal>
-                            <goal>generate-config</goal>
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.3</version>
                 <configuration>
-                    <options>
-                        <workingDirectory>${project.build.directory}/paxexam</workingDirectory>
-                    </options>
+                    <skip>true</skip>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.12.3</version>
+                <configuration>
+                    <includes>
+                        <include>**/*IntegrationTest.java</include>
+                    </includes>
+                    <forkMode>pertest</forkMode>
+                    <systemProperties>
+                        <property>
+                            <name>project.version</name>
+                            <value>${project.version}</value>
+                        </property>
+                    </systemProperties>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>verify</id>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

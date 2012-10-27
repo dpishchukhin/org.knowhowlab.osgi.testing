@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Dmytro Pishchukhin (http://knowhowlab.org)
+ * Copyright (c) 2010-2012 Dmytro Pishchukhin (http://knowhowlab.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,6 @@ public class ServiceUtils {
      * @param bc     BundleContext
      * @param filter filter
      * @return ServiceReference instance or <code>null</code>
-     *
      * @throws NullPointerException If <code>bc</code> or <code>filter</code> are <code>null</code>
      */
     public static ServiceReference getServiceReference(BundleContext bc, Filter filter) {
@@ -60,18 +59,17 @@ public class ServiceUtils {
     }
 
     /**
-     * Get ServiceReference by filter with timeout.
+     * Get ServiceReference by filter with timeoutInMillis.
      *
-     * @param bc      BundleContext
-     * @param filter  filter
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param bc              BundleContext
+     * @param filter          filter
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @return ServiceReference instance or <code>null</code>
-     *
-     * @throws IllegalArgumentException If the value of timeout is negative
+     * @throws IllegalArgumentException If the value of timeoutInMillis is negative
      * @throws NullPointerException     If <code>bc</code> or <code>filter</code> are <code>null</code>
      */
-    public static ServiceReference getServiceReference(BundleContext bc, Filter filter, long timeout) {
-        return getServiceReference(bc, filter, timeout, TimeUnit.MILLISECONDS);
+    public static ServiceReference getServiceReference(BundleContext bc, Filter filter, long timeoutInMillis) {
+        return getServiceReference(bc, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -79,10 +77,9 @@ public class ServiceUtils {
      *
      * @param bc       BundleContext
      * @param filter   filter
-     * @param timeout  time interval to wait. If zero, the method will wait indefinately.
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit time unit for the time interval
      * @return ServiceReference instance or <code>null</code>
-     *
      * @throws IllegalArgumentException If the value of timeout is negative
      * @throws NullPointerException     If <code>bc</code>, <code>filter</code> or
      *                                  <code>timeUnit</code> are <code>null</code>
@@ -107,7 +104,6 @@ public class ServiceUtils {
      * @param bc        BundleContext
      * @param className className
      * @return ServiceReference instance or <code>null</code>
-     *
      * @throws NullPointerException If <code>bc</code> or <code>className</code> are <code>null</code>
      */
     public static ServiceReference getServiceReference(BundleContext bc, String className) {
@@ -121,18 +117,17 @@ public class ServiceUtils {
     }
 
     /**
-     * Get ServiceReference by class name with timeout.
+     * Get ServiceReference by class name with timeoutInMillis.
      *
-     * @param bc        BundleContext
-     * @param className className
-     * @param timeout   time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param bc              BundleContext
+     * @param className       className
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @return ServiceReference instance or <code>null</code>
-     *
-     * @throws IllegalArgumentException If the value of timeout is negative
+     * @throws IllegalArgumentException If the value of timeoutInMillis is negative
      * @throws NullPointerException     If <code>bc</code> or <code>className</code> are <code>null</code>
      */
-    public static ServiceReference getServiceReference(BundleContext bc, String className, long timeout) {
-        return getServiceReference(bc, className, timeout, TimeUnit.MILLISECONDS);
+    public static ServiceReference getServiceReference(BundleContext bc, String className, long timeoutInMillis) {
+        return getServiceReference(bc, className, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -140,10 +135,9 @@ public class ServiceUtils {
      *
      * @param bc        BundleContext
      * @param className className
-     * @param timeout   time interval to wait. If zero, the method will wait indefinately.
+     * @param timeout   time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit  time unit for the time interval
      * @return ServiceReference instance or <code>null</code>
-     *
      * @throws IllegalArgumentException If the value of timeout is negative
      * @throws NullPointerException     If <code>bc</code>, <code>className</code> or
      *                                  <code>timeUnit</code> are <code>null</code>
@@ -168,7 +162,6 @@ public class ServiceUtils {
      * @param bc    BundleContext
      * @param clazz Class
      * @return ServiceReference instance or <code>null</code>
-     *
      * @throws NullPointerException If <code>bc</code> or <code>clazz</code> are <code>null</code>
      */
     public static ServiceReference getServiceReference(BundleContext bc, Class clazz) {
@@ -182,18 +175,17 @@ public class ServiceUtils {
     }
 
     /**
-     * Get ServiceReference by class with timeout.
+     * Get ServiceReference by class with timeoutInMillis.
      *
-     * @param bc      BundleContext
-     * @param clazz   Class
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param bc              BundleContext
+     * @param clazz           Class
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @return ServiceReference instance or <code>null</code>
-     *
-     * @throws IllegalArgumentException If the value of timeout is negative
+     * @throws IllegalArgumentException If the value of timeoutInMillis is negative
      * @throws NullPointerException     If <code>bc</code> or <code>filter</code> are <code>null</code>
      */
-    public static ServiceReference getServiceReference(BundleContext bc, Class clazz, long timeout) {
-        return getServiceReference(bc, clazz, timeout, TimeUnit.MILLISECONDS);
+    public static ServiceReference getServiceReference(BundleContext bc, Class clazz, long timeoutInMillis) {
+        return getServiceReference(bc, clazz, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -201,10 +193,9 @@ public class ServiceUtils {
      *
      * @param bc       BundleContext
      * @param clazz    Class
-     * @param timeout  time interval to wait. If zero, the method will wait indefinately.
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit time unit for the time interval
      * @return ServiceReference instance or <code>null</code>
-     *
      * @throws IllegalArgumentException If the value of timeout is negative
      * @throws NullPointerException     If <code>bc</code>, <code>filter</code> or
      *                                  <code>timeUnit</code> are <code>null</code>
@@ -229,7 +220,6 @@ public class ServiceUtils {
      * @param bc     BundleContext
      * @param filter filter
      * @return service instance or <code>null</code>
-     *
      * @throws NullPointerException If <code>bc</code> or <code>filter</code> are <code>null</code>
      */
     public static Object getService(BundleContext bc, Filter filter) {
@@ -243,18 +233,17 @@ public class ServiceUtils {
     }
 
     /**
-     * Get service instance by filter with timeout.
+     * Get service instance by filter with timeoutInMillis.
      *
-     * @param bc      BundleContext
-     * @param filter  filter
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param bc              BundleContext
+     * @param filter          filter
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @return service instance or <code>null</code>
-     *
-     * @throws IllegalArgumentException If the value of timeout is negative
+     * @throws IllegalArgumentException If the value of timeoutInMillis is negative
      * @throws NullPointerException     If <code>bc</code> or <code>filter</code> are <code>null</code>
      */
-    public static Object getService(BundleContext bc, Filter filter, long timeout) {
-        return getService(bc, filter, timeout, TimeUnit.MILLISECONDS);
+    public static Object getService(BundleContext bc, Filter filter, long timeoutInMillis) {
+        return getService(bc, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -262,10 +251,9 @@ public class ServiceUtils {
      *
      * @param bc       BundleContext
      * @param filter   filter
-     * @param timeout  time interval to wait. If zero, the method will wait indefinately.
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit time unit for the time interval
      * @return service instance or <code>null</code>
-     *
      * @throws IllegalArgumentException If the value of timeout is negative
      * @throws NullPointerException     If <code>bc</code>, <code>filter</code> or
      *                                  <code>timeUnit</code> are <code>null</code>
@@ -288,7 +276,6 @@ public class ServiceUtils {
      * @param bc        BundleContext
      * @param className className
      * @return service instance or <code>null</code>
-     *
      * @throws NullPointerException If <code>bc</code> or <code>className</code> are <code>null</code>
      */
     public static Object getService(BundleContext bc, String className) {
@@ -302,29 +289,27 @@ public class ServiceUtils {
     }
 
     /**
-     * Get service instance by class name with timeout.
+     * Get service instance by class name with timeoutInMillis.
      *
-     * @param bc        BundleContext
-     * @param className className
-     * @param timeout   time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param bc              BundleContext
+     * @param className       className
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @return service instance or <code>null</code>
-     *
-     * @throws IllegalArgumentException If the value of timeout is negative
+     * @throws IllegalArgumentException If the value of timeoutInMillis is negative
      * @throws NullPointerException     If <code>bc</code> or <code>className</code> are <code>null</code>
      */
-    public static Object getService(BundleContext bc, String className, long timeout) {
-        return getService(bc, className, timeout, TimeUnit.MILLISECONDS);
+    public static Object getService(BundleContext bc, String className, long timeoutInMillis) {
+        return getService(bc, className, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
      * Get service instance by className with timeout.
      *
-     * @param bc       BundleContext
-     * @param className   className
-     * @param timeout  time interval to wait. If zero, the method will wait indefinately.
-     * @param timeUnit time unit for the time interval
+     * @param bc        BundleContext
+     * @param className className
+     * @param timeout   time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit  time unit for the time interval
      * @return service instance or <code>null</code>
-     *
      * @throws IllegalArgumentException If the value of timeout is negative
      * @throws NullPointerException     If <code>bc</code>, <code>className</code> or
      *                                  <code>timeUnit</code> are <code>null</code>
@@ -347,7 +332,6 @@ public class ServiceUtils {
      * @param bc    BundleContext
      * @param clazz Class
      * @return service instance instance or <code>null</code>
-     *
      * @throws NullPointerException If <code>bc</code> or <code>clazz</code> are <code>null</code>
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz) {
@@ -362,18 +346,17 @@ public class ServiceUtils {
     }
 
     /**
-     * Get service instance by class with timeout.
+     * Get service instance by class with timeoutInMillis.
      *
-     * @param bc      BundleContext
-     * @param clazz   Class
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param bc              BundleContext
+     * @param clazz           Class
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @return service instance or <code>null</code>
-     *
-     * @throws IllegalArgumentException If the value of timeout is negative
+     * @throws IllegalArgumentException If the value of timeoutInMillis is negative
      * @throws NullPointerException     If <code>bc</code> or <code>clazz</code> are <code>null</code>
      */
-    public static <T> T getService(BundleContext bc, Class<T> clazz, long timeout) {
-        return getService(bc, clazz, timeout, TimeUnit.MILLISECONDS);
+    public static <T> T getService(BundleContext bc, Class<T> clazz, long timeoutInMillis) {
+        return getService(bc, clazz, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -381,10 +364,9 @@ public class ServiceUtils {
      *
      * @param bc       BundleContext
      * @param clazz    Class
-     * @param timeout  time interval to wait. If zero, the method will wait indefinately.
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit time unit for the time interval
      * @return service instance or <code>null</code>
-     *
      * @throws IllegalArgumentException If the value of timeout is negative
      * @throws NullPointerException     If <code>bc</code>, <code>clazz</code> or
      *                                  <code>timeUnit</code> are <code>null</code>
@@ -409,7 +391,6 @@ public class ServiceUtils {
      * @param clazz  Class
      * @param filter filter
      * @return service instance instance or <code>null</code>
-     *
      * @throws NullPointerException   If <code>bc</code> or <code>clazz</code> are <code>null</code>
      * @throws InvalidSyntaxException If <code>filter</code> contains an
      *                                invalid filter string that cannot be parsed
@@ -419,21 +400,20 @@ public class ServiceUtils {
     }
 
     /**
-     * Get service instance by class with timeout.
+     * Get service instance by class with timeoutInMillis.
      *
-     * @param bc      BundleContext
-     * @param clazz   Class
-     * @param filter  filter
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param bc              BundleContext
+     * @param clazz           Class
+     * @param filter          filter
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @return service instance or <code>null</code>
-     *
-     * @throws IllegalArgumentException If the value of timeout is negative
+     * @throws IllegalArgumentException If the value of timeoutInMillis is negative
      * @throws NullPointerException     If <code>bc</code> or <code>clazz</code> are <code>null</code>
      * @throws InvalidSyntaxException   If <code>filter</code> contains an
      *                                  invalid filter string that cannot be parsed
      */
-    public static <T> T getService(BundleContext bc, Class<T> clazz, String filter, long timeout) throws InvalidSyntaxException {
-        return getService(bc, clazz, filter, timeout, TimeUnit.MILLISECONDS);
+    public static <T> T getService(BundleContext bc, Class<T> clazz, String filter, long timeoutInMillis) throws InvalidSyntaxException {
+        return getService(bc, clazz, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -442,10 +422,9 @@ public class ServiceUtils {
      * @param bc       BundleContext
      * @param clazz    Class
      * @param filter   filter
-     * @param timeout  time interval to wait. If zero, the method will wait indefinately.
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit time unit for the time interval
      * @return service instance or <code>null</code>
-     *
      * @throws IllegalArgumentException If the value of timeout is negative
      * @throws NullPointerException     If <code>bc</code>, <code>clazz</code> or
      *                                  <code>timeUnit</code> are <code>null</code>
@@ -463,7 +442,6 @@ public class ServiceUtils {
      * @param clazz  Class
      * @param filter filter
      * @return service instance instance or <code>null</code>
-     *
      * @throws NullPointerException   If <code>bc</code> or <code>clazz</code> are <code>null</code>
      * @throws InvalidSyntaxException If <code>filter</code> contains an
      *                                invalid filter string that cannot be parsed
@@ -480,21 +458,20 @@ public class ServiceUtils {
     }
 
     /**
-     * Get service instance by class with timeout.
+     * Get service instance by class with timeoutInMillis.
      *
-     * @param bc      BundleContext
-     * @param clazz   Class
-     * @param filter  filter
-     * @param timeout time interval in milliseconds to wait. If zero, the method will wait indefinately.
+     * @param bc              BundleContext
+     * @param clazz           Class
+     * @param filter          filter
+     * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @return service instance or <code>null</code>
-     *
-     * @throws IllegalArgumentException If the value of timeout is negative
+     * @throws IllegalArgumentException If the value of timeoutInMillis is negative
      * @throws NullPointerException     If <code>bc</code> or <code>clazz</code> are <code>null</code>
      * @throws InvalidSyntaxException   If <code>filter</code> contains an
      *                                  invalid filter string that cannot be parsed
      */
-    public static <T> T getService(BundleContext bc, Class<T> clazz, Filter filter, long timeout) throws InvalidSyntaxException {
-        return getService(bc, clazz, filter, timeout, TimeUnit.MILLISECONDS);
+    public static <T> T getService(BundleContext bc, Class<T> clazz, Filter filter, long timeoutInMillis) throws InvalidSyntaxException {
+        return getService(bc, clazz, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -503,10 +480,9 @@ public class ServiceUtils {
      * @param bc       BundleContext
      * @param clazz    Class
      * @param filter   filter
-     * @param timeout  time interval to wait. If zero, the method will wait indefinately.
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit time unit for the time interval
      * @return service instance or <code>null</code>
-     *
      * @throws IllegalArgumentException If the value of timeout is negative
      * @throws NullPointerException     If <code>bc</code>, <code>clazz</code> or
      *                                  <code>timeUnit</code> are <code>null</code>
@@ -531,10 +507,9 @@ public class ServiceUtils {
      *
      * @param tracker         ServiceTracker
      * @param timeoutInMillis time interval in milliseconds to wait.
-     *                        If zero, the method will wait indefinately.
+     *                        If zero, the method will wait indefinitely.
      * @param lock            external lock that is used to handle new service adding to ServiceTracker
      * @return ServiceReference instance or <code>null</code>
-     *
      * @throws IllegalArgumentException If the value of timeout is negative.
      * @throws InterruptedException     If another thread has interrupted the current thread.
      */
@@ -571,7 +546,7 @@ public class ServiceUtils {
             try {
                 return bc.getService(serviceReference);
             } finally {
-                // uplock the lock
+                // unlock the lock
                 lock.unlock();
             }
         }

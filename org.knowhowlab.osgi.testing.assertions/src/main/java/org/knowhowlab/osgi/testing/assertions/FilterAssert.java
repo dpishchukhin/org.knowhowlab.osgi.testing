@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Dmytro Pishchukhin (http://knowhowlab.org)
+ * Copyright (c) 2010-2012 Dmytro Pishchukhin (http://knowhowlab.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +24,12 @@ import org.osgi.framework.InvalidSyntaxException;
  * A set of OSGi Filter specific assertion methods useful for writing tests.
  * <p/>
  * Before use it should be initialized
- * {@link OSGiAssert#init(org.osgi.framework.BundleContext)}
+ * {@link OSGiAssert#setDefaultBundleContext(org.osgi.framework.BundleContext)}
  *
  * @author dmytro.pishchukhin
  * @version 1.0
  * @see java.lang.AssertionError
- * @see OSGiAssert
+ * @see org.knowhowlab.osgi.testing.assertions.OSGiAssert
  */
 public class FilterAssert extends OSGiAssert {
     /**

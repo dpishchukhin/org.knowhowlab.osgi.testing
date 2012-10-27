@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Dmytro Pishchukhin (http://knowhowlab.org)
+ * Copyright (c) 2010-2012 Dmytro Pishchukhin (http://knowhowlab.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package org.knowhowlab.osgi.testing.assertions;
 
 import junit.framework.Assert;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
 
 /**
  * Abstract OSGi Asset class with BundleContext Handling
@@ -29,18 +30,17 @@ import org.osgi.framework.BundleContext;
  */
 public abstract class OSGiAssert {
     /**
-     * BundleContext value
+     * Default BundleContext value
      */
-    private static BundleContext bc;
+    private static BundleContext defaultBundleContext;
 
     /**
-     * Initialize all OSGi assertions with BundleContext value
+     * Set default BundleContext for OSGi assertions
      *
-     * @param bc BundleContext value
-     * @throws IllegalStateException utility class is already initialized
+     * @param defaultBundleContext BundleContext value
      */
-    public static void init(BundleContext bc) {
-        OSGiAssert.bc = bc;
+    public static void setDefaultBundleContext(BundleContext defaultBundleContext) {
+        OSGiAssert.defaultBundleContext = defaultBundleContext;
     }
 
     /**
@@ -49,6 +49,9 @@ public abstract class OSGiAssert {
      * @return BundleContext
      */
     protected static BundleContext getBundleContext() {
+        BundleContext bc = defaultBundleContext == null
+                ? FrameworkUtil.getBundle(OSGiAssert.class).getBundleContext()
+                : defaultBundleContext;
         Assert.assertNotNull("BundleContext is null", bc);
         return bc;
     }

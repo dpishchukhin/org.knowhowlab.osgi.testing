@@ -38,21 +38,4 @@
         <module>org.knowhowlab.osgi.testing.it.pax.exam</module>
         <module>org.knowhowlab.osgi.testing.it.test.bundle</module>
     </modules>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <systemProperties>
-                        <property>
-                            <name>project.version</name>
-                            <value>${project.version}</value>
-                        </property>
-                    </systemProperties>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

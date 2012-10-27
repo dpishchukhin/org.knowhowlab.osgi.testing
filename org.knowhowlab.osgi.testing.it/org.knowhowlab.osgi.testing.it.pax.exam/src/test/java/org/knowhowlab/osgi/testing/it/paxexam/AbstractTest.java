@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Dmytro Pishchukhin (http://knowhowlab.org)
+ * Copyright (c) 2010-2012 Dmytro Pishchukhin (http://knowhowlab.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,12 @@
 
 package org.knowhowlab.osgi.testing.it.paxexam;
 
-import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.knowhowlab.osgi.testing.assertions.OSGiAssert;
-import org.ops4j.pax.exam.Inject;
 import org.ops4j.pax.exam.Option;
-import org.ops4j.pax.exam.junit.Configuration;
 import org.ops4j.pax.exam.junit.JUnit4TestRunner;
 import org.osgi.framework.BundleContext;
+
+import javax.inject.Inject;
 
 import static org.ops4j.pax.exam.CoreOptions.*;
 
@@ -45,27 +43,19 @@ public abstract class AbstractTest {
      *
      * @return config
      */
-    @Configuration
-    public static Option[] configuration() {
+    protected static Option[] baseConfiguration() {
         return options(
+                workingDirectory("target/paxexam/"),
+                junitBundles(),
                 // list of frameworks to test
                 allFrameworks(),
-                // list of bundles that should be installd
+                // list of bundles that should be installed
                 provision(
-                        mavenBundle().groupId("org.osgi").artifactId("org.osgi.compendium").version("4.0.1"),
+                        mavenBundle().groupId("org.osgi").artifactId("org.osgi.compendium").version("4.2.0"),
                         mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.utils").version(System.getProperty("project.version")),
                         mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.assertions").version(System.getProperty("project.version"))
                 ),
                 systemProperty("project.version").value(System.getProperty("project.version"))
         );
-    }
-
-
-    /**
-     * Init OSGiAssert with BundleContext
-     */
-    @Before
-    public void initOSGiAssert() {
-        OSGiAssert.init(bc);
     }
 }

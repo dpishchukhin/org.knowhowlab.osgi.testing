@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Dmytro Pishchukhin (http://knowhowlab.org)
+ * Copyright (c) 2010-2012 Dmytro Pishchukhin (http://knowhowlab.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,12 @@
 package org.knowhowlab.osgi.testing.it.paxexam;
 
 import org.junit.Test;
+import org.ops4j.pax.exam.Option;
+import org.ops4j.pax.exam.junit.Configuration;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.Version;
+
+import java.util.concurrent.TimeUnit;
 
 import static org.knowhowlab.osgi.testing.assertions.BundleAssert.*;
 
@@ -27,7 +31,12 @@ import static org.knowhowlab.osgi.testing.assertions.BundleAssert.*;
  *
  * @author dmytro.pishchukhin
  */
-public class BundlesTest extends AbstractTest {
+public class BundlesIntegrationTest extends AbstractTest {
+    @Configuration
+    public static Option[] customTestConfiguration() {
+        return baseConfiguration();
+    }
+
     @Test
     public void simpleTest() {
         // assert bundle with id=1 is installed into OSGi framework
@@ -36,6 +45,8 @@ public class BundlesTest extends AbstractTest {
         assertBundleState(Bundle.ACTIVE, 1);
         // assert bundle with id=100 is not installed into OSGi framework
         assertBundleUnavailable(100);
+        // assert bundle with symbolic name "org.knowhowlab.osgi.testing.utils" is installed into OSGi framework
+        assertBundleState(Bundle.ACTIVE, "org.knowhowlab.osgi.testing.utils", 5, TimeUnit.SECONDS);
         // assert bundle with symbolic name "org.knowhowlab.osgi.testing.utils" is installed into OSGi framework
         assertBundleAvailable("org.knowhowlab.osgi.testing.utils");
         // assert bundle with symbolic name "org.knowhowlab.osgi.testing.utils" and version "1.0.1"
