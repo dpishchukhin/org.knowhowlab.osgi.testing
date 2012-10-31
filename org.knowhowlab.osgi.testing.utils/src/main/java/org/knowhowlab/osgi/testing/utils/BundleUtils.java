@@ -25,6 +25,7 @@ import org.osgi.util.tracker.BundleTracker;
 import org.osgi.util.tracker.BundleTrackerCustomizer;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -206,21 +207,27 @@ public class BundleUtils {
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, int state, long timeout, TimeUnit timeUnit) {
-        final ReentrantLock lock = new ReentrantLock();
+        ReentrantLock lock = new ReentrantLock();
+        final Condition condition = lock.newCondition();
+
         long timeoutInMillis = timeUnit.toMillis(timeout);
-        BundleTracker tracker = new BundleTracker(bc, state, new SymbolicNameVersionBundleTrackerCustomizer(bc, lock, symbolicName, version));
+        BundleTracker tracker = new BundleTracker(bc, state,
+                new SymbolicNameVersionBundleTrackerCustomizer(bc, lock, condition, symbolicName, version));
         tracker.open();
         try {
-            return waitForBundle(tracker, timeoutInMillis, lock);
+            lock.lock();
+            return waitForBundle(tracker, timeoutInMillis, condition);
         } catch (InterruptedException e) {
             return null;
         } finally {
             tracker.close();
+            lock.unlock();
         }
     }
 
     /**
      * Wait for at least one Bundle to be tracked by BundleTracker
+     *
      *
      * @param tracker         BundleTracker
      * @param timeoutInMillis time interval in milliseconds to wait.
@@ -230,14 +237,14 @@ public class BundleUtils {
      * @throws IllegalArgumentException If the value of timeout is negative.
      * @throws InterruptedException     If another thread has interrupted the current thread.
      */
-    private static Bundle waitForBundle(BundleTracker tracker, long timeoutInMillis, ReentrantLock lock)
+    private static Bundle waitForBundle(BundleTracker tracker, long timeoutInMillis, Condition lock)
             throws InterruptedException {
         if (timeoutInMillis < 0) {
             throw new IllegalArgumentException("timeout value is negative");
         }
         Bundle[] bundles = tracker.getBundles();
         if (bundles == null) {
-            lock.wait(timeoutInMillis);
+            lock.await(timeoutInMillis, TimeUnit.MILLISECONDS);
             bundles = tracker.getBundles();
             return bundles == null ? null : bundles[0];
         } else {
@@ -255,24 +262,32 @@ public class BundleUtils {
      */
     private abstract static class BundleTrackerCustomizerWithLock implements BundleTrackerCustomizer {
         protected final BundleContext bc;
-        private final ReentrantLock lock;
+        private ReentrantLock lock;
+        private final Condition condition;
 
-        public BundleTrackerCustomizerWithLock(BundleContext bc, ReentrantLock lock) {
+        public BundleTrackerCustomizerWithLock(BundleContext bc, ReentrantLock lock, Condition condition) {
             this.bc = bc;
             this.lock = lock;
+            this.condition = condition;
         }
 
         public Object addingBundle(Bundle bundle, BundleEvent event) {
-            boolean found = false;
             try {
-                Object trackedBundle = isTrackedBundle(bundle, event);
-                found = trackedBundle != null;
-                return trackedBundle;
-            } finally {
-                // unlock the lock
-                if (found && lock.isLocked()) {
-                    lock.unlock();
+                lock.lock();
+
+                boolean found = false;
+                try {
+                    Object trackedBundle = isTrackedBundle(bundle, event);
+                    found = trackedBundle != null;
+                    return trackedBundle;
+                } finally {
+                    // unlock the lock
+                    if (found) {
+                        condition.signalAll();
+                    }
                 }
+            } finally {
+                lock.unlock();
             }
         }
 
@@ -289,8 +304,8 @@ public class BundleUtils {
         private String symbolicName;
         private Version version;
 
-        public SymbolicNameVersionBundleTrackerCustomizer(BundleContext bc, ReentrantLock lock, String symbolicName, Version version) {
-            super(bc, lock);
+        public SymbolicNameVersionBundleTrackerCustomizer(BundleContext bc, ReentrantLock lock,Condition condition, String symbolicName, Version version) {
+            super(bc, lock, condition);
             this.symbolicName = symbolicName;
             this.version = version;
         }

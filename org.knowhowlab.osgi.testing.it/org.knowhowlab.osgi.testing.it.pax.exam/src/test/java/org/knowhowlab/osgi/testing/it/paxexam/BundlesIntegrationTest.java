@@ -16,6 +16,7 @@
 
 package org.knowhowlab.osgi.testing.it.paxexam;
 
+import junit.framework.AssertionFailedError;
 import org.junit.Test;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.Configuration;
@@ -55,5 +56,13 @@ public class BundlesIntegrationTest extends AbstractTest {
         // assert bundle with symbolic name "org.knowhowlab.osgi.testing.utils" and version "1.0.0"
         // is not installed into OSGi framework
         assertBundleUnavailable("org.knowhowlab.osgi.testing.utils", new Version("2.0.0"));
+    }
+
+    @Test
+    public void simpleTest2() {
+        try {
+            assertBundleState(Bundle.ACTIVE, "org.knowhowlab.osgi.testing.utils.unknown", 5, TimeUnit.SECONDS);
+        } catch (AssertionFailedError e) {
+        }
     }
 }
