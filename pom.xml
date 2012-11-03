@@ -10,7 +10,7 @@
 
     <groupId>org.knowhowlab.osgi</groupId>
     <artifactId>org.knowhowlab.osgi.testing</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     <name>KnowHowLab OSGi Testing</name>
@@ -40,7 +40,7 @@
         <connection>scm:git:git@github.com:dpishchukhin/org.knowhowlab.osgi.testing.git</connection>
         <url>git@github.com:dpishchukhin/org.knowhowlab.osgi.testing.git</url>
         <developerConnection>scm:git:git@github.com:dpishchukhin/org.knowhowlab.osgi.testing.git</developerConnection>
-        <tag>org.knowhowlab.osgi.testing-1.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
 
