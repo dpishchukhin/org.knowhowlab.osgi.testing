@@ -4,9 +4,25 @@ OSGi specific assertions and utility classes that help to write OSGi integration
 
 ## Usage
 
-There is a comparison of the same test with and without OSGiLab testing assertions and utils.
+### Add Maven dependencies:
+    <dependency>
+        <groupId>org.knowhowlab.osgi</groupId>
+        <artifactId>org.knowhowlab.osgi.testing.utils</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.knowhowlab.osgi</groupId>
+        <artifactId>org.knowhowlab.osgi.testing.utils</artifactId>
+        <version>1.0.0</version>
+    </dependency>
 
-## With
+### Add dependency in PaxExam tests
+    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.utils").version("1.0.0"),
+    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.assertions").version("1.0.0")
+
+## There is a comparison of the same test with and without OSGiLab testing assertions and utils.
+
+### With
 
     @Test
     public void test_With_OSGiAssertions() throws BundleException, InvalidSyntaxException {
@@ -38,7 +54,7 @@ There is a comparison of the same test with and without OSGiLab testing assertio
         assertServiceUnavailable(Echo.class);
     }
 
-## Without:
+### Without:
 
     @Test
     public void test_Without_OSGiAssertions() throws BundleException, InterruptedException, InvalidSyntaxException {
