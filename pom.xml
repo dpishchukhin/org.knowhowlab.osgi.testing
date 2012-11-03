@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -11,7 +10,7 @@
 
     <groupId>org.knowhowlab.osgi</groupId>
     <artifactId>org.knowhowlab.osgi.testing</artifactId>
-    <version>1.0.0.M8-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <packaging>pom</packaging>
     <name>KnowHowLab OSGi Testing</name>
@@ -41,7 +40,7 @@
         <connection>scm:git:git@github.com:dpishchukhin/org.knowhowlab.osgi.testing.git</connection>
         <url>git@github.com:dpishchukhin/org.knowhowlab.osgi.testing.git</url>
         <developerConnection>scm:git:git@github.com:dpishchukhin/org.knowhowlab.osgi.testing.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>org.knowhowlab.osgi.testing-1.0.0</tag>
     </scm>
 
 
