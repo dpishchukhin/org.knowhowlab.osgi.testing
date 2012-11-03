@@ -109,18 +109,18 @@ public class BundleUtils {
     }
 
     /**
-     * Find bundle by SymbolicName and Version and state within timeoutInMillis
+     * Find bundle by SymbolicName and Version and stateMask within timeoutInMillis
      *
      * @param bc              BundleContext
      * @param symbolicName    symbolicName
      * @param version         version
-     * @param state           Bundle state
+     * @param stateMask       The bit mask of the ORing of the bundle states to be tracked.
      * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
      */
-    public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, int state, long timeoutInMillis) {
-        return findBundle(bc, symbolicName, version, state, timeoutInMillis, TimeUnit.MILLISECONDS);
+    public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, int stateMask, long timeoutInMillis) {
+        return findBundle(bc, symbolicName, version, stateMask, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -137,17 +137,17 @@ public class BundleUtils {
     }
 
     /**
-     * Find bundle by SymbolicName and state within timeoutInMillis
+     * Find bundle by SymbolicName and stateMask within timeoutInMillis
      *
      * @param bc              BundleContext
      * @param symbolicName    symbolicName
-     * @param state           Bundle state
+     * @param stateMask       The bit mask of the ORing of the bundle states to be tracked.
      * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
      */
-    public static Bundle findBundle(BundleContext bc, String symbolicName, int state, long timeoutInMillis) {
-        return findBundle(bc, symbolicName, null, state, timeoutInMillis, TimeUnit.MILLISECONDS);
+    public static Bundle findBundle(BundleContext bc, String symbolicName, int stateMask, long timeoutInMillis) {
+        return findBundle(bc, symbolicName, null, stateMask, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -165,18 +165,18 @@ public class BundleUtils {
     }
 
     /**
-     * Find bundle by SymbolicName and Version and state within timeout
+     * Find bundle by SymbolicName and Version and stateMask within timeout
      *
      * @param bc           BundleContext
      * @param symbolicName symbolicName
-     * @param state        Bundle state
+     * @param stateMask    The bit mask of the ORing of the bundle states to be tracked.
      * @param timeout      time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit     time unit for the time interval
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
      */
-    public static Bundle findBundle(BundleContext bc, String symbolicName, int state, long timeout, TimeUnit timeUnit) {
-        return findBundle(bc, symbolicName, null, state, timeout, timeUnit);
+    public static Bundle findBundle(BundleContext bc, String symbolicName, int stateMask, long timeout, TimeUnit timeUnit) {
+        return findBundle(bc, symbolicName, null, stateMask, timeout, timeUnit);
     }
 
     /**
@@ -195,23 +195,23 @@ public class BundleUtils {
     }
 
     /**
-     * Find bundle by SymbolicName and Version and state within timeout
+     * Find bundle by SymbolicName and Version and stateMask within timeout
      *
      * @param bc           BundleContext
      * @param symbolicName symbolicName
      * @param version      version
-     * @param state        Bundle state
+     * @param stateMask    The bit mask of the ORing of the bundle states to be tracked.
      * @param timeout      time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit     time unit for the time interval
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
      */
-    public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, int state, long timeout, TimeUnit timeUnit) {
+    public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, int stateMask, long timeout, TimeUnit timeUnit) {
         ReentrantLock lock = new ReentrantLock();
         final Condition condition = lock.newCondition();
 
         long timeoutInMillis = timeUnit.toMillis(timeout);
-        BundleTracker tracker = new BundleTracker(bc, state,
+        BundleTracker tracker = new BundleTracker(bc, stateMask,
                 new SymbolicNameVersionBundleTrackerCustomizer(bc, lock, condition, symbolicName, version));
         tracker.open();
         try {
@@ -227,7 +227,6 @@ public class BundleUtils {
 
     /**
      * Wait for at least one Bundle to be tracked by BundleTracker
-     *
      *
      * @param tracker         BundleTracker
      * @param timeoutInMillis time interval in milliseconds to wait.
@@ -304,7 +303,7 @@ public class BundleUtils {
         private String symbolicName;
         private Version version;
 
-        public SymbolicNameVersionBundleTrackerCustomizer(BundleContext bc, ReentrantLock lock,Condition condition, String symbolicName, Version version) {
+        public SymbolicNameVersionBundleTrackerCustomizer(BundleContext bc, ReentrantLock lock, Condition condition, String symbolicName, Version version) {
             super(bc, lock, condition);
             this.symbolicName = symbolicName;
             this.version = version;

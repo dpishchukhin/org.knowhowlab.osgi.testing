@@ -26,7 +26,6 @@ import org.osgi.framework.*;
 import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.util.tracker.ServiceTracker;
 
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import static org.knowhowlab.osgi.testing.assertions.BundleAssert.assertBundleAvailable;
@@ -36,6 +35,7 @@ import static org.knowhowlab.osgi.testing.assertions.ServiceAssert.assertService
 import static org.knowhowlab.osgi.testing.utils.BundleUtils.findBundle;
 import static org.knowhowlab.osgi.testing.utils.FilterUtils.*;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
+import static org.ops4j.pax.exam.OptionUtils.combine;
 
 /**
  * This is JUnit test that shows difference between tests
@@ -51,15 +51,9 @@ public class StyleComparisonIntegrationTest extends AbstractTest {
      */
     @Configuration
     public static Option[] customTestConfiguration() {
-        Option[] options = baseConfiguration();
-        System.out.println(options.length);
-        Option[] newOptions = Arrays.copyOf(options, options.length + 1);
-        newOptions[newOptions.length - 1] =
+        return combine(baseConfiguration(),
                 mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.it.test.bundle").
-                        version(System.getProperty("project.version")).noUpdate().noStart();
-        System.out.println(newOptions.length);
-        System.out.println(newOptions[newOptions.length - 1]);
-        return newOptions;
+                        version(System.getProperty("project.version")).noUpdate().noStart());
     }
 
     /**

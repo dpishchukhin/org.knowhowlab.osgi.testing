@@ -204,18 +204,7 @@ public class ServiceUtils {
      *                                  <code>timeUnit</code> are <code>null</code>
      */
     public static ServiceReference getServiceReference(BundleContext bc, Class clazz, long timeout, TimeUnit timeUnit) {
-        final ReentrantLock lock = new ReentrantLock();
-        final Condition condition = lock.newCondition();
-        long timeoutInMillis = timeUnit.toMillis(timeout);
-        ServiceTracker tracker = new ServiceTracker(bc, clazz.getName(), new ServiceTrackerCustomizerWithLock(bc, lock, condition));
-        tracker.open();
-        try {
-            return waitForServiceReference(tracker, timeoutInMillis, lock, condition);
-        } catch (InterruptedException e) {
-            return null;
-        } finally {
-            tracker.close();
-        }
+        return getServiceReference(bc, clazz.getName(), timeout, timeUnit);
     }
 
     /**

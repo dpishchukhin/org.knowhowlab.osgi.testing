@@ -92,30 +92,30 @@ public class BundleAssert extends OSGiAssert {
     }
 
     /**
-     * Asserts that Bundle with symbolic name has given state value. If it not as expected
+     * Asserts that Bundle with symbolic name has given stateMask value. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
      * @param message         message
-     * @param state           bundle state value
+     * @param stateMask       The bit mask of the ORing of the bundle states to be tracked.
      * @param symbolicName    symbolic name
      * @param timeoutInMillis time interval to wait. If zero, the method will wait indefinitely.
      */
-    public static void assertBundleState(String message, int state, String symbolicName, long timeoutInMillis) {
-        assertBundleState(message, state, symbolicName, null, timeoutInMillis, TimeUnit.MILLISECONDS);
+    public static void assertBundleState(String message, int stateMask, String symbolicName, long timeoutInMillis) {
+        assertBundleState(message, stateMask, symbolicName, null, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * Asserts that Bundle with symbolic name has given state value. If it not as expected
+     * Asserts that Bundle with symbolic name has given stateMask value. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
      * @param message      message
-     * @param state        bundle state value
+     * @param stateMask    The bit mask of the ORing of the bundle states to be tracked.
      * @param symbolicName symbolic name
      * @param timeout      time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit     timeout time unit
      */
-    public static void assertBundleState(String message, int state, String symbolicName, long timeout, TimeUnit timeUnit) {
-        assertBundleState(message, state, symbolicName, null, timeout, timeUnit);
+    public static void assertBundleState(String message, int stateMask, String symbolicName, long timeout, TimeUnit timeUnit) {
+        assertBundleState(message, stateMask, symbolicName, null, timeout, timeUnit);
     }
 
     /**
@@ -134,20 +134,20 @@ public class BundleAssert extends OSGiAssert {
     }
 
     /**
-     * Asserts that Bundle with symbolic name has given state value. If it not as expected
+     * Asserts that Bundle with symbolic name has given stateMask value. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
      * @param message      message
-     * @param state        bundle state value
+     * @param stateMask    The bit mask of the ORing of the bundle states to be tracked.
      * @param symbolicName symbolic name
      * @param version      version
      * @param timeout      time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit     timeout time unit
      */
-    public static void assertBundleState(String message, int state, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
+    public static void assertBundleState(String message, int stateMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
         Assert.assertNotNull("TimeUnit is null", timeUnit);
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), symbolicName, version, state, timeout, timeUnit);
+        Bundle bundle = BundleUtils.findBundle(getBundleContext(), symbolicName, version, stateMask, timeout, timeUnit);
         Assert.assertNotNull(message, bundle);
     }
 
@@ -164,30 +164,30 @@ public class BundleAssert extends OSGiAssert {
     }
 
     /**
-     * Asserts that Bundle with symbolic name and version has given state value. If it not as expected
+     * Asserts that Bundle with symbolic name and version has given stateMask value. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param state        bundle state value
+     * @param stateMask    The bit mask of the ORing of the bundle states to be tracked.
      * @param symbolicName symbolic name
      * @param version      version
      * @param timeout      time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit     timeout time unit
      */
-    public static void assertBundleState(int state, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
-        assertBundleState(null, state, symbolicName, version, timeout, timeUnit);
+    public static void assertBundleState(int stateMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
+        assertBundleState(null, stateMask, symbolicName, version, timeout, timeUnit);
     }
 
     /**
-     * Asserts that Bundle with symbolic name has given state value. If it not as expected
+     * Asserts that Bundle with symbolic name has given stateMask value. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param state        bundle state value
+     * @param stateMask    The bit mask of the ORing of the bundle states to be tracked.
      * @param symbolicName symbolic name
      * @param timeout      time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit     timeout time unit
      */
-    public static void assertBundleState(int state, String symbolicName, long timeout, TimeUnit timeUnit) {
-        assertBundleState(null, state, symbolicName, null, timeout, timeUnit);
+    public static void assertBundleState(int stateMask, String symbolicName, long timeout, TimeUnit timeUnit) {
+        assertBundleState(null, stateMask, symbolicName, null, timeout, timeUnit);
     }
 
     /**

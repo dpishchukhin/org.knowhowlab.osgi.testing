@@ -47,14 +47,14 @@ public abstract class AbstractTest {
         return options(
                 workingDirectory("target/paxexam/"),
                 junitBundles(),
+                cleanCaches(false),
                 // list of frameworks to test
                 allFrameworks(),
                 // list of bundles that should be installed
-                provision(
-                        mavenBundle().groupId("org.osgi").artifactId("org.osgi.compendium").version("4.2.0"),
-                        mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.utils").version(System.getProperty("project.version")),
-                        mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.assertions").version(System.getProperty("project.version"))
-                ),
+                mavenBundle().groupId("org.osgi").artifactId("org.osgi.compendium").version("4.2.0"),
+                mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.utils").version(System.getProperty("project.version")),
+                mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.assertions").version(System.getProperty("project.version")),
+
                 systemProperty("project.version").value(System.getProperty("project.version"))
         );
     }
