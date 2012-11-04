@@ -18,7 +18,6 @@ package org.knowhowlab.osgi.testing.it.paxexam;
 
 import junit.framework.AssertionFailedError;
 import org.junit.Test;
-import org.knowhowlab.osgi.testing.assertions.ServiceAssert;
 import org.knowhowlab.osgi.testing.utils.FilterUtils;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.Configuration;
@@ -27,6 +26,9 @@ import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.service.startlevel.StartLevel;
 
 import java.util.concurrent.TimeUnit;
+
+import static org.knowhowlab.osgi.testing.assertions.ServiceAssert.assertServiceAvailable;
+import static org.knowhowlab.osgi.testing.assertions.ServiceAssert.assertServiceUnavailable;
 
 /**
  * ServiceAssert test
@@ -42,21 +44,21 @@ public class ServicesIntegrationTest extends AbstractTest {
     @Test
     public void simpleTest() throws InvalidSyntaxException {
         // assert PackageAdmin service is available in OSGi registry
-        ServiceAssert.assertServiceAvailable(PackageAdmin.class, 5, TimeUnit.SECONDS);
+        assertServiceAvailable(PackageAdmin.class, 5, TimeUnit.SECONDS);
         // assert MonitorAdmin service is unavailable in OSGi registry
-        ServiceAssert.assertServiceUnavailable("org.osgi.service.monitor.MonitorAdmin");
+        assertServiceUnavailable("org.osgi.service.monitor.MonitorAdmin");
         // assert StartLevel service is available in OSGi registry
-        ServiceAssert.assertServiceAvailable(StartLevel.class);
+        assertServiceAvailable(StartLevel.class);
         // assert PackageAdmin service is available in OSGi registry
-        ServiceAssert.assertServiceAvailable(FilterUtils.create(PackageAdmin.class));
+        assertServiceAvailable(FilterUtils.create(PackageAdmin.class));
         // assert MonitorAdmin service is unavailable in OSGi registry
-        ServiceAssert.assertServiceUnavailable(FilterUtils.create("org.osgi.service.monitor.MonitorAdmin"));
+        assertServiceUnavailable(FilterUtils.create("org.osgi.service.monitor.MonitorAdmin"));
     }
 
     @Test
     public void simpleTest2() throws InvalidSyntaxException {
         try {
-            ServiceAssert.assertServiceAvailable(FilterUtils.create("org.osgi.service.monitor.MonitorAdmin"), 5, TimeUnit.SECONDS);
+            assertServiceAvailable(FilterUtils.create("org.osgi.service.monitor.MonitorAdmin"), 5, TimeUnit.SECONDS);
         } catch (AssertionFailedError e) {
         }
     }
