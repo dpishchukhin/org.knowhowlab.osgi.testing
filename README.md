@@ -99,4 +99,8 @@ OSGi specific assertions and utility classes that help to write OSGi integration
     }
 
 
-As you can see with OSGi assertions and utils you can concentrate on your functinality testing without any low-level OSGi API calls.
+As you can see with OSGi assertions and utils you can concentrate on your functionality testing without any low-level OSGi API calls.
+
+## Blog with more samples and tutorials
+
+    http://knowhowlab.org
