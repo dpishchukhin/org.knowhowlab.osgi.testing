@@ -48,7 +48,7 @@ public abstract class OSGiAssert {
      *
      * @return BundleContext
      */
-    protected static BundleContext getBundleContext() {
+    public static BundleContext getBundleContext() {
         BundleContext bc = defaultBundleContext == null
                 ? FrameworkUtil.getBundle(OSGiAssert.class).getBundleContext()
                 : defaultBundleContext;

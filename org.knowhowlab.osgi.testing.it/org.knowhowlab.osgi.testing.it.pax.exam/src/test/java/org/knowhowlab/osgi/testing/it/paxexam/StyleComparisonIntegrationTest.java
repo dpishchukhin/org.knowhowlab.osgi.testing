@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.knowhowlab.osgi.testing.assertions.BundleAssert.assertBundleAvailable;
 import static org.knowhowlab.osgi.testing.assertions.BundleAssert.assertBundleState;
+import static org.knowhowlab.osgi.testing.assertions.OSGiAssert.getBundleContext;
 import static org.knowhowlab.osgi.testing.assertions.ServiceAssert.assertServiceAvailable;
 import static org.knowhowlab.osgi.testing.assertions.ServiceAssert.assertServiceUnavailable;
 import static org.knowhowlab.osgi.testing.utils.BundleUtils.findBundle;
@@ -67,7 +68,7 @@ public class StyleComparisonIntegrationTest extends AbstractTest {
      */
     @Test
     public void test_Without_OSGiAssertions() throws BundleException, InterruptedException, InvalidSyntaxException {
-        ServiceTracker packageAdminTracker = new ServiceTracker(bc, PackageAdmin.class.getName(), null);
+        ServiceTracker packageAdminTracker = new ServiceTracker(getBundleContext(), PackageAdmin.class.getName(), null);
         packageAdminTracker.open();
         PackageAdmin packageAdmin = (PackageAdmin) packageAdminTracker.getService();
         Assert.assertNotNull(packageAdmin);
@@ -79,7 +80,7 @@ public class StyleComparisonIntegrationTest extends AbstractTest {
         Bundle bundle = bundles[0];
         // asserts that test bundle is resolved
         Assert.assertTrue(bundle.getState() == Bundle.INSTALLED || bundle.getState() == Bundle.RESOLVED);
-        ServiceTracker serviceTracker1 = new ServiceTracker(bc, "org.knowhowlab.osgi.testing.it.testbundle.service.Echo", null);
+        ServiceTracker serviceTracker1 = new ServiceTracker(getBundleContext(), "org.knowhowlab.osgi.testing.it.testbundle.service.Echo", null);
         serviceTracker1.open();
         Assert.assertEquals(0, serviceTracker1.size());
         // start bundle
@@ -89,7 +90,7 @@ public class StyleComparisonIntegrationTest extends AbstractTest {
         // asserts that test service is available within 2 seconds
         Assert.assertNotNull(serviceTracker1.waitForService(2000));
         // asserts that test service with custom properties is available
-        ServiceTracker serviceTracker2 = new ServiceTracker(bc, FrameworkUtil.createFilter(
+        ServiceTracker serviceTracker2 = new ServiceTracker(getBundleContext(), FrameworkUtil.createFilter(
                 "(&(" + Constants.OBJECTCLASS + "=org.knowhowlab.osgi.testing.it.testbundle.service.Echo)" +
                         "(testkey=testvalue))"), null);
         serviceTracker2.open();

@@ -52,8 +52,8 @@ public class BundlesIntegrationTest extends AbstractTest {
         assertBundleAvailable("org.knowhowlab.osgi.testing.utils");
         // assert bundle with symbolic name "org.knowhowlab.osgi.testing.utils" and version "1.0.1"
         // is installed into OSGi framework
-        assertBundleAvailable("org.knowhowlab.osgi.testing.utils", new Version(System.getProperty("project.version")));
-        // assert bundle with symbolic name "org.knowhowlab.osgi.testing.utils" and version "1.0.0"
+        assertBundleAvailable("org.knowhowlab.osgi.testing.utils", new Version("1.0.1"));
+        // assert bundle with symbolic name "org.knowhowlab.osgi.testing.utils" and version "2.0.0"
         // is not installed into OSGi framework
         assertBundleUnavailable("org.knowhowlab.osgi.testing.utils", new Version("2.0.0"));
     }
