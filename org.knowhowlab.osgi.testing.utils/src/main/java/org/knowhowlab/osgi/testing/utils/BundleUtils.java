@@ -24,9 +24,8 @@ import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.util.tracker.BundleTracker;
 import org.osgi.util.tracker.BundleTrackerCustomizer;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * OSGi Bundles utilities class
@@ -207,21 +206,18 @@ public class BundleUtils {
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, int stateMask, long timeout, TimeUnit timeUnit) {
-        ReentrantLock lock = new ReentrantLock();
-        final Condition condition = lock.newCondition();
+        CountDownLatch latch = new CountDownLatch(1);
 
         long timeoutInMillis = timeUnit.toMillis(timeout);
         BundleTracker tracker = new BundleTracker(bc, stateMask,
-                new SymbolicNameVersionBundleTrackerCustomizer(bc, lock, condition, symbolicName, version));
+                new SymbolicNameVersionBundleTrackerCustomizer(bc, latch, symbolicName, version));
         tracker.open();
         try {
-            lock.lock();
-            return waitForBundle(tracker, timeoutInMillis, condition);
+            return waitForBundle(tracker, timeoutInMillis, latch);
         } catch (InterruptedException e) {
             return null;
         } finally {
             tracker.close();
-            lock.unlock();
         }
     }
 
@@ -231,21 +227,24 @@ public class BundleUtils {
      * @param tracker         BundleTracker
      * @param timeoutInMillis time interval in milliseconds to wait.
      *                        If zero, the method will wait indefinitely.
-     * @param lock            external lock that is used to handle new service adding to ServiceTracker
+     * @param latch           external latch that is used to handle new service adding to ServiceTracker
      * @return Bundle instance or <code>null</code>
      * @throws IllegalArgumentException If the value of timeout is negative.
      * @throws InterruptedException     If another thread has interrupted the current thread.
      */
-    private static Bundle waitForBundle(BundleTracker tracker, long timeoutInMillis, Condition lock)
+    private static Bundle waitForBundle(BundleTracker tracker, long timeoutInMillis, CountDownLatch latch)
             throws InterruptedException {
         if (timeoutInMillis < 0) {
             throw new IllegalArgumentException("timeout value is negative");
         }
         Bundle[] bundles = tracker.getBundles();
         if (bundles == null) {
-            lock.await(timeoutInMillis, TimeUnit.MILLISECONDS);
-            bundles = tracker.getBundles();
-            return bundles == null ? null : bundles[0];
+            if (latch.await(timeoutInMillis, TimeUnit.MILLISECONDS)) {
+                bundles = tracker.getBundles();
+                return bundles == null ? null : bundles[0];
+            } else {
+                return null;
+            }
         } else {
             // returns first bundle
             return bundles[0];
@@ -254,39 +253,31 @@ public class BundleUtils {
 
 
     /**
-     * BundleTrackerCustomizer with lock support.
+     * BundleTrackerCustomizer with latch support.
      *
      * @see java.util.concurrent.locks.ReentrantLock
      * @see org.osgi.util.tracker.BundleTrackerCustomizer
      */
     private abstract static class BundleTrackerCustomizerWithLock implements BundleTrackerCustomizer {
         protected final BundleContext bc;
-        private ReentrantLock lock;
-        private final Condition condition;
+        private CountDownLatch latch;
 
-        public BundleTrackerCustomizerWithLock(BundleContext bc, ReentrantLock lock, Condition condition) {
+        public BundleTrackerCustomizerWithLock(BundleContext bc, CountDownLatch latch) {
             this.bc = bc;
-            this.lock = lock;
-            this.condition = condition;
+            this.latch = latch;
         }
 
         public Object addingBundle(Bundle bundle, BundleEvent event) {
+            boolean found = false;
             try {
-                lock.lock();
-
-                boolean found = false;
-                try {
-                    Object trackedBundle = isTrackedBundle(bundle, event);
-                    found = trackedBundle != null;
-                    return trackedBundle;
-                } finally {
-                    // unlock the lock
-                    if (found) {
-                        condition.signalAll();
-                    }
-                }
+                Object trackedBundle = isTrackedBundle(bundle, event);
+                found = trackedBundle != null;
+                return trackedBundle;
             } finally {
-                lock.unlock();
+                // unlock the latch
+                if (found) {
+                    latch.countDown();
+                }
             }
         }
 
@@ -303,8 +294,8 @@ public class BundleUtils {
         private String symbolicName;
         private Version version;
 
-        public SymbolicNameVersionBundleTrackerCustomizer(BundleContext bc, ReentrantLock lock, Condition condition, String symbolicName, Version version) {
-            super(bc, lock, condition);
+        public SymbolicNameVersionBundleTrackerCustomizer(BundleContext bc, CountDownLatch latch, String symbolicName, Version version) {
+            super(bc, latch);
             this.symbolicName = symbolicName;
             this.version = version;
         }

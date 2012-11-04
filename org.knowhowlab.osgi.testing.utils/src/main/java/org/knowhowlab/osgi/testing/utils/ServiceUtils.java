@@ -20,9 +20,8 @@ import org.osgi.framework.*;
 import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * OSGi Services utilities class
@@ -86,13 +85,13 @@ public class ServiceUtils {
      *                                  <code>timeUnit</code> are <code>null</code>
      */
     public static ServiceReference getServiceReference(BundleContext bc, Filter filter, long timeout, TimeUnit timeUnit) {
-        final ReentrantLock lock = new ReentrantLock();
-        final Condition condition = lock.newCondition();
+        CountDownLatch latch = new CountDownLatch(1);
+
         long timeoutInMillis = timeUnit.toMillis(timeout);
-        ServiceTracker tracker = new ServiceTracker(bc, filter, new ServiceTrackerCustomizerWithLock(bc, lock, condition));
+        ServiceTracker tracker = new ServiceTracker(bc, filter, new ServiceTrackerCustomizerWithLock(bc, latch));
         tracker.open();
         try {
-            return waitForServiceReference(tracker, timeoutInMillis, lock, condition);
+            return waitForServiceReference(tracker, timeoutInMillis, latch);
         } catch (InterruptedException e) {
             return null;
         } finally {
@@ -145,13 +144,13 @@ public class ServiceUtils {
      *                                  <code>timeUnit</code> are <code>null</code>
      */
     public static ServiceReference getServiceReference(BundleContext bc, String className, long timeout, TimeUnit timeUnit) {
-        final ReentrantLock lock = new ReentrantLock();
-        final Condition condition = lock.newCondition();
+        CountDownLatch latch = new CountDownLatch(1);
+
         long timeoutInMillis = timeUnit.toMillis(timeout);
-        ServiceTracker tracker = new ServiceTracker(bc, className, new ServiceTrackerCustomizerWithLock(bc, lock, condition));
+        ServiceTracker tracker = new ServiceTracker(bc, className, new ServiceTrackerCustomizerWithLock(bc, latch));
         tracker.open();
         try {
-            return waitForServiceReference(tracker, timeoutInMillis, lock, condition);
+            return waitForServiceReference(tracker, timeoutInMillis, latch);
         } catch (InterruptedException e) {
             return null;
         } finally {
@@ -498,33 +497,28 @@ public class ServiceUtils {
     /**
      * Wait for at least one ServiceReference to be tracked by ServiceTracker
      *
-     *
      * @param tracker         ServiceTracker
      * @param timeoutInMillis time interval in milliseconds to wait.
      *                        If zero, the method will wait indefinitely.
-     * @param lock            external lock that is used to handle new service adding to ServiceTracker
-     * @param condition       condition
+     * @param latch           external latch that is used to handle new service adding to ServiceTracker
      * @return ServiceReference instance or <code>null</code>
      * @throws IllegalArgumentException If the value of timeout is negative.
      * @throws InterruptedException     If another thread has interrupted the current thread.
      */
-    private static ServiceReference waitForServiceReference(ServiceTracker tracker, long timeoutInMillis, ReentrantLock lock, Condition condition)
+    private static ServiceReference waitForServiceReference(ServiceTracker tracker, long timeoutInMillis, CountDownLatch latch)
             throws InterruptedException {
         if (timeoutInMillis < 0) {
             throw new IllegalArgumentException("timeout value is negative");
         }
-        try {
-            lock.lock();
-
-            ServiceReference reference = tracker.getServiceReference();
-            if (reference == null) {
-                condition.await(timeoutInMillis, TimeUnit.MILLISECONDS);
+        ServiceReference reference = tracker.getServiceReference();
+        if (reference == null) {
+            if (latch.await(timeoutInMillis, TimeUnit.MILLISECONDS)) {
                 return tracker.getServiceReference();
             } else {
-                return reference;
+                return null;
             }
-        } finally {
-            lock.unlock();
+        } else {
+            return reference;
         }
     }
 
@@ -536,25 +530,18 @@ public class ServiceUtils {
      */
     private static class ServiceTrackerCustomizerWithLock implements ServiceTrackerCustomizer {
         private final BundleContext bc;
-        private final ReentrantLock lock;
-        private final Condition condition;
+        private final CountDownLatch latch;
 
-        public ServiceTrackerCustomizerWithLock(BundleContext bc, ReentrantLock lock, Condition condition) {
+        public ServiceTrackerCustomizerWithLock(BundleContext bc, CountDownLatch latch) {
             this.bc = bc;
-            this.lock = lock;
-            this.condition = condition;
+            this.latch = latch;
         }
 
         public Object addingService(ServiceReference serviceReference) {
             try {
-                lock.lock();
-                try {
-                    return bc.getService(serviceReference);
-                } finally {
-                    condition.signalAll();
-                }
+                return bc.getService(serviceReference);
             } finally {
-                lock.unlock();
+                latch.countDown();
             }
         }
 
