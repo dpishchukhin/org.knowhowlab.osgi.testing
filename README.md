@@ -103,4 +103,4 @@ As you can see with OSGi assertions and utils you can concentrate on your functi
 
 ## Blog with more samples and tutorials
 
-    [http://knowhowlab.org](http://knowhowlab.org)
+[http://knowhowlab.org](http://knowhowlab.org)
