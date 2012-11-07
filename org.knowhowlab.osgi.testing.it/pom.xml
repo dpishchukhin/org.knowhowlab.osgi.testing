@@ -36,6 +36,7 @@
 
     <modules>
         <module>org.knowhowlab.osgi.testing.it.pax.exam</module>
+        <module>org.knowhowlab.osgi.testing.it.arquillian</module>
         <module>org.knowhowlab.osgi.testing.it.test.bundle</module>
     </modules>
 </project>

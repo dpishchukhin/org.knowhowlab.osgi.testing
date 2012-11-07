@@ -33,11 +33,6 @@
         </license>
     </licenses>
 
-    <issueManagement>
-        <system>Google</system>
-        <url>http://code.google.com/p/osgilab/issues</url>
-    </issueManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.knowhowlab.osgi</groupId>
@@ -148,6 +143,7 @@
                             <value>${project.version}</value>
                         </property>
                     </systemProperties>
+                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
                 <executions>
                     <execution>
