@@ -16,7 +16,7 @@
 
 package org.knowhowlab.osgi.testing.assertions;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.knowhowlab.osgi.testing.utils.BundleUtils;
 import org.knowhowlab.osgi.testing.utils.ServiceUtils;
 import org.osgi.framework.Bundle;

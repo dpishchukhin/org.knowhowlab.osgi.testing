@@ -16,7 +16,7 @@
 
 package org.knowhowlab.osgi.testing.assertions;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.InvalidSyntaxException;
 

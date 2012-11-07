@@ -133,6 +133,20 @@
             <version>4.10</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.knowhowlab.osgi</groupId>
+            <artifactId>org.knowhowlab.osgi.testing.utils</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.knowhowlab.osgi</groupId>
+            <artifactId>org.knowhowlab.osgi.testing.assertions</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

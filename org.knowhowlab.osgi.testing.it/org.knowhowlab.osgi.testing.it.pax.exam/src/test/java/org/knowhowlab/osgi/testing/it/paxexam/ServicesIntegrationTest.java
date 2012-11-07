@@ -16,7 +16,6 @@
 
 package org.knowhowlab.osgi.testing.it.paxexam;
 
-import junit.framework.AssertionFailedError;
 import org.junit.Test;
 import org.knowhowlab.osgi.testing.utils.FilterUtils;
 import org.ops4j.pax.exam.Option;
@@ -59,7 +58,7 @@ public class ServicesIntegrationTest extends AbstractTest {
     public void simpleTest2() throws InvalidSyntaxException {
         try {
             assertServiceAvailable(FilterUtils.create("org.osgi.service.monitor.MonitorAdmin"), 5, TimeUnit.SECONDS);
-        } catch (AssertionFailedError e) {
+        } catch (AssertionError e) {
         }
     }
 }

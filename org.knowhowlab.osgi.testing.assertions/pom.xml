@@ -69,7 +69,7 @@
                         </Export-Package>
                         <Import-Package>
                             org.osgi*,
-                            junit.framework*,
+                            org.junit*,
                             org.knowhowlab.osgi.testing.utils*
                         </Import-Package>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>

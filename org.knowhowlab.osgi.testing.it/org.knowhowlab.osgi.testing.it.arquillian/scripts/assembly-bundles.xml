@@ -28,5 +28,19 @@
             <unpack>false</unpack>
         </dependencySet>
 
+        <!-- bundles -->
+        <dependencySet>
+            <outputDirectory>bundles</outputDirectory>
+            <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}
+            </outputFileNameMapping>
+            <includes>
+                <include>*:org.knowhowlab.osgi.testing.utils:jar</include>
+                <include>*:org.knowhowlab.osgi.testing.assertions:jar</include>
+            </includes>
+            <useStrictFiltering>true</useStrictFiltering>
+            <scope>test</scope>
+            <unpack>false</unpack>
+        </dependencySet>
+
     </dependencySets>
 </assembly>
