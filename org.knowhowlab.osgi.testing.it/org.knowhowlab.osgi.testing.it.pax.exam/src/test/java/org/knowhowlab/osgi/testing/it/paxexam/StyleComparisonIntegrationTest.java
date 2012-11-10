@@ -17,6 +17,7 @@
 package org.knowhowlab.osgi.testing.it.paxexam;
 
 import org.junit.Test;
+import org.knowhowlab.osgi.testing.assertions.OSGiAssert;
 import org.knowhowlab.osgi.testing.it.testbundle.service.Echo;
 import org.knowhowlab.osgi.testing.utils.ServiceUtils;
 import org.ops4j.pax.exam.Option;
@@ -122,7 +123,7 @@ public class StyleComparisonIntegrationTest extends AbstractTest {
         // asserts that test bundle is resolved
         assertBundleState(Bundle.INSTALLED | Bundle.RESOLVED, "org.knowhowlab.osgi.testing.it.test.bundle", 5, TimeUnit.SECONDS);
         // gets bundle instance
-        Bundle bundle = findBundle(bc, "org.knowhowlab.osgi.testing.it.test.bundle");
+        Bundle bundle = findBundle(OSGiAssert.getBundleContext(), "org.knowhowlab.osgi.testing.it.test.bundle");
         // asserts that test service is unavailable
         assertServiceUnavailable("org.knowhowlab.osgi.testing.it.testbundle.service.Echo");
         // start bundle

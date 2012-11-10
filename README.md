@@ -8,17 +8,17 @@ OSGi specific assertions and utility classes that help to write OSGi integration
     <dependency>
         <groupId>org.knowhowlab.osgi</groupId>
         <artifactId>org.knowhowlab.osgi.testing.utils</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </dependency>
     <dependency>
         <groupId>org.knowhowlab.osgi</groupId>
         <artifactId>org.knowhowlab.osgi.testing.utils</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </dependency>
 
 ### Add dependency in PaxExam tests
-    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.utils").version("1.0.0"),
-    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.assertions").version("1.0.0")
+    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.utils").version("1.0.1"),
+    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.assertions").version("1.0.1")
 
 ## There is a comparison of the same test with and without OSGiLab testing assertions and utils.
 
@@ -31,7 +31,7 @@ OSGi specific assertions and utility classes that help to write OSGi integration
         // asserts that test bundle is resolved
         assertBundleState(Bundle.RESOLVED, "org.osgilab.testing.it.commons.test.bundle");
         // gets bundle instance
-        Bundle bundle = findBundle(bc, "org.osgilab.testing.it.commons.test.bundle");
+        Bundle bundle = findBundle(getBundleContext(), "org.osgilab.testing.it.commons.test.bundle");
         // asserts that test service is unavailable
         assertServiceUnavailable("org.osgi.testing.it.commons.testbundle.service.Echo");
         // start bundle
@@ -43,7 +43,7 @@ OSGi specific assertions and utility classes that help to write OSGi integration
         // asserts that test service with custom properties is available
         assertServiceAvailable(and(create(Echo.class), eq("testkey", "testvalue")));
         // gets service by class and filter
-        Echo echo = ServiceUtils.getService(bc, Echo.class, eq("testkey", "testvalue"));
+        Echo echo = ServiceUtils.getService(getBundleContext(), Echo.class, eq("testkey", "testvalue"));
         // asserts service method call
         Assert.assertEquals("test", echo.echo("test"));
         // stops bundle
