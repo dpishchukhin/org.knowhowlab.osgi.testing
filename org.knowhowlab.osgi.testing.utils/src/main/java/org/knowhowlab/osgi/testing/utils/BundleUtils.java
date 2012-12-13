@@ -31,10 +31,12 @@ import java.util.concurrent.*;
  * OSGi Bundles utilities class
  *
  * @author dpishchukhin
- * @version 1.0
+ * @version 1.1
  * @see org.osgi.framework.Bundle
  * @see org.osgi.service.packageadmin.PackageAdmin
  * @see org.osgi.framework.BundleContext
+ * @see org.osgi.framework.BundleEvent
+ * @see org.osgi.framework.BundleListener
  */
 public class BundleUtils {
     /**
@@ -56,6 +58,8 @@ public class BundleUtils {
      * @param bundleId bundle id
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     *
+     * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, long bundleId) {
         return bc.getBundle(bundleId);
@@ -68,6 +72,8 @@ public class BundleUtils {
      * @param symbolicName symbolicName
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
+     *
+     * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName) {
         return findBundle(bc, symbolicName, null);
@@ -81,6 +87,8 @@ public class BundleUtils {
      * @param version      version
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
+     *
+     * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, Version version) {
         PackageAdmin packageAdmin = ServiceUtils.getService(bc, PackageAdmin.class);
@@ -102,6 +110,8 @@ public class BundleUtils {
      * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
+     *
+     * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, long timeoutInMillis) {
         return findBundle(bc, symbolicName, version, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -117,6 +127,8 @@ public class BundleUtils {
      * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
+     *
+     * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, int stateMask, long timeoutInMillis) {
         return findBundle(bc, symbolicName, version, stateMask, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -130,6 +142,8 @@ public class BundleUtils {
      * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
+     *
+     * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, long timeoutInMillis) {
         return findBundle(bc, symbolicName, null, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -144,6 +158,8 @@ public class BundleUtils {
      * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
+     *
+     * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, int stateMask, long timeoutInMillis) {
         return findBundle(bc, symbolicName, null, stateMask, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -158,6 +174,8 @@ public class BundleUtils {
      * @param timeUnit     time unit for the time interval
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
+     *
+     * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, long timeout, TimeUnit timeUnit) {
         return findBundle(bc, symbolicName, null, timeout, timeUnit);
@@ -173,6 +191,8 @@ public class BundleUtils {
      * @param timeUnit     time unit for the time interval
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
+     *
+     * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, int stateMask, long timeout, TimeUnit timeUnit) {
         return findBundle(bc, symbolicName, null, stateMask, timeout, timeUnit);
@@ -188,6 +208,8 @@ public class BundleUtils {
      * @param timeUnit     time unit for the time interval
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
+     *
+     * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
         return findBundle(bc, symbolicName, version, ANY_STATE, timeout, timeUnit);
@@ -204,6 +226,8 @@ public class BundleUtils {
      * @param timeUnit     time unit for the time interval
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
+     *
+     * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, int stateMask, long timeout, TimeUnit timeUnit) {
         CountDownLatch latch = new CountDownLatch(1);
@@ -603,6 +627,30 @@ public class BundleUtils {
 
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, Version version, InputStream input, long delay, TimeUnit timeUnit) {
         return updateBundleAsync(bc, findBundle(bc, symbolicName, version), input, delay, timeUnit);
+    }
+
+    public static BundleEvent waitForBundleEvent(BundleContext bc, int bundleId, int eventTypeMask, long timeoutInMillis) {
+        return waitForBundleEvent(bc, bundleId, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static BundleEvent waitForBundleEvent(BundleContext bc, String symbolicName, int eventTypeMask, long timeoutInMillis) {
+        return waitForBundleEvent(bc, symbolicName, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static BundleEvent waitForBundleEvent(BundleContext bc, String symbolicName, Version version, int eventTypeMask, long timeoutInMillis) {
+        return waitForBundleEvent(bc, symbolicName, version, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static BundleEvent waitForBundleEvent(BundleContext bc, int bundleId, int eventTypeMask, long timeout, TimeUnit timeUnit) {
+        return null; // todo
+    }
+
+    public static BundleEvent waitForBundleEvent(BundleContext bc, String symbolicName, int eventTypeMask, long timeout, TimeUnit timeUnit) {
+        return null; // todo
+    }
+
+    public static BundleEvent waitForBundleEvent(BundleContext bc, String symbolicName, Version version, int eventTypeMask, long timeout, TimeUnit timeUnit) {
+        return null; // todo
     }
 
     /**

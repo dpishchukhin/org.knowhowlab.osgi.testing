@@ -27,10 +27,12 @@ import java.util.concurrent.TimeUnit;
  * OSGi Services utilities class
  *
  * @author dmytro.pishchukhin
- * @version 1.0
+ * @version 1.1
  * @see org.osgi.framework.BundleContext
  * @see org.osgi.util.tracker.ServiceTracker
  * @see org.osgi.util.tracker.ServiceTrackerCustomizer
+ * @see org.osgi.framework.ServiceEvent
+ * @see org.osgi.framework.ServiceListener
  * @see org.osgi.framework.Filter
  */
 public class ServiceUtils {
@@ -47,6 +49,7 @@ public class ServiceUtils {
      * @param filter filter
      * @return ServiceReference instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>filter</code> are <code>null</code>
+     * @since 1.0
      */
     public static ServiceReference getServiceReference(BundleContext bc, Filter filter) {
         ServiceTracker tracker = new ServiceTracker(bc, filter, null);
@@ -67,6 +70,7 @@ public class ServiceUtils {
      * @return ServiceReference instance or <code>null</code>
      * @throws IllegalArgumentException If the value of timeoutInMillis is negative
      * @throws NullPointerException     If <code>bc</code> or <code>filter</code> are <code>null</code>
+     * @since 1.0
      */
     public static ServiceReference getServiceReference(BundleContext bc, Filter filter, long timeoutInMillis) {
         return getServiceReference(bc, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -83,6 +87,7 @@ public class ServiceUtils {
      * @throws IllegalArgumentException If the value of timeout is negative
      * @throws NullPointerException     If <code>bc</code>, <code>filter</code> or
      *                                  <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
      */
     public static ServiceReference getServiceReference(BundleContext bc, Filter filter, long timeout, TimeUnit timeUnit) {
         CountDownLatch latch = new CountDownLatch(1);
@@ -106,6 +111,7 @@ public class ServiceUtils {
      * @param className className
      * @return ServiceReference instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>className</code> are <code>null</code>
+     * @since 1.0
      */
     public static ServiceReference getServiceReference(BundleContext bc, String className) {
         ServiceTracker tracker = new ServiceTracker(bc, className, null);
@@ -126,6 +132,7 @@ public class ServiceUtils {
      * @return ServiceReference instance or <code>null</code>
      * @throws IllegalArgumentException If the value of timeoutInMillis is negative
      * @throws NullPointerException     If <code>bc</code> or <code>className</code> are <code>null</code>
+     * @since 1.0
      */
     public static ServiceReference getServiceReference(BundleContext bc, String className, long timeoutInMillis) {
         return getServiceReference(bc, className, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -142,6 +149,7 @@ public class ServiceUtils {
      * @throws IllegalArgumentException If the value of timeout is negative
      * @throws NullPointerException     If <code>bc</code>, <code>className</code> or
      *                                  <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
      */
     public static ServiceReference getServiceReference(BundleContext bc, String className, long timeout, TimeUnit timeUnit) {
         CountDownLatch latch = new CountDownLatch(1);
@@ -165,6 +173,7 @@ public class ServiceUtils {
      * @param clazz Class
      * @return ServiceReference instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>clazz</code> are <code>null</code>
+     * @since 1.0
      */
     public static ServiceReference getServiceReference(BundleContext bc, Class clazz) {
         ServiceTracker tracker = new ServiceTracker(bc, clazz.getName(), null);
@@ -185,6 +194,7 @@ public class ServiceUtils {
      * @return ServiceReference instance or <code>null</code>
      * @throws IllegalArgumentException If the value of timeoutInMillis is negative
      * @throws NullPointerException     If <code>bc</code> or <code>filter</code> are <code>null</code>
+     * @since 1.0
      */
     public static ServiceReference getServiceReference(BundleContext bc, Class clazz, long timeoutInMillis) {
         return getServiceReference(bc, clazz, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -201,6 +211,7 @@ public class ServiceUtils {
      * @throws IllegalArgumentException If the value of timeout is negative
      * @throws NullPointerException     If <code>bc</code>, <code>filter</code> or
      *                                  <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
      */
     public static ServiceReference getServiceReference(BundleContext bc, Class clazz, long timeout, TimeUnit timeUnit) {
         return getServiceReference(bc, clazz.getName(), timeout, timeUnit);
@@ -213,6 +224,7 @@ public class ServiceUtils {
      * @param filter filter
      * @return service instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>filter</code> are <code>null</code>
+     * @since 1.0
      */
     public static Object getService(BundleContext bc, Filter filter) {
         ServiceTracker tracker = new ServiceTracker(bc, filter, null);
@@ -233,6 +245,7 @@ public class ServiceUtils {
      * @return service instance or <code>null</code>
      * @throws IllegalArgumentException If the value of timeoutInMillis is negative
      * @throws NullPointerException     If <code>bc</code> or <code>filter</code> are <code>null</code>
+     * @since 1.0
      */
     public static Object getService(BundleContext bc, Filter filter, long timeoutInMillis) {
         return getService(bc, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -249,6 +262,7 @@ public class ServiceUtils {
      * @throws IllegalArgumentException If the value of timeout is negative
      * @throws NullPointerException     If <code>bc</code>, <code>filter</code> or
      *                                  <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
      */
     public static Object getService(BundleContext bc, Filter filter, long timeout, TimeUnit timeUnit) {
         ServiceTracker tracker = new ServiceTracker(bc, filter, null);
@@ -269,6 +283,7 @@ public class ServiceUtils {
      * @param className className
      * @return service instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>className</code> are <code>null</code>
+     * @since 1.0
      */
     public static Object getService(BundleContext bc, String className) {
         ServiceTracker tracker = new ServiceTracker(bc, className, null);
@@ -289,6 +304,7 @@ public class ServiceUtils {
      * @return service instance or <code>null</code>
      * @throws IllegalArgumentException If the value of timeoutInMillis is negative
      * @throws NullPointerException     If <code>bc</code> or <code>className</code> are <code>null</code>
+     * @since 1.0
      */
     public static Object getService(BundleContext bc, String className, long timeoutInMillis) {
         return getService(bc, className, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -305,6 +321,7 @@ public class ServiceUtils {
      * @throws IllegalArgumentException If the value of timeout is negative
      * @throws NullPointerException     If <code>bc</code>, <code>className</code> or
      *                                  <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
      */
     public static Object getService(BundleContext bc, String className, long timeout, TimeUnit timeUnit) {
         ServiceTracker tracker = new ServiceTracker(bc, className, null);
@@ -325,6 +342,7 @@ public class ServiceUtils {
      * @param clazz Class
      * @return service instance instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>clazz</code> are <code>null</code>
+     * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz) {
         ServiceTracker tracker = new ServiceTracker(bc, clazz.getName(), null);
@@ -346,6 +364,7 @@ public class ServiceUtils {
      * @return service instance or <code>null</code>
      * @throws IllegalArgumentException If the value of timeoutInMillis is negative
      * @throws NullPointerException     If <code>bc</code> or <code>clazz</code> are <code>null</code>
+     * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, long timeoutInMillis) {
         return getService(bc, clazz, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -362,6 +381,7 @@ public class ServiceUtils {
      * @throws IllegalArgumentException If the value of timeout is negative
      * @throws NullPointerException     If <code>bc</code>, <code>clazz</code> or
      *                                  <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, long timeout, TimeUnit timeUnit) {
         ServiceTracker tracker = new ServiceTracker(bc, clazz.getName(), null);
@@ -386,6 +406,7 @@ public class ServiceUtils {
      * @throws NullPointerException   If <code>bc</code> or <code>clazz</code> are <code>null</code>
      * @throws InvalidSyntaxException If <code>filter</code> contains an
      *                                invalid filter string that cannot be parsed
+     * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, String filter) throws InvalidSyntaxException {
         return getService(bc, clazz, FrameworkUtil.createFilter(filter));
@@ -403,6 +424,7 @@ public class ServiceUtils {
      * @throws NullPointerException     If <code>bc</code> or <code>clazz</code> are <code>null</code>
      * @throws InvalidSyntaxException   If <code>filter</code> contains an
      *                                  invalid filter string that cannot be parsed
+     * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, String filter, long timeoutInMillis) throws InvalidSyntaxException {
         return getService(bc, clazz, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -422,6 +444,7 @@ public class ServiceUtils {
      *                                  <code>timeUnit</code> are <code>null</code>
      * @throws InvalidSyntaxException   If <code>filter</code> contains an
      *                                  invalid filter string that cannot be parsed
+     * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, String filter, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
         return getService(bc, clazz, FrameworkUtil.createFilter(filter), timeout, timeUnit);
@@ -437,6 +460,7 @@ public class ServiceUtils {
      * @throws NullPointerException   If <code>bc</code> or <code>clazz</code> are <code>null</code>
      * @throws InvalidSyntaxException If <code>filter</code> contains an
      *                                invalid filter string that cannot be parsed
+     * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, Filter filter) throws InvalidSyntaxException {
         ServiceTracker tracker = new ServiceTracker(bc, FilterUtils.create(clazz, filter), null);
@@ -461,6 +485,7 @@ public class ServiceUtils {
      * @throws NullPointerException     If <code>bc</code> or <code>clazz</code> are <code>null</code>
      * @throws InvalidSyntaxException   If <code>filter</code> contains an
      *                                  invalid filter string that cannot be parsed
+     * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, Filter filter, long timeoutInMillis) throws InvalidSyntaxException {
         return getService(bc, clazz, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -480,6 +505,7 @@ public class ServiceUtils {
      *                                  <code>timeUnit</code> are <code>null</code>
      * @throws InvalidSyntaxException   If <code>filter</code> contains an
      *                                  invalid filter string that cannot be parsed
+     * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, Filter filter, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
         ServiceTracker tracker = new ServiceTracker(bc, FilterUtils.create(clazz, filter), null);
@@ -492,6 +518,30 @@ public class ServiceUtils {
         } finally {
             tracker.close();
         }
+    }
+
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, long timeoutInMillis) {
+        return waitForServiceEvent(bc, filter, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, long timeoutInMillis) {
+        return waitForServiceEvent(bc, className, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, long timeoutInMillis) {
+        return waitForServiceEvent(bc, clazz, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, long timeout, TimeUnit timeUnit) {
+        return null; // todo
+    }
+
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, long timeout, TimeUnit timeUnit) {
+        return null; // todo
+    }
+
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, long timeout, TimeUnit timeUnit) {
+        return null; // todo
     }
 
     /**

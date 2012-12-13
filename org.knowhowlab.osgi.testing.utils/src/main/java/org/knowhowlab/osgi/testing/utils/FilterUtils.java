@@ -25,7 +25,7 @@ import org.osgi.framework.InvalidSyntaxException;
  * OSGi Filter utilities class
  *
  * @author dmytro.pishchukhin
- * @version 1.0
+ * @version 1.1
  * @see org.osgi.framework.Filter
  * @see org.osgi.framework.FrameworkUtil#createFilter(String)
  * @see org.osgi.framework.BundleContext#createFilter(String)
