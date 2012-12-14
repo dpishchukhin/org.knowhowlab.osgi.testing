@@ -602,28 +602,89 @@ public class ServiceUtils {
         }, delay, timeUnit);
     }
 
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, long timeoutInMillis) {
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, long timeoutInMillis) throws InvalidSyntaxException {
         return waitForServiceEvent(bc, filter, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, long timeoutInMillis) {
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, long timeoutInMillis) throws InvalidSyntaxException {
         return waitForServiceEvent(bc, className, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, long timeoutInMillis) {
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, long timeoutInMillis) throws InvalidSyntaxException {
         return waitForServiceEvent(bc, clazz, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, long timeout, TimeUnit timeUnit) {
-        return null; // todo
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
+        return waitForServiceEvent(bc, className, eventTypeMask, false, timeout, timeUnit);
     }
 
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, long timeout, TimeUnit timeUnit) {
-        return null; // todo
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
+        return waitForServiceEvent(bc, clazz, eventTypeMask, false, timeout, timeUnit);
     }
 
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, long timeout, TimeUnit timeUnit) {
-        return null; // todo
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
+        return waitForServiceEvent(bc, filter, eventTypeMask, false, timeout, timeUnit);
+    }
+
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, boolean all, long timeoutInMillis) throws InvalidSyntaxException {
+        return waitForServiceEvent(bc, filter, eventTypeMask, all, timeoutInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, boolean all, long timeoutInMillis) throws InvalidSyntaxException {
+        return waitForServiceEvent(bc, className, eventTypeMask, all, timeoutInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, boolean all, long timeoutInMillis) throws InvalidSyntaxException {
+        return waitForServiceEvent(bc, clazz, eventTypeMask, all, timeoutInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, boolean all, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
+        Filter filter = null;
+        if (className != null) {
+            filter = FilterUtils.create(className);
+        }
+        return waitForServiceEvent(bc, filter, eventTypeMask, all, timeout, timeUnit);
+    }
+
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, boolean all, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
+        Filter filter = null;
+        if (clazz != null) {
+            filter = FilterUtils.create(clazz);
+        }
+        return waitForServiceEvent(bc, filter, eventTypeMask, all, timeout, timeUnit);
+    }
+
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, boolean all, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
+        CountDownLatch latch = new CountDownLatch(1);
+
+        long timeoutInMillis = timeUnit.toMillis(timeout);
+        ServiceListenerImpl listener;
+        if (all) {
+            listener = new AllServiceListenerImpl(eventTypeMask, latch);
+        } else {
+            listener = new ServiceListenerImpl(eventTypeMask, latch);
+        }
+        bc.addServiceListener(listener, filter != null ? filter.toString() : null);
+
+        try {
+            return waitForServiceEvent(listener, timeoutInMillis, latch);
+        } catch (InterruptedException e) {
+            return null;
+        } finally {
+            bc.removeServiceListener(listener);
+        }
+    }
+
+    private static ServiceEvent waitForServiceEvent(ServiceListenerImpl listener, long timeoutInMillis, CountDownLatch latch)
+            throws InterruptedException {
+        if (timeoutInMillis < 0) {
+            throw new IllegalArgumentException("timeout value is negative");
+        }
+        if (latch.await(timeoutInMillis, TimeUnit.MILLISECONDS)) {
+            return listener.getServiceEvent();
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -681,6 +742,39 @@ public class ServiceUtils {
         }
 
         public void removedService(ServiceReference serviceReference, Object o) {
+        }
+    }
+
+    private static class ServiceListenerImpl implements ServiceListener {
+        private int eventTypeMask;
+        private CountDownLatch latch;
+
+        private ServiceEvent event;
+
+        public ServiceListenerImpl(int eventTypeMask, CountDownLatch latch) {
+            this.eventTypeMask = eventTypeMask;
+            this.latch = latch;
+        }
+
+        public void serviceChanged(ServiceEvent event) {
+            if (match(event)) {
+                this.event = event;
+                latch.countDown();
+            }
+        }
+
+        private boolean match(ServiceEvent event) {
+            return (eventTypeMask & event.getType()) == 1;
+        }
+
+        public ServiceEvent getServiceEvent() {
+            return event;
+        }
+    }
+
+    private static class AllServiceListenerImpl extends ServiceListenerImpl implements AllServiceListener {
+        public AllServiceListenerImpl(int eventTypeMask, CountDownLatch latch) {
+            super(eventTypeMask, latch);
         }
     }
 }
