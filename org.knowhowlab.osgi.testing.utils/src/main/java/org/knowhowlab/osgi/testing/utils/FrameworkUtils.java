@@ -16,10 +16,9 @@
 
 package org.knowhowlab.osgi.testing.utils;
 
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkEvent;
-import org.osgi.framework.Version;
+import org.osgi.framework.*;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -43,15 +42,76 @@ public class FrameworkUtils {
     }
 
     public static FrameworkEvent waitForFrameworkEvent(BundleContext bc, int bundleId, int eventTypeMask, long timeout, TimeUnit timeUnit) {
-        return null; // todo
+        Bundle bundle = BundleUtils.findBundle(bc, bundleId);
+        if (bundle == null) {
+            throw new IllegalArgumentException("bundleId is invalid");
+        }
+        return waitForFrameworkEvent(bc, bundle.getSymbolicName(), bundle.getVersion(), eventTypeMask, timeout, timeUnit);
     }
 
     public static FrameworkEvent waitForFrameworkEvent(BundleContext bc, String symbolicName, int eventTypeMask, long timeout, TimeUnit timeUnit) {
-        return null; // todo
+        return waitForFrameworkEvent(bc, symbolicName, null, eventTypeMask, timeout, timeUnit);
     }
 
     public static FrameworkEvent waitForFrameworkEvent(BundleContext bc, String symbolicName, Version version, int eventTypeMask, long timeout, TimeUnit timeUnit) {
-        return null; // todo
+        CountDownLatch latch = new CountDownLatch(1);
+
+        long timeoutInMillis = timeUnit.toMillis(timeout);
+        FrameworkListenerImpl listener = new FrameworkListenerImpl(symbolicName, version, eventTypeMask, latch);
+        bc.addFrameworkListener(listener);
+
+        try {
+            return waitForFrameworkEvent(listener, timeoutInMillis, latch);
+        } catch (InterruptedException e) {
+            return null;
+        } finally {
+            bc.removeFrameworkListener(listener);
+        }
     }
 
+    private static FrameworkEvent waitForFrameworkEvent(FrameworkListenerImpl listener, long timeoutInMillis, CountDownLatch latch)
+            throws InterruptedException {
+        if (timeoutInMillis < 0) {
+            throw new IllegalArgumentException("timeout value is negative");
+        }
+        if (latch.await(timeoutInMillis, TimeUnit.MILLISECONDS)) {
+            return listener.getFrameworkEvent();
+        } else {
+            return null;
+        }
+    }
+
+    private static class FrameworkListenerImpl implements FrameworkListener {
+        private String symbolicName;
+        private Version version;
+        private int eventTypeMask;
+        private CountDownLatch latch;
+
+        private FrameworkEvent event;
+
+        public FrameworkListenerImpl(String symbolicName, Version version, int eventTypeMask, CountDownLatch latch) {
+            this.symbolicName = symbolicName;
+            this.version = version;
+            this.eventTypeMask = eventTypeMask;
+            this.latch = latch;
+        }
+
+        public void frameworkEvent(FrameworkEvent event) {
+            if (match(event)) {
+                this.event = event;
+                latch.countDown();
+            }
+        }
+
+        private boolean match(FrameworkEvent event) {
+            Bundle bundle = event.getBundle();
+            return bundle.getSymbolicName().equals(symbolicName)
+                    && (version == null || bundle.getVersion().equals(version))
+                    && (eventTypeMask & event.getType()) == 1;
+        }
+
+        public FrameworkEvent getFrameworkEvent() {
+            return event;
+        }
+    }
 }
