@@ -20,8 +20,8 @@ import org.osgi.framework.*;
 import org.osgi.util.tracker.ServiceTracker;
 import org.osgi.util.tracker.ServiceTrackerCustomizer;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
+import java.util.Dictionary;
+import java.util.concurrent.*;
 
 /**
  * OSGi Services utilities class
@@ -518,6 +518,88 @@ public class ServiceUtils {
         } finally {
             tracker.close();
         }
+    }
+
+    public static <T> Future<ServiceRegistration> registerServiceAsync(BundleContext bc, Class<T> clazz, T service, Dictionary properties) {
+        return registerServiceAsync(bc, clazz, service, properties, 0L);
+    }
+
+    public static Future<ServiceRegistration> registerServiceAsync(BundleContext bc, String clazz, Object service, Dictionary properties) {
+        return registerServiceAsync(bc, clazz, service, properties, 0L);
+    }
+
+    public static Future<ServiceRegistration> registerServiceAsync(BundleContext bc, String[] clazzes, Object service, Dictionary properties) {
+        return registerServiceAsync(bc, clazzes, service, properties, 0L);
+    }
+
+    public static <T> Future<ServiceRegistration> registerServiceAsync(BundleContext bc, Class<T> clazz, T service, Dictionary properties, long delayInMillis) {
+        return registerServiceAsync(bc, clazz, service, properties, delayInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static Future<ServiceRegistration> registerServiceAsync(BundleContext bc, String clazz, Object service, Dictionary properties, long delayInMillis) {
+        return registerServiceAsync(bc, clazz, service, properties, delayInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static Future<ServiceRegistration> registerServiceAsync(BundleContext bc, String[] clazzes, Object service, Dictionary properties, long delayInMillis) {
+        return registerServiceAsync(bc, clazzes, service, properties, delayInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static <T> Future<ServiceRegistration> registerServiceAsync(final BundleContext bc, final Class<T> clazz, final T service, final Dictionary properties, long delay, TimeUnit timeUnit) {
+        return Executors.newScheduledThreadPool(1).schedule(new Callable<ServiceRegistration>() {
+            public ServiceRegistration call() throws Exception {
+                return bc.registerService(clazz.getName(), service, properties);
+            }
+        }, delay, timeUnit);
+    }
+
+    public static Future<ServiceRegistration> registerServiceAsync(final BundleContext bc, final String clazz, final Object service, final Dictionary properties, long delay, TimeUnit timeUnit) {
+        return Executors.newScheduledThreadPool(1).schedule(new Callable<ServiceRegistration>() {
+            public ServiceRegistration call() throws Exception {
+                return bc.registerService(clazz, service, properties);
+            }
+        }, delay, timeUnit);
+    }
+
+    public static Future<ServiceRegistration> registerServiceAsync(final BundleContext bc, final String[] clazzes, final Object service, final Dictionary properties, long delay, TimeUnit timeUnit) {
+        return Executors.newScheduledThreadPool(1).schedule(new Callable<ServiceRegistration>() {
+            public ServiceRegistration call() throws Exception {
+                return bc.registerService(clazzes, service, properties);
+            }
+        }, delay, timeUnit);
+    }
+
+    public static Future<?> updateServiceAsync(ServiceRegistration registration, Dictionary properties) {
+        return updateServiceAsync(registration, properties, 0L);
+    }
+
+    public static Future<?> updateServiceAsync(ServiceRegistration registration, Dictionary properties, long delayInMillis) {
+        return updateServiceAsync(registration, properties, delayInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static Future<?> updateServiceAsync(final ServiceRegistration registration, final Dictionary properties, long delay, TimeUnit timeUnit) {
+        return Executors.newScheduledThreadPool(1).schedule(new Callable<Object>() {
+            public Object call() throws Exception {
+                registration.setProperties(properties);
+                return null;
+            }
+        }, delay, timeUnit);
+    }
+
+    public static Future<?> unregisterServiceAsync(ServiceRegistration registration) {
+        return unregisterServiceAsync(registration, 0L);
+    }
+
+    public static Future<?> unregisterServiceAsync(ServiceRegistration registration, long delayInMillis) {
+        return unregisterServiceAsync(registration, delayInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static Future<?> unregisterServiceAsync(final ServiceRegistration registration, long delay, TimeUnit timeUnit) {
+        return Executors.newScheduledThreadPool(1).schedule(new Callable<Object>() {
+            public Object call() throws Exception {
+                registration.unregister();
+                return null;
+            }
+        }, delay, timeUnit);
     }
 
     public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, long timeoutInMillis) {
