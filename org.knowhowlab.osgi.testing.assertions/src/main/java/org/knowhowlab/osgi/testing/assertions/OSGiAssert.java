@@ -38,6 +38,7 @@ public abstract class OSGiAssert {
      * Set default BundleContext for OSGi assertions
      *
      * @param defaultBundleContext BundleContext value
+     * @since 1.0
      */
     public static void setDefaultBundleContext(BundleContext defaultBundleContext) {
         OSGiAssert.defaultBundleContext = defaultBundleContext;
@@ -47,6 +48,7 @@ public abstract class OSGiAssert {
      * Asserts BundleContext before return.
      *
      * @return BundleContext
+     * @since 1.0
      */
     public static BundleContext getBundleContext() {
         BundleContext bc = defaultBundleContext == null

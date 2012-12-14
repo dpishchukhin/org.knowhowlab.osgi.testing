@@ -115,8 +115,7 @@ public class BundleUtils {
      *
      * @param bc              BundleContext
      * @param symbolicName    symbolicName
-     * @param version         version
-     * @param stateMask       The bit mask of the ORing of the bundle states to be tracked.
+     * @param version         version     * @param stateMask       The bit mask of the ORing of the bundle states to be tracked.
      * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
@@ -231,26 +230,44 @@ public class BundleUtils {
         }
     }
 
+    /**
+     * TODO
+     */
     public static Future<Bundle> installBundleAsync(BundleContext bc, String location) {
         return installBundleAsync(bc, location, 0);
     }
 
+    /**
+     * TODO
+     */
     public static Future<Bundle> installBundleAsync(BundleContext bc, String location, InputStream input) {
         return installBundleAsync(bc, location, input, 0);
     }
 
+    /**
+     * TODO
+     */
     public static Future<Bundle> installBundleAsync(BundleContext bc, String location, long delayInMillis) {
         return installBundleAsync(bc, location, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<Bundle> installBundleAsync(BundleContext bc, String location, InputStream input, long delayInMillis) {
         return installBundleAsync(bc, location, input, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<Bundle> installBundleAsync(BundleContext bc, String location, long delay, TimeUnit timeUnit) {
         return installBundleAsync(bc, location, null, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<Bundle> installBundleAsync(final BundleContext bc, final String location, final InputStream input, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Bundle>() {
             public Bundle call() throws Exception {
@@ -259,86 +276,149 @@ public class BundleUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, Bundle bundle) {
         return startBundleAsync(bc, bundle, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, long bundleId) {
         return startBundleAsync(bc, bundleId, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName) {
         return startBundleAsync(bc, symbolicName, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, Version version) {
         return startBundleAsync(bc, symbolicName, version, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, Bundle bundle, int options) {
         return startBundleAsync(bc, bundle, options, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, long bundleId, int options) {
         return startBundleAsync(bc, bundleId, options, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, int options) {
         return startBundleAsync(bc, symbolicName, options, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, Version version, int options) {
         return startBundleAsync(bc, symbolicName, version, options, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, Bundle bundle, long delayInMillis) {
         return startBundleAsync(bc, bundle, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, long bundleId, long delayInMillis) {
         return startBundleAsync(bc, bundleId, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, long delayInMillis) {
         return startBundleAsync(bc, symbolicName, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, Version version, long delayInMillis) {
         return startBundleAsync(bc, symbolicName, version, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, Bundle bundle, int options, long delayInMillis) {
         return startBundleAsync(bc, bundle, options, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, long bundleId, int options, long delayInMillis) {
         return startBundleAsync(bc, bundleId, options, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, int options, long delayInMillis) {
         return startBundleAsync(bc, symbolicName, options, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, Version version, int options, long delayInMillis) {
         return startBundleAsync(bc, symbolicName, version, options, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, Bundle bundle, long delay, TimeUnit timeUnit) {
         return startBundleAsync(bc, bundle, 0, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, long bundleId, long delay, TimeUnit timeUnit) {
         return startBundleAsync(bc, findBundle(bc, bundleId), delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, long delay, TimeUnit timeUnit) {
         return startBundleAsync(bc, findBundle(bc, symbolicName), delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, Version version, long delay, TimeUnit timeUnit) {
         return startBundleAsync(bc, findBundle(bc, symbolicName, version), delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(final BundleContext bc, final Bundle bundle, final int options, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
             public Object call() throws Exception {
@@ -348,98 +428,170 @@ public class BundleUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, long bundleId, int options, long delay, TimeUnit timeUnit) {
         return startBundleAsync(bc, findBundle(bc, bundleId), options, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, int options, long delay, TimeUnit timeUnit) {
         return startBundleAsync(bc, findBundle(bc, symbolicName), options, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, Version version, int options, long delay, TimeUnit timeUnit) {
         return startBundleAsync(bc, findBundle(bc, symbolicName, version), options, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, Bundle bundle) {
         return stopBundleAsync(bc, bundle, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, long bundleId) {
         return stopBundleAsync(bc, bundleId, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName) {
         return stopBundleAsync(bc, symbolicName, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, Version version) {
         return stopBundleAsync(bc, symbolicName, version, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, Bundle bundle, int options) {
         return stopBundleAsync(bc, bundle, options, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, long bundleId, int options) {
         return stopBundleAsync(bc, bundleId, options, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, int options) {
         return stopBundleAsync(bc, symbolicName, options, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, Version version, int options) {
         return stopBundleAsync(bc, symbolicName, version, options, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, Bundle bundle, long delayInMillis) {
         return stopBundleAsync(bc, bundle, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, long bundleId, long delayInMillis) {
         return stopBundleAsync(bc, bundleId, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, long delayInMillis) {
         return stopBundleAsync(bc, symbolicName, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, Version version, long delayInMillis) {
         return stopBundleAsync(bc, symbolicName, version, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, Bundle bundle, int options, long delayInMillis) {
         return stopBundleAsync(bc, bundle, options, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, long bundleId, int options, long delayInMillis) {
         return stopBundleAsync(bc, bundleId, options, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, int options, long delayInMillis) {
         return stopBundleAsync(bc, symbolicName, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, Version version, int options, long delayInMillis) {
         return stopBundleAsync(bc, symbolicName, version, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, Bundle bundle, long delay, TimeUnit timeUnit) {
         return stopBundleAsync(bc, bundle, 0, delay, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, long bundleId, long delay, TimeUnit timeUnit) {
         return stopBundleAsync(bc, findBundle(bc, bundleId), delay, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, long delay, TimeUnit timeUnit) {
         return stopBundleAsync(bc, findBundle(bc, symbolicName), delay, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, Version version, long delay, TimeUnit timeUnit) {
         return stopBundleAsync(bc, findBundle(bc, symbolicName, version), delay, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(final BundleContext bc, final Bundle bundle, final int options, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
             public Object call() throws Exception {
@@ -449,50 +601,86 @@ public class BundleUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, long bundleId, int options, long delay, TimeUnit timeUnit) {
         return stopBundleAsync(bc, findBundle(bc, bundleId), options, delay, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, int options, long delay, TimeUnit timeUnit) {
         return stopBundleAsync(bc, findBundle(bc, symbolicName), options, delay, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, Version version, int options, long delay, TimeUnit timeUnit) {
         return stopBundleAsync(bc, findBundle(bc, symbolicName, version), options, delay, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> uninstallBundleAsync(BundleContext bc, Bundle bundle) {
         return uninstallBundleAsync(bc, bundle, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> uninstallBundleAsync(BundleContext bc, long bundleId) {
         return uninstallBundleAsync(bc, bundleId, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> uninstallBundleAsync(BundleContext bc, String symbolicName) {
         return uninstallBundleAsync(bc, symbolicName, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> uninstallBundleAsync(BundleContext bc, String symbolicName, Version version) {
         return uninstallBundleAsync(bc, symbolicName, version, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> uninstallBundleAsync(BundleContext bc, Bundle bundle, long delayInMillis) {
         return uninstallBundleAsync(bc, bundle, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> uninstallBundleAsync(BundleContext bc, long bundleId, long delayInMillis) {
         return uninstallBundleAsync(bc, bundleId, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> uninstallBundleAsync(BundleContext bc, String symbolicName, long delayInMillis) {
         return uninstallBundleAsync(bc, symbolicName, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> uninstallBundleAsync(BundleContext bc, String symbolicName, Version version, long delayInMillis) {
         return uninstallBundleAsync(bc, symbolicName, version, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> uninstallBundleAsync(final BundleContext bc, final Bundle bundle, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
             public Object call() throws Exception {
@@ -502,98 +690,170 @@ public class BundleUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> uninstallBundleAsync(BundleContext bc, long bundleId, long delay, TimeUnit timeUnit) {
         return uninstallBundleAsync(bc, findBundle(bc, bundleId), delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> uninstallBundleAsync(BundleContext bc, String symbolicName, long delay, TimeUnit timeUnit) {
         return uninstallBundleAsync(bc, findBundle(bc, symbolicName), delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> uninstallBundleAsync(BundleContext bc, String symbolicName, Version version, long delay, TimeUnit timeUnit) {
         return uninstallBundleAsync(bc, findBundle(bc, symbolicName, version), delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, Bundle bundle) {
         return updateBundleAsync(bc, bundle, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, long bundleId) {
         return updateBundleAsync(bc, bundleId, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName) {
         return updateBundleAsync(bc, symbolicName, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, Version version) {
         return updateBundleAsync(bc, symbolicName, version, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, Bundle bundle, InputStream input) {
         return updateBundleAsync(bc, bundle, input, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, long bundleId, InputStream input) {
         return updateBundleAsync(bc, bundleId, input, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, InputStream input) {
         return updateBundleAsync(bc, symbolicName, input, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, Version version, InputStream input) {
         return updateBundleAsync(bc, symbolicName, version, input, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, Bundle bundle, long delayInMillis) {
         return updateBundleAsync(bc, bundle, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, long bundleId, long delayInMillis) {
         return updateBundleAsync(bc, bundleId, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, long delayInMillis) {
         return updateBundleAsync(bc, symbolicName, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, Version version, long delayInMillis) {
         return updateBundleAsync(bc, symbolicName, version, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, Bundle bundle, InputStream input, long delayInMillis) {
         return updateBundleAsync(bc, bundle, input, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, long bundleId, InputStream input, long delayInMillis) {
         return updateBundleAsync(bc, bundleId, input, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, InputStream input, long delayInMillis) {
         return updateBundleAsync(bc, symbolicName, input, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, Version version, InputStream input, long delayInMillis) {
         return updateBundleAsync(bc, symbolicName, version, input, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, Bundle bundle, long delay, TimeUnit timeUnit) {
         return updateBundleAsync(bc, bundle, null, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, long bundleId, long delay, TimeUnit timeUnit) {
         return updateBundleAsync(bc, findBundle(bc, bundleId), delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, long delay, TimeUnit timeUnit) {
         return updateBundleAsync(bc, findBundle(bc, symbolicName), delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, Version version, long delay, TimeUnit timeUnit) {
         return updateBundleAsync(bc, findBundle(bc, symbolicName, version), delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(final BundleContext bc, final Bundle bundle, final InputStream input, long delay, TimeUnit timeUnit) {
         return Executors.newScheduledThreadPool(1).schedule(new Callable<Object>() {
             public Object call() throws Exception {
@@ -603,30 +863,87 @@ public class BundleUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, long bundleId, InputStream input, long delay, TimeUnit timeUnit) {
         return updateBundleAsync(bc, findBundle(bc, bundleId), input, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, InputStream input, long delay, TimeUnit timeUnit) {
         return updateBundleAsync(bc, findBundle(bc, symbolicName), input, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, Version version, InputStream input, long delay, TimeUnit timeUnit) {
         return updateBundleAsync(bc, findBundle(bc, symbolicName, version), input, delay, timeUnit);
     }
 
+    /**
+     * Wait for BundleEvent with event type mask for defined bundle
+     *
+     * @param bc              BundleContext
+     * @param bundleId        bundle id
+     * @param eventTypeMask   BundleEvent type mask
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return BundleEvent or <code>null</code>
+     * @throws NullPointerException     If <code>bc</code> is <code>null</code>
+     * @throws IllegalArgumentException If <code>bundleId</code> is invalid
+     * @since 1.1
+     */
     public static BundleEvent waitForBundleEvent(BundleContext bc, int bundleId, int eventTypeMask, long timeoutInMillis) {
         return waitForBundleEvent(bc, bundleId, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for BundleEvent with event type mask for defined bundle
+     *
+     * @param bc              BundleContext
+     * @param symbolicName    symbolicName
+     * @param eventTypeMask   BundleEvent type mask
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return BundleEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
+     * @since 1.1
+     */
     public static BundleEvent waitForBundleEvent(BundleContext bc, String symbolicName, int eventTypeMask, long timeoutInMillis) {
         return waitForBundleEvent(bc, symbolicName, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for BundleEvent with event type mask for defined bundle
+     *
+     * @param bc              BundleContext
+     * @param symbolicName    symbolicName
+     * @param version         version
+     * @param eventTypeMask   BundleEvent type mask
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return BundleEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
+     * @since 1.1
+     */
     public static BundleEvent waitForBundleEvent(BundleContext bc, String symbolicName, Version version, int eventTypeMask, long timeoutInMillis) {
         return waitForBundleEvent(bc, symbolicName, version, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for BundleEvent with event type mask for defined bundle
+     *
+     * @param bc            BundleContext
+     * @param bundleId      bundle id
+     * @param eventTypeMask BundleEvent type mask
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @return BundleEvent or <code>null</code>
+     * @throws NullPointerException     If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @throws IllegalArgumentException If <code>bundleId</code> is invalid
+     * @since 1.1
+     */
     public static BundleEvent waitForBundleEvent(BundleContext bc, int bundleId, int eventTypeMask, long timeout, TimeUnit timeUnit) {
         Bundle bundle = findBundle(bc, bundleId);
         if (bundle == null) {
@@ -635,10 +952,35 @@ public class BundleUtils {
         return waitForBundleEvent(bc, bundle.getSymbolicName(), bundle.getVersion(), eventTypeMask, timeout, timeUnit);
     }
 
+    /**
+     * Wait for BundleEvent with event type mask for defined bundle
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param eventTypeMask BundleEvent type mask
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @return BundleEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.1
+     */
     public static BundleEvent waitForBundleEvent(BundleContext bc, String symbolicName, int eventTypeMask, long timeout, TimeUnit timeUnit) {
         return waitForBundleEvent(bc, symbolicName, null, eventTypeMask, timeout, timeUnit);
     }
 
+    /**
+     * Wait for BundleEvent with event type mask for defined bundle
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param version       version
+     * @param eventTypeMask BundleEvent type mask
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @return BundleEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.1
+     */
     public static BundleEvent waitForBundleEvent(BundleContext bc, String symbolicName, Version version, int eventTypeMask, long timeout, TimeUnit timeUnit) {
         CountDownLatch latch = new CountDownLatch(1);
 

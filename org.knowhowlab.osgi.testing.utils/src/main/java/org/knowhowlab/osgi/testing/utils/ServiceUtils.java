@@ -520,30 +520,51 @@ public class ServiceUtils {
         }
     }
 
+    /**
+     * TODO
+     */
     public static <T> Future<ServiceRegistration> registerServiceAsync(BundleContext bc, Class<T> clazz, T service, Dictionary properties) {
         return registerServiceAsync(bc, clazz, service, properties, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<ServiceRegistration> registerServiceAsync(BundleContext bc, String clazz, Object service, Dictionary properties) {
         return registerServiceAsync(bc, clazz, service, properties, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<ServiceRegistration> registerServiceAsync(BundleContext bc, String[] clazzes, Object service, Dictionary properties) {
         return registerServiceAsync(bc, clazzes, service, properties, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static <T> Future<ServiceRegistration> registerServiceAsync(BundleContext bc, Class<T> clazz, T service, Dictionary properties, long delayInMillis) {
         return registerServiceAsync(bc, clazz, service, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<ServiceRegistration> registerServiceAsync(BundleContext bc, String clazz, Object service, Dictionary properties, long delayInMillis) {
         return registerServiceAsync(bc, clazz, service, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<ServiceRegistration> registerServiceAsync(BundleContext bc, String[] clazzes, Object service, Dictionary properties, long delayInMillis) {
         return registerServiceAsync(bc, clazzes, service, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static <T> Future<ServiceRegistration> registerServiceAsync(final BundleContext bc, final Class<T> clazz, final T service, final Dictionary properties, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<ServiceRegistration>() {
             public ServiceRegistration call() throws Exception {
@@ -552,6 +573,9 @@ public class ServiceUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<ServiceRegistration> registerServiceAsync(final BundleContext bc, final String clazz, final Object service, final Dictionary properties, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<ServiceRegistration>() {
             public ServiceRegistration call() throws Exception {
@@ -560,6 +584,9 @@ public class ServiceUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<ServiceRegistration> registerServiceAsync(final BundleContext bc, final String[] clazzes, final Object service, final Dictionary properties, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<ServiceRegistration>() {
             public ServiceRegistration call() throws Exception {
@@ -568,14 +595,23 @@ public class ServiceUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateServiceAsync(ServiceRegistration registration, Dictionary properties) {
         return updateServiceAsync(registration, properties, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateServiceAsync(ServiceRegistration registration, Dictionary properties, long delayInMillis) {
         return updateServiceAsync(registration, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> updateServiceAsync(final ServiceRegistration registration, final Dictionary properties, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
             public Object call() throws Exception {
@@ -585,14 +621,23 @@ public class ServiceUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> unregisterServiceAsync(ServiceRegistration registration) {
         return unregisterServiceAsync(registration, 0L);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> unregisterServiceAsync(ServiceRegistration registration, long delayInMillis) {
         return unregisterServiceAsync(registration, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static Future<?> unregisterServiceAsync(final ServiceRegistration registration, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
             public Object call() throws Exception {
@@ -602,42 +647,160 @@ public class ServiceUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * Wait for ServiceEvent with event type mask for defined filter
+     *
+     * @param bc              BundleContext
+     * @param filter          filter (could be null)
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return ServiceEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.1
+     */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, long timeoutInMillis) throws InvalidSyntaxException {
         return waitForServiceEvent(bc, filter, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for ServiceEvent with event type mask for defined class name
+     *
+     * @param bc              BundleContext
+     * @param className       class name (could be null)
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return ServiceEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.1
+     */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, long timeoutInMillis) throws InvalidSyntaxException {
         return waitForServiceEvent(bc, className, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for ServiceEvent with event type mask for defined class
+     *
+     * @param bc              BundleContext
+     * @param clazz           class (could be null)
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return ServiceEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.1
+     */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, long timeoutInMillis) throws InvalidSyntaxException {
         return waitForServiceEvent(bc, clazz, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for ServiceEvent with event type mask for defined class name
+     *
+     * @param bc            BundleContext
+     * @param className     class name (could be null)
+     * @param eventTypeMask ServiceEvent type mask
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @return ServiceEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.1
+     */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
         return waitForServiceEvent(bc, className, eventTypeMask, false, timeout, timeUnit);
     }
 
+    /**
+     * Wait for ServiceEvent with event type mask for defined class
+     *
+     * @param bc            BundleContext
+     * @param clazz         class (could be null)
+     * @param eventTypeMask ServiceEvent type mask
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @return ServiceEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.1
+     */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
         return waitForServiceEvent(bc, clazz, eventTypeMask, false, timeout, timeUnit);
     }
 
+    /**
+     * Wait for ServiceEvent with event type mask for defined filter
+     *
+     * @param bc            BundleContext
+     * @param filter        filter (could be null)
+     * @param eventTypeMask ServiceEvent type mask
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @return ServiceEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.1
+     */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
         return waitForServiceEvent(bc, filter, eventTypeMask, false, timeout, timeUnit);
     }
 
+    /**
+     * Wait for ServiceEvent with event type mask for defined filter
+     *
+     * @param bc              BundleContext
+     * @param filter          filter (could be null)
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param all             use AllServiceListener
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return ServiceEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.1
+     */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, boolean all, long timeoutInMillis) throws InvalidSyntaxException {
         return waitForServiceEvent(bc, filter, eventTypeMask, all, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for ServiceEvent with event type mask for defined class name
+     *
+     * @param bc              BundleContext
+     * @param className       class name (could be null)
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param all             use AllServiceListener
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return ServiceEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.1
+     */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, boolean all, long timeoutInMillis) throws InvalidSyntaxException {
         return waitForServiceEvent(bc, className, eventTypeMask, all, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for ServiceEvent with event type mask for defined class
+     *
+     * @param bc              BundleContext
+     * @param clazz           class (could be null)
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param all             use AllServiceListener
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return ServiceEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.1
+     */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, boolean all, long timeoutInMillis) throws InvalidSyntaxException {
         return waitForServiceEvent(bc, clazz, eventTypeMask, all, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for ServiceEvent with event type mask for defined class name
+     *
+     * @param bc            BundleContext
+     * @param className     class name (could be null)
+     * @param eventTypeMask ServiceEvent type mask
+     * @param all           use AllServiceListener
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @return ServiceEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.1
+     */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, boolean all, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
         Filter filter = null;
         if (className != null) {
@@ -646,6 +809,19 @@ public class ServiceUtils {
         return waitForServiceEvent(bc, filter, eventTypeMask, all, timeout, timeUnit);
     }
 
+    /**
+     * Wait for ServiceEvent with event type mask for defined class
+     *
+     * @param bc            BundleContext
+     * @param clazz     class (could be null)
+     * @param eventTypeMask ServiceEvent type mask
+     * @param all           use AllServiceListener
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @return ServiceEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.1
+     */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, boolean all, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
         Filter filter = null;
         if (clazz != null) {
@@ -654,6 +830,19 @@ public class ServiceUtils {
         return waitForServiceEvent(bc, filter, eventTypeMask, all, timeout, timeUnit);
     }
 
+    /**
+     * Wait for ServiceEvent with event type mask for defined filter
+     *
+     * @param bc            BundleContext
+     * @param filter        filter (could be null)
+     * @param eventTypeMask ServiceEvent type mask
+     * @param all           use AllServiceListener
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @return ServiceEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.1
+     */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, boolean all, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
         CountDownLatch latch = new CountDownLatch(1);
 

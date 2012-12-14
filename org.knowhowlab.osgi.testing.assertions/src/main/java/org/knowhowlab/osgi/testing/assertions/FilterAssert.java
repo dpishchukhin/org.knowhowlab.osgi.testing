@@ -43,6 +43,7 @@ public class FilterAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param filter filter
+     * @since 1.0
      */
     public static void assertFilterCorrect(String filter) {
         assertFilterCorrect(null, filter);
@@ -54,6 +55,7 @@ public class FilterAssert extends OSGiAssert {
      *
      * @param message message
      * @param filter  filter
+     * @since 1.0
      */
     public static void assertFilterCorrect(String message, String filter) {
         Assert.assertNotNull("Filter is null", filter);
@@ -69,6 +71,7 @@ public class FilterAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param filter filter
+     * @since 1.0
      */
     public static void assertFilterIncorrect(String filter) {
         assertFilterIncorrect(null, filter);
@@ -80,6 +83,7 @@ public class FilterAssert extends OSGiAssert {
      *
      * @param message message
      * @param filter  filter
+     * @since 1.0
      */
     public static void assertFilterIncorrect(String message, String filter) {
         Assert.assertNotNull("Filter is null", filter);

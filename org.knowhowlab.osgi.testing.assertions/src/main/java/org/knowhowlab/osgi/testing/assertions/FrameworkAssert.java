@@ -35,18 +35,30 @@ public class FrameworkAssert extends OSGiAssert {
     private FrameworkAssert() {
     }
 
+    /**
+     * TODO
+     */
     public static void assertFrameworkEvent(int eventTypeMask, int bundleId, long timeoutInMills) {
         assertFrameworkEvent(null, eventTypeMask, bundleId, timeoutInMills);
     }
 
+    /**
+     * TODO
+     */
     public static void assertFrameworkEvent(String message, int eventTypeMask, int bundleId, long timeoutInMills) {
         assertFrameworkEvent(message, eventTypeMask, bundleId, timeoutInMills, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static void assertFrameworkEvent(int eventTypeMask, int bundleId, long timeout, TimeUnit timeUnit) {
         assertFrameworkEvent(null, eventTypeMask, bundleId, timeout, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static void assertFrameworkEvent(String message, int eventTypeMask, int bundleId, long timeout, TimeUnit timeUnit) {
         Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
         Assert.assertNotNull(String.format("Unknown bundle with ID: %d", bundleId), bundle);
@@ -55,18 +67,30 @@ public class FrameworkAssert extends OSGiAssert {
         Assert.assertNotNull(message, event);
     }
 
+    /**
+     * TODO
+     */
     public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, long timeoutInMills) {
         assertFrameworkEvent(null, eventTypeMask, symbolicName, timeoutInMills, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static void assertFrameworkEvent(String message, int eventTypeMask, String symbolicName, long timeoutInMills) {
         assertFrameworkEvent(eventTypeMask, symbolicName, timeoutInMills, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, long timeout, TimeUnit timeUnit) {
         assertFrameworkEvent(null, eventTypeMask, symbolicName, timeout, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static void assertFrameworkEvent(String message, int eventTypeMask, String symbolicName, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
         Assert.assertNotNull("TimeUnit is null", timeUnit);
@@ -74,18 +98,30 @@ public class FrameworkAssert extends OSGiAssert {
         Assert.assertNotNull(message, event);
     }
 
+    /**
+     * TODO
+     */
     public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, Version version, long timeoutInMills) {
         assertFrameworkEvent(eventTypeMask, symbolicName, version, timeoutInMills, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static void assertFrameworkEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeoutInMills) {
         assertFrameworkEvent(message, eventTypeMask, symbolicName, version, timeoutInMills, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
         assertFrameworkEvent(null, eventTypeMask, symbolicName, version, timeout, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static void assertFrameworkEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
         Assert.assertNotNull("TimeUnit is null", timeUnit);

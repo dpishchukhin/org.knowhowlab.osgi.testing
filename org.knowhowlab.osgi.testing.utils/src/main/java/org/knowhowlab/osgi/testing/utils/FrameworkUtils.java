@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * OSGi Framework utilities class
+ *
  * @version 1.1
  * @see org.osgi.framework.BundleContext
  * @see org.osgi.framework.FrameworkListener
@@ -35,18 +36,66 @@ public class FrameworkUtils {
     private FrameworkUtils() {
     }
 
+    /**
+     * Wait for FrameworkEvent with event type mask for defined bundle
+     *
+     * @param bc              BundleContext
+     * @param bundleId        bundle id
+     * @param eventTypeMask   FrameworkEvent type mask
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return FrameworkEvent or <code>null</code>
+     * @throws NullPointerException     If <code>bc</code> is <code>null</code>
+     * @throws IllegalArgumentException If <code>bundleId</code> is invalid
+     * @since 1.1
+     */
     public static FrameworkEvent waitForFrameworkEvent(BundleContext bc, int bundleId, int eventTypeMask, long timeoutInMillis) {
         return waitForFrameworkEvent(bc, bundleId, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for FrameworkEvent with event type mask for defined bundle
+     *
+     * @param bc              BundleContext
+     * @param symbolicName    symbolicName
+     * @param eventTypeMask   FrameworkEvent type mask
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return FrameworkEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
+     * @since 1.1
+     */
     public static FrameworkEvent waitForFrameworkEvent(BundleContext bc, String symbolicName, int eventTypeMask, long timeoutInMillis) {
         return waitForFrameworkEvent(bc, symbolicName, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for FrameworkEvent with event type mask for defined bundle
+     *
+     * @param bc              BundleContext
+     * @param symbolicName    symbolicName
+     * @param version         version
+     * @param eventTypeMask   FrameworkEvent type mask
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return FrameworkEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
+     * @since 1.1
+     */
     public static FrameworkEvent waitForFrameworkEvent(BundleContext bc, String symbolicName, Version version, int eventTypeMask, long timeoutInMillis) {
         return waitForFrameworkEvent(bc, symbolicName, version, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for FrameworkEvent with event type mask for defined bundle
+     *
+     * @param bc            BundleContext
+     * @param bundleId      bundle id
+     * @param eventTypeMask FrameworkEvent type mask
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @return FrameworkEvent or <code>null</code>
+     * @throws NullPointerException     If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @throws IllegalArgumentException If <code>bundleId</code> is invalid
+     * @since 1.1
+     */
     public static FrameworkEvent waitForFrameworkEvent(BundleContext bc, int bundleId, int eventTypeMask, long timeout, TimeUnit timeUnit) {
         Bundle bundle = BundleUtils.findBundle(bc, bundleId);
         if (bundle == null) {
@@ -55,10 +104,35 @@ public class FrameworkUtils {
         return waitForFrameworkEvent(bc, bundle.getSymbolicName(), bundle.getVersion(), eventTypeMask, timeout, timeUnit);
     }
 
+    /**
+     * Wait for FrameworkEvent with event type mask for defined bundle
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param eventTypeMask FrameworkEvent type mask
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @return FrameworkEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.1
+     */
     public static FrameworkEvent waitForFrameworkEvent(BundleContext bc, String symbolicName, int eventTypeMask, long timeout, TimeUnit timeUnit) {
         return waitForFrameworkEvent(bc, symbolicName, null, eventTypeMask, timeout, timeUnit);
     }
 
+    /**
+     * Wait for FrameworkEvent with event type mask for defined bundle
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param version       version
+     * @param eventTypeMask FrameworkEvent type mask
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @return FrameworkEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.1
+     */
     public static FrameworkEvent waitForFrameworkEvent(BundleContext bc, String symbolicName, Version version, int eventTypeMask, long timeout, TimeUnit timeUnit) {
         CountDownLatch latch = new CountDownLatch(1);
 

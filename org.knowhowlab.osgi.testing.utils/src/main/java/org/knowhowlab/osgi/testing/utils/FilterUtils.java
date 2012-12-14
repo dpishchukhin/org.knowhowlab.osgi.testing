@@ -81,6 +81,7 @@ public class FilterUtils {
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>clazz</code> or <code>filter</code> are <code>null</code>
      * @see Constants#OBJECTCLASS
+     * @since 1.0
      */
     public static Filter create(Class clazz, Filter filter) throws InvalidSyntaxException {
         return and(create(clazz), filter);
@@ -96,6 +97,7 @@ public class FilterUtils {
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>clazz</code> or <code>filter</code> are <code>null</code>
      * @see Constants#OBJECTCLASS
+     * @since 1.0
      */
     public static Filter create(Class clazz, String filter) throws InvalidSyntaxException {
         return and(create(clazz), filter);
@@ -110,6 +112,7 @@ public class FilterUtils {
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>clazz</code> is <code>null</code>
      * @see Constants#OBJECTCLASS
+     * @since 1.0
      */
     public static Filter create(Class clazz) throws InvalidSyntaxException {
         return eq(Constants.OBJECTCLASS, clazz.getName());
@@ -125,6 +128,7 @@ public class FilterUtils {
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>className</code> or <code>filter</code> are <code>null</code>
      * @see Constants#OBJECTCLASS
+     * @since 1.0
      */
     public static Filter create(String className, Filter filter) throws InvalidSyntaxException {
         return and(create(className), filter);
@@ -140,6 +144,7 @@ public class FilterUtils {
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>className</code> or <code>filter</code> are <code>null</code>
      * @see Constants#OBJECTCLASS
+     * @since 1.0
      */
     public static Filter create(String className, String filter) throws InvalidSyntaxException {
         return and(create(className), filter);
@@ -154,6 +159,7 @@ public class FilterUtils {
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>className</code> is <code>null</code>
      * @see Constants#OBJECTCLASS
+     * @since 1.0
      */
     public static Filter create(String className) throws InvalidSyntaxException {
         return eq(Constants.OBJECTCLASS, className);
@@ -168,6 +174,7 @@ public class FilterUtils {
      *
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>filter1</code> or <code>filter2</code> are <code>null</code>
+     * @since 1.0
      */
     public static Filter and(String filter1, String filter2) throws InvalidSyntaxException {
         return FrameworkUtil.createFilter(String.format(AND_TEMPLATE, filter1, filter2));
@@ -182,6 +189,7 @@ public class FilterUtils {
      *
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>filter1</code> or <code>filter2</code> are <code>null</code>
+     * @since 1.0
      */
     public static Filter and(Filter filter1, String filter2) throws InvalidSyntaxException {
         return FrameworkUtil.createFilter(String.format(AND_TEMPLATE, filter1, filter2));
@@ -196,6 +204,7 @@ public class FilterUtils {
      *
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>filter1</code> or <code>filter2</code> are <code>null</code>
+     * @since 1.0
      */
     public static Filter and(Filter filter1, Filter filter2) throws InvalidSyntaxException {
         return FrameworkUtil.createFilter(String.format(AND_TEMPLATE, filter1, filter2));
@@ -210,6 +219,7 @@ public class FilterUtils {
      *
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>filter1</code> or <code>filter2</code> are <code>null</code>
+     * @since 1.0
      */
     public static Filter or(String filter1, String filter2) throws InvalidSyntaxException {
         return FrameworkUtil.createFilter(String.format(OR_TEMPLATE, filter1, filter2));
@@ -224,6 +234,7 @@ public class FilterUtils {
      *
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>filter1</code> or <code>filter2</code> are <code>null</code>
+     * @since 1.0
      */
     public static Filter or(Filter filter1, String filter2) throws InvalidSyntaxException {
         return FrameworkUtil.createFilter(String.format(OR_TEMPLATE, filter1, filter2));
@@ -238,6 +249,7 @@ public class FilterUtils {
      *
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>filter1</code> or <code>filter2</code> are <code>null</code>
+     * @since 1.0
      */
     public static Filter or(Filter filter1, Filter filter2) throws InvalidSyntaxException {
         return FrameworkUtil.createFilter(String.format(OR_TEMPLATE, filter1, filter2));
@@ -251,6 +263,7 @@ public class FilterUtils {
      *
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>filter</code> is <code>null</code>
+     * @since 1.0
      */
     public static Filter not(String filter) throws InvalidSyntaxException {
         return FrameworkUtil.createFilter(String.format(NOT_TEMPLATE, filter));
@@ -264,6 +277,7 @@ public class FilterUtils {
      *
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>filter</code> is <code>null</code>
+     * @since 1.0
      */
     public static Filter not(Filter filter) throws InvalidSyntaxException {
         return FrameworkUtil.createFilter(String.format(NOT_TEMPLATE, filter));
@@ -278,6 +292,7 @@ public class FilterUtils {
      *
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>key</code> or <code>value</code> are <code>null</code>
+     * @since 1.0
      */
     public static Filter eq(String key, Object value) throws InvalidSyntaxException {
         return FrameworkUtil.createFilter(String.format(EQUALS_FILTER_TEMPLATE, key, value));
@@ -292,6 +307,7 @@ public class FilterUtils {
      *
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>key</code> or <code>value</code> are <code>null</code>
+     * @since 1.0
      */
     public static Filter approx(String key, Object value) throws InvalidSyntaxException {
         return FrameworkUtil.createFilter(String.format(APPROX_FILTER_TEMPLATE, key, value));
@@ -306,6 +322,7 @@ public class FilterUtils {
      *
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>key</code> or <code>value</code> are <code>null</code>
+     * @since 1.0
      */
     public static Filter ge(String key, Object value) throws InvalidSyntaxException {
         return FrameworkUtil.createFilter(String.format(GE_FILTER_TEMPLATE, key, value));
@@ -320,6 +337,7 @@ public class FilterUtils {
      *
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>key</code> or <code>value</code> are <code>null</code>
+     * @since 1.0
      */
     public static Filter le(String key, Object value) throws InvalidSyntaxException {
         return FrameworkUtil.createFilter(String.format(LE_FILTER_TEMPLATE, key, value));
@@ -333,6 +351,7 @@ public class FilterUtils {
      *
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>key</code> is <code>null</code>
+     * @since 1.0
      */
     public static Filter present(String key) throws InvalidSyntaxException {
         return FrameworkUtil.createFilter(String.format(PRESENT_FILTER_TEMPLATE, key));

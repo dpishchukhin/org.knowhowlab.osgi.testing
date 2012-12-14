@@ -47,6 +47,7 @@ public class ServiceAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param clazz service class
+     * @since 1.0
      */
     public static void assertServiceAvailable(Class clazz) {
         assertServiceAvailable(null, clazz);
@@ -58,6 +59,7 @@ public class ServiceAssert extends OSGiAssert {
      *
      * @param message message
      * @param clazz   service class
+     * @since 1.0
      */
     public static void assertServiceAvailable(String message, Class clazz) {
         Assert.assertNotNull("Class is null", clazz);
@@ -72,6 +74,7 @@ public class ServiceAssert extends OSGiAssert {
      *
      * @param clazz           service class
      * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
      */
     public static void assertServiceAvailable(Class clazz, long timeoutInMillis) {
         assertServiceAvailable(null, clazz, timeoutInMillis);
@@ -84,6 +87,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param message         message
      * @param clazz           service class
      * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
      */
     public static void assertServiceAvailable(String message, Class clazz, long timeoutInMillis) {
         assertServiceAvailable(message, clazz, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -96,6 +100,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param clazz    service class
      * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
+     * @since 1.0
      */
     public static void assertServiceAvailable(Class clazz, long timeout, TimeUnit timeUnit) {
         assertServiceAvailable(null, clazz, timeout, timeUnit);
@@ -109,6 +114,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param clazz    service class
      * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
+     * @since 1.0
      */
     public static void assertServiceAvailable(String message, Class clazz, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("Class is null", clazz);
@@ -123,6 +129,7 @@ public class ServiceAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param className service class name
+     * @since 1.0
      */
     public static void assertServiceAvailable(String className) {
         assertServiceAvailable(null, className);
@@ -134,6 +141,7 @@ public class ServiceAssert extends OSGiAssert {
      *
      * @param message   message
      * @param className service class name
+     * @since 1.0
      */
     public static void assertServiceAvailable(String message, String className) {
         Assert.assertNotNull("Class name is null", className);
@@ -148,6 +156,7 @@ public class ServiceAssert extends OSGiAssert {
      *
      * @param className       service class name
      * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
      */
     public static void assertServiceAvailable(String className, long timeoutInMillis) {
         assertServiceAvailable(null, className, timeoutInMillis);
@@ -160,6 +169,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param message         message
      * @param className       service class name
      * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
      */
     public static void assertServiceAvailable(String message, String className, long timeoutInMillis) {
         assertServiceAvailable(message, className, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -172,6 +182,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param className service class name
      * @param timeout   time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit  timeout time unit
+     * @since 1.0
      */
     public static void assertServiceAvailable(String className, long timeout, TimeUnit timeUnit) {
         assertServiceAvailable(null, className, timeout, timeUnit);
@@ -185,6 +196,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param className service class name
      * @param timeout   time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit  timeout time unit
+     * @since 1.0
      */
     public static void assertServiceAvailable(String message, String className, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("Class name is null", className);
@@ -199,6 +211,7 @@ public class ServiceAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param filter service filter
+     * @since 1.0
      */
     public static void assertServiceAvailable(Filter filter) {
         assertServiceAvailable(null, filter);
@@ -210,6 +223,7 @@ public class ServiceAssert extends OSGiAssert {
      *
      * @param message message
      * @param filter  service filter
+     * @since 1.0
      */
     public static void assertServiceAvailable(String message, Filter filter) {
         Assert.assertNotNull("Filter is null", filter);
@@ -224,6 +238,7 @@ public class ServiceAssert extends OSGiAssert {
      *
      * @param filter          service filter
      * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
      */
     public static void assertServiceAvailable(Filter filter, long timeoutInMillis) {
         assertServiceAvailable(null, filter, timeoutInMillis);
@@ -236,6 +251,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param message         message
      * @param filter          service filter
      * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
      */
     public static void assertServiceAvailable(String message, Filter filter, long timeoutInMillis) {
         assertServiceAvailable(message, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -248,6 +264,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param filter   service filter
      * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
+     * @since 1.0
      */
     public static void assertServiceAvailable(Filter filter, long timeout, TimeUnit timeUnit) {
         assertServiceAvailable(null, filter, timeout, timeUnit);
@@ -261,6 +278,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param filter   service filter
      * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
+     * @since 1.0
      */
     public static void assertServiceAvailable(String message, Filter filter, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("Filter is null", filter);
@@ -275,6 +293,7 @@ public class ServiceAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param clazz service class
+     * @since 1.0
      */
     public static void assertServiceUnavailable(Class clazz) {
         assertServiceUnavailable(null, clazz);
@@ -286,6 +305,7 @@ public class ServiceAssert extends OSGiAssert {
      *
      * @param message message
      * @param clazz   service class
+     * @since 1.0
      */
     public static void assertServiceUnavailable(String message, Class clazz) {
         Assert.assertNotNull("Class is null", clazz);
@@ -300,6 +320,7 @@ public class ServiceAssert extends OSGiAssert {
      *
      * @param clazz           service class
      * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
      */
     public static void assertServiceUnavailable(Class clazz, long timeoutInMillis) {
         assertServiceUnavailable(null, clazz, timeoutInMillis);
@@ -312,6 +333,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param message         message
      * @param clazz           service class
      * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
      */
     public static void assertServiceUnavailable(String message, Class clazz, long timeoutInMillis) {
         assertServiceUnavailable(message, clazz, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -324,6 +346,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param clazz    service class
      * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
+     * @since 1.0
      */
     public static void assertServiceUnavailable(Class clazz, long timeout, TimeUnit timeUnit) {
         assertServiceUnavailable(null, clazz, timeout, timeUnit);
@@ -337,6 +360,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param clazz    service class
      * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
+     * @since 1.0
      */
     public static void assertServiceUnavailable(String message, Class clazz, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("Class is null", clazz);
@@ -351,6 +375,7 @@ public class ServiceAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param className service class name
+     * @since 1.0
      */
     public static void assertServiceUnavailable(String className) {
         assertServiceUnavailable(null, className);
@@ -362,6 +387,7 @@ public class ServiceAssert extends OSGiAssert {
      *
      * @param message   message
      * @param className service class name
+     * @since 1.0
      */
     public static void assertServiceUnavailable(String message, String className) {
         Assert.assertNotNull("Class name is null", className);
@@ -376,6 +402,7 @@ public class ServiceAssert extends OSGiAssert {
      *
      * @param className       service class name
      * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
      */
     public static void assertServiceUnavailable(String className, long timeoutInMillis) {
         assertServiceUnavailable(null, className, timeoutInMillis);
@@ -388,6 +415,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param message         message
      * @param className       service class name
      * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
      */
     public static void assertServiceUnavailable(String message, String className, long timeoutInMillis) {
         assertServiceUnavailable(message, className, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -400,6 +428,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param className service class name
      * @param timeout   time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit  timeout time unit
+     * @since 1.0
      */
     public static void assertServiceUnavailable(String className, long timeout, TimeUnit timeUnit) {
         assertServiceUnavailable(null, className, timeout, timeUnit);
@@ -413,6 +442,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param className service class name
      * @param timeout   time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit  timeout time unit
+     * @since 1.0
      */
     public static void assertServiceUnavailable(String message, String className, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("Class name is null", className);
@@ -427,6 +457,7 @@ public class ServiceAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param filter service filter
+     * @since 1.0
      */
     public static void assertServiceUnavailable(Filter filter) {
         assertServiceUnavailable(null, filter);
@@ -438,6 +469,7 @@ public class ServiceAssert extends OSGiAssert {
      *
      * @param message message
      * @param filter  service filter
+     * @since 1.0
      */
     public static void assertServiceUnavailable(String message, Filter filter) {
         Assert.assertNotNull("Filter is null", filter);
@@ -452,6 +484,7 @@ public class ServiceAssert extends OSGiAssert {
      *
      * @param filter          service filter
      * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
      */
     public static void assertServiceUnavailable(Filter filter, long timeoutInMillis) {
         assertServiceUnavailable(null, filter, timeoutInMillis);
@@ -464,6 +497,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param message         message
      * @param filter          service filter
      * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
      */
     public static void assertServiceUnavailable(String message, Filter filter, long timeoutInMillis) {
         assertServiceUnavailable(message, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -476,6 +510,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param filter   service filter
      * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
+     * @since 1.0
      */
     public static void assertServiceUnavailable(Filter filter, long timeout, TimeUnit timeUnit) {
         assertServiceUnavailable(null, filter, timeout, timeUnit);
@@ -489,6 +524,7 @@ public class ServiceAssert extends OSGiAssert {
      * @param filter   service filter
      * @param timeout  time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit timeout time unit
+     * @since 1.0
      */
     public static void assertServiceUnavailable(String message, Filter filter, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("Filter is null", filter);
@@ -498,34 +534,58 @@ public class ServiceAssert extends OSGiAssert {
         Assert.assertNull(message, service);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(int eventTypeMask, Filter filter, long timeoutInMills) {
         assertServiceEvent(null, eventTypeMask, filter, timeoutInMills);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, long timeoutInMills) {
         assertServiceEvent(message, eventTypeMask, filter, timeoutInMills, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(int eventTypeMask, Filter filter, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(null, eventTypeMask, filter, timeout, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(message, eventTypeMask, filter, false, timeout, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(int eventTypeMask, Filter filter, boolean all, long timeoutInMills) {
         assertServiceEvent(null, eventTypeMask, filter, all, timeoutInMills);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, boolean all, long timeoutInMills) {
         assertServiceEvent(message, eventTypeMask, filter, all, timeoutInMills, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(int eventTypeMask, Filter filter, boolean all, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(null, eventTypeMask, filter, all, timeout, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, boolean all, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("Filter is null", filter);
         Assert.assertNotNull("TimeUnit is null", timeUnit);
@@ -537,34 +597,58 @@ public class ServiceAssert extends OSGiAssert {
         }
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(int eventTypeMask, String className, long timeoutInMills) {
         assertServiceEvent(null, eventTypeMask, className, timeoutInMills);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(String message, int eventTypeMask, String className, long timeoutInMills) {
         assertServiceEvent(message, eventTypeMask, className, timeoutInMills, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(int eventTypeMask, String className, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(null, eventTypeMask, className, timeout, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(String message, int eventTypeMask, String className, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(message, eventTypeMask, className, false, timeout, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(int eventTypeMask, String className, boolean all, long timeoutInMills) {
         assertServiceEvent(null, eventTypeMask, className, all, timeoutInMills);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(String message, int eventTypeMask, String className, boolean all, long timeoutInMills) {
         assertServiceEvent(message, eventTypeMask, className, all, timeoutInMills, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(int eventTypeMask, String className, boolean all, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(null, eventTypeMask, className, all, timeout, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(String message, int eventTypeMask, String className, boolean all, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("Class name is null", className);
         Assert.assertNotNull("TimeUnit is null", timeUnit);
@@ -576,34 +660,58 @@ public class ServiceAssert extends OSGiAssert {
         }
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(int eventTypeMask, Class clazz, long timeoutInMills) {
         assertServiceEvent(null, eventTypeMask, clazz, timeoutInMills);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, long timeoutInMills) {
         assertServiceEvent(message, eventTypeMask, clazz, timeoutInMills, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(int eventTypeMask, Class clazz, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(null, eventTypeMask, clazz, timeout, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(message, eventTypeMask, clazz, false, timeout, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(int eventTypeMask, Class clazz, boolean all, long timeoutInMills) {
         assertServiceEvent(null, eventTypeMask, clazz, all, timeoutInMills);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, boolean all, long timeoutInMills) {
         assertServiceEvent(message, eventTypeMask, clazz, all, timeoutInMills, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(int eventTypeMask, Class clazz, boolean all, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(null, eventTypeMask, clazz, all, timeout, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, boolean all, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("Class is null", clazz);
         Assert.assertNotNull("TimeUnit is null", timeUnit);

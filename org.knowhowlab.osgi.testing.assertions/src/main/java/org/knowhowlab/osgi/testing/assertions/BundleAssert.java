@@ -50,6 +50,7 @@ public class BundleAssert extends OSGiAssert {
      *
      * @param state    bundle state value
      * @param bundleId bundle id
+     * @since 1.0
      */
     public static void assertBundleState(int state, long bundleId) {
         assertBundleState(null, state, bundleId);
@@ -62,6 +63,7 @@ public class BundleAssert extends OSGiAssert {
      * @param message  message
      * @param state    bundle state value
      * @param bundleId bundle id
+     * @since 1.0
      */
     public static void assertBundleState(String message, int state, long bundleId) {
         Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
@@ -75,6 +77,7 @@ public class BundleAssert extends OSGiAssert {
      *
      * @param state        bundle state value
      * @param symbolicName symbolic name
+     * @since 1.0
      */
     public static void assertBundleState(int state, String symbolicName) {
         assertBundleState(null, state, symbolicName);
@@ -87,6 +90,7 @@ public class BundleAssert extends OSGiAssert {
      * @param state           bundle state value
      * @param symbolicName    symbolic name
      * @param timeoutInMillis time interval to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
      */
     public static void assertBundleState(int state, String symbolicName, long timeoutInMillis) {
         assertBundleState(null, state, symbolicName, null, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -100,6 +104,7 @@ public class BundleAssert extends OSGiAssert {
      * @param stateMask       The bit mask of the ORing of the bundle states to be tracked.
      * @param symbolicName    symbolic name
      * @param timeoutInMillis time interval to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
      */
     public static void assertBundleState(String message, int stateMask, String symbolicName, long timeoutInMillis) {
         assertBundleState(message, stateMask, symbolicName, null, timeoutInMillis, TimeUnit.MILLISECONDS);
@@ -114,6 +119,7 @@ public class BundleAssert extends OSGiAssert {
      * @param symbolicName symbolic name
      * @param timeout      time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit     timeout time unit
+     * @since 1.0
      */
     public static void assertBundleState(String message, int stateMask, String symbolicName, long timeout, TimeUnit timeUnit) {
         assertBundleState(message, stateMask, symbolicName, null, timeout, timeUnit);
@@ -126,6 +132,7 @@ public class BundleAssert extends OSGiAssert {
      * @param message      message
      * @param state        bundle state value
      * @param symbolicName symbolic name
+     * @since 1.0
      */
     public static void assertBundleState(String message, int state, String symbolicName) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
@@ -144,6 +151,7 @@ public class BundleAssert extends OSGiAssert {
      * @param version      version
      * @param timeout      time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      * @param timeUnit     timeout time unit
+     * @since 1.0
      */
     public static void assertBundleState(String message, int stateMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
@@ -159,6 +167,7 @@ public class BundleAssert extends OSGiAssert {
      * @param state        bundle state value
      * @param symbolicName symbolic name
      * @param version      version
+     * @since 1.0
      */
     public static void assertBundleState(int state, String symbolicName, Version version) {
         assertBundleState(null, state, symbolicName, version);
@@ -173,6 +182,7 @@ public class BundleAssert extends OSGiAssert {
      * @param version      version
      * @param timeout      time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit     timeout time unit
+     * @since 1.0
      */
     public static void assertBundleState(int stateMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
         assertBundleState(null, stateMask, symbolicName, version, timeout, timeUnit);
@@ -186,6 +196,7 @@ public class BundleAssert extends OSGiAssert {
      * @param symbolicName symbolic name
      * @param timeout      time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit     timeout time unit
+     * @since 1.0
      */
     public static void assertBundleState(int stateMask, String symbolicName, long timeout, TimeUnit timeUnit) {
         assertBundleState(null, stateMask, symbolicName, null, timeout, timeUnit);
@@ -199,6 +210,7 @@ public class BundleAssert extends OSGiAssert {
      * @param state        bundle state value
      * @param symbolicName symbolic name
      * @param version      version
+     * @since 1.0
      */
     public static void assertBundleState(String message, int state, String symbolicName, Version version) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
@@ -212,6 +224,7 @@ public class BundleAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param bundleId bundle id
+     * @since 1.0
      */
     public static void assertBundleAvailable(long bundleId) {
         assertBundleAvailable(null, bundleId);
@@ -223,6 +236,7 @@ public class BundleAssert extends OSGiAssert {
      *
      * @param message  message
      * @param bundleId bundle id
+     * @since 1.0
      */
     public static void assertBundleAvailable(String message, long bundleId) {
         Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
@@ -234,6 +248,7 @@ public class BundleAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param symbolicName symbolic name
+     * @since 1.0
      */
     public static void assertBundleAvailable(String symbolicName) {
         assertBundleAvailable(null, symbolicName);
@@ -245,6 +260,7 @@ public class BundleAssert extends OSGiAssert {
      *
      * @param message      message
      * @param symbolicName symbolic name
+     * @since 1.0
      */
     public static void assertBundleAvailable(String message, String symbolicName) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
@@ -258,6 +274,7 @@ public class BundleAssert extends OSGiAssert {
      *
      * @param symbolicName symbolic name
      * @param version      version
+     * @since 1.0
      */
     public static void assertBundleAvailable(String symbolicName, Version version) {
         assertBundleAvailable(null, symbolicName, version);
@@ -270,6 +287,7 @@ public class BundleAssert extends OSGiAssert {
      * @param message      message
      * @param symbolicName symbolic name
      * @param version      version
+     * @since 1.0
      */
     public static void assertBundleAvailable(String message, String symbolicName, Version version) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
@@ -282,6 +300,7 @@ public class BundleAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param bundleId bundle id
+     * @since 1.0
      */
     public static void assertBundleUnavailable(long bundleId) {
         assertBundleUnavailable(null, bundleId);
@@ -293,6 +312,7 @@ public class BundleAssert extends OSGiAssert {
      *
      * @param message  message
      * @param bundleId bundle id
+     * @since 1.0
      */
     public static void assertBundleUnavailable(String message, long bundleId) {
         Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
@@ -304,6 +324,7 @@ public class BundleAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param symbolicName symbolic name
+     * @since 1.0
      */
     public static void assertBundleUnavailable(String symbolicName) {
         assertBundleUnavailable(null, symbolicName);
@@ -315,6 +336,7 @@ public class BundleAssert extends OSGiAssert {
      *
      * @param message      message
      * @param symbolicName symbolic name
+     * @since 1.0
      */
     public static void assertBundleUnavailable(String message, String symbolicName) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
@@ -328,6 +350,7 @@ public class BundleAssert extends OSGiAssert {
      *
      * @param symbolicName symbolic name
      * @param version      version
+     * @since 1.0
      */
     public static void assertBundleUnavailable(String symbolicName, Version version) {
         assertBundleUnavailable(null, symbolicName, version);
@@ -340,6 +363,7 @@ public class BundleAssert extends OSGiAssert {
      * @param message      message
      * @param symbolicName symbolic name
      * @param version      version
+     * @since 1.0
      */
     public static void assertBundleUnavailable(String message, String symbolicName, Version version) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
@@ -352,6 +376,7 @@ public class BundleAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param bundleId bundle id
+     * @since 1.0
      */
     public static void assertFragment(long bundleId) {
         assertFragment(null, bundleId);
@@ -363,6 +388,7 @@ public class BundleAssert extends OSGiAssert {
      *
      * @param message  message
      * @param bundleId bundle id
+     * @since 1.0
      */
     public static void assertFragment(String message, long bundleId) {
         Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
@@ -378,6 +404,7 @@ public class BundleAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param symbolicName symbolic name
+     * @since 1.0
      */
     public static void assertFragment(String symbolicName) {
         assertFragment(null, symbolicName);
@@ -389,6 +416,7 @@ public class BundleAssert extends OSGiAssert {
      *
      * @param message      message
      * @param symbolicName symbolic name
+     * @since 1.0
      */
     public static void assertFragment(String message, String symbolicName) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
@@ -406,6 +434,7 @@ public class BundleAssert extends OSGiAssert {
      *
      * @param symbolicName symbolic name
      * @param version      version
+     * @since 1.0
      */
     public static void assertFragment(String symbolicName, Version version) {
         assertFragment(null, symbolicName, version);
@@ -418,6 +447,7 @@ public class BundleAssert extends OSGiAssert {
      * @param message      message
      * @param symbolicName symbolic name
      * @param version      version
+     * @since 1.0
      */
     public static void assertFragment(String message, String symbolicName, Version version) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
@@ -434,6 +464,7 @@ public class BundleAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param bundleId bundle id
+     * @since 1.0
      */
     public static void assertNotFragment(long bundleId) {
         assertNotFragment(null, bundleId);
@@ -445,6 +476,7 @@ public class BundleAssert extends OSGiAssert {
      *
      * @param message  message
      * @param bundleId bundle id
+     * @since 1.0
      */
     public static void assertNotFragment(String message, long bundleId) {
         Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
@@ -460,6 +492,7 @@ public class BundleAssert extends OSGiAssert {
      * {@link AssertionError} without a message is thrown
      *
      * @param symbolicName symbolic name
+     * @since 1.0
      */
     public static void assertNotFragment(String symbolicName) {
         assertNotFragment(null, symbolicName);
@@ -471,6 +504,7 @@ public class BundleAssert extends OSGiAssert {
      *
      * @param message      message
      * @param symbolicName symbolic name
+     * @since 1.0
      */
     public static void assertNotFragment(String message, String symbolicName) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
@@ -488,6 +522,7 @@ public class BundleAssert extends OSGiAssert {
      *
      * @param symbolicName symbolic name
      * @param version      version
+     * @since 1.0
      */
     public static void assertNotFragment(String symbolicName, Version version) {
         assertNotFragment(null, symbolicName, version);
@@ -500,6 +535,7 @@ public class BundleAssert extends OSGiAssert {
      * @param message      message
      * @param symbolicName symbolic name
      * @param version      version
+     * @since 1.0
      */
     public static void assertNotFragment(String message, String symbolicName, Version version) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
@@ -511,18 +547,30 @@ public class BundleAssert extends OSGiAssert {
         Assert.assertTrue(message, (type & PackageAdmin.BUNDLE_TYPE_FRAGMENT) != 0);
     }
 
+    /**
+     * TODO
+     */
     public static void assertBundleEvent(int eventTypeMask, int bundleId, long timeoutInMills) {
         assertBundleEvent(null, eventTypeMask, bundleId, timeoutInMills);
     }
 
+    /**
+     * TODO
+     */
     public static void assertBundleEvent(String message, int eventTypeMask, int bundleId, long timeoutInMills) {
         assertBundleEvent(message, eventTypeMask, bundleId, timeoutInMills, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static void assertBundleEvent(int eventTypeMask, int bundleId, long timeout, TimeUnit timeUnit) {
         assertBundleEvent(null, eventTypeMask, bundleId, timeout, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static void assertBundleEvent(String message, int eventTypeMask, int bundleId, long timeout, TimeUnit timeUnit) {
         Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
         Assert.assertNotNull(String.format("Unknown bundle with ID: %d", bundleId), bundle);
@@ -531,18 +579,30 @@ public class BundleAssert extends OSGiAssert {
         Assert.assertNotNull(message, event);
     }
 
+    /**
+     * TODO
+     */
     public static void assertBundleEvent(int eventTypeMask, String symbolicName, long timeoutInMills) {
         assertBundleEvent(null, eventTypeMask, symbolicName, timeoutInMills);
     }
 
+    /**
+     * TODO
+     */
     public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, long timeoutInMills) {
         assertBundleEvent(message, eventTypeMask, symbolicName, timeoutInMills, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static void assertBundleEvent(int eventTypeMask, String symbolicName, long timeout, TimeUnit timeUnit) {
         assertBundleEvent(null, eventTypeMask, symbolicName, timeout, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
         Assert.assertNotNull("TimeUnit is null", timeUnit);
@@ -550,18 +610,30 @@ public class BundleAssert extends OSGiAssert {
         Assert.assertNotNull(message, event);
     }
 
+    /**
+     * TODO
+     */
     public static void assertBundleEvent(int eventTypeMask, String symbolicName, Version version, long timeoutInMills) {
         assertBundleEvent(null, eventTypeMask, symbolicName, version, timeoutInMills);
     }
 
+    /**
+     * TODO
+     */
     public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeoutInMills) {
         assertBundleEvent(message, eventTypeMask, symbolicName, version, timeoutInMills, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * TODO
+     */
     public static void assertBundleEvent(int eventTypeMask, String symbolicName, long timeout, Version version, TimeUnit timeUnit) {
         assertBundleEvent(null, eventTypeMask, symbolicName, version, timeout, timeUnit);
     }
 
+    /**
+     * TODO
+     */
     public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
         Assert.assertNotNull("TimeUnit is null", timeUnit);
