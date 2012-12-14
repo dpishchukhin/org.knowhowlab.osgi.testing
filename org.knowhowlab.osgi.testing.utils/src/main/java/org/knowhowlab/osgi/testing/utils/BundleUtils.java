@@ -16,10 +16,7 @@
 
 package org.knowhowlab.osgi.testing.utils;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleEvent;
-import org.osgi.framework.Version;
+import org.osgi.framework.*;
 import org.osgi.service.packageadmin.PackageAdmin;
 import org.osgi.util.tracker.BundleTracker;
 import org.osgi.util.tracker.BundleTrackerCustomizer;
@@ -58,7 +55,6 @@ public class BundleUtils {
      * @param bundleId bundle id
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> is <code>null</code>
-     *
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, long bundleId) {
@@ -72,7 +68,6 @@ public class BundleUtils {
      * @param symbolicName symbolicName
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
-     *
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName) {
@@ -87,7 +82,6 @@ public class BundleUtils {
      * @param version      version
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
-     *
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, Version version) {
@@ -110,7 +104,6 @@ public class BundleUtils {
      * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
-     *
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, long timeoutInMillis) {
@@ -127,7 +120,6 @@ public class BundleUtils {
      * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
-     *
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, int stateMask, long timeoutInMillis) {
@@ -142,7 +134,6 @@ public class BundleUtils {
      * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
-     *
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, long timeoutInMillis) {
@@ -158,7 +149,6 @@ public class BundleUtils {
      * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> are <code>null</code>
-     *
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, int stateMask, long timeoutInMillis) {
@@ -174,7 +164,6 @@ public class BundleUtils {
      * @param timeUnit     time unit for the time interval
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
-     *
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, long timeout, TimeUnit timeUnit) {
@@ -191,7 +180,6 @@ public class BundleUtils {
      * @param timeUnit     time unit for the time interval
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
-     *
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, int stateMask, long timeout, TimeUnit timeUnit) {
@@ -208,7 +196,6 @@ public class BundleUtils {
      * @param timeUnit     time unit for the time interval
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
-     *
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
@@ -226,7 +213,6 @@ public class BundleUtils {
      * @param timeUnit     time unit for the time interval
      * @return Bundle instance or <code>null</code>
      * @throws NullPointerException If <code>bc</code> or <code>symbolicName</code> or <code>timeUnit</code> are <code>null</code>
-     *
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, int stateMask, long timeout, TimeUnit timeUnit) {
@@ -642,15 +628,43 @@ public class BundleUtils {
     }
 
     public static BundleEvent waitForBundleEvent(BundleContext bc, int bundleId, int eventTypeMask, long timeout, TimeUnit timeUnit) {
-        return null; // todo
+        Bundle bundle = findBundle(bc, bundleId);
+        if (bundle == null) {
+            throw new IllegalArgumentException("bundleId is invalid");
+        }
+        return waitForBundleEvent(bc, bundle.getSymbolicName(), bundle.getVersion(), eventTypeMask, timeout, timeUnit);
     }
 
     public static BundleEvent waitForBundleEvent(BundleContext bc, String symbolicName, int eventTypeMask, long timeout, TimeUnit timeUnit) {
-        return null; // todo
+        return waitForBundleEvent(bc, symbolicName, null, eventTypeMask, timeout, timeUnit);
     }
 
     public static BundleEvent waitForBundleEvent(BundleContext bc, String symbolicName, Version version, int eventTypeMask, long timeout, TimeUnit timeUnit) {
-        return null; // todo
+        CountDownLatch latch = new CountDownLatch(1);
+
+        long timeoutInMillis = timeUnit.toMillis(timeout);
+        BundleListenerImpl listener = new BundleListenerImpl(symbolicName, version, eventTypeMask, latch);
+        bc.addBundleListener(listener);
+
+        try {
+            return waitForBundleEvent(listener, timeoutInMillis, latch);
+        } catch (InterruptedException e) {
+            return null;
+        } finally {
+            bc.removeBundleListener(listener);
+        }
+    }
+
+    private static BundleEvent waitForBundleEvent(BundleListenerImpl listener, long timeoutInMillis, CountDownLatch latch)
+            throws InterruptedException {
+        if (timeoutInMillis < 0) {
+            throw new IllegalArgumentException("timeout value is negative");
+        }
+        if (latch.await(timeoutInMillis, TimeUnit.MILLISECONDS)) {
+            return listener.getBundleEvent();
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -742,6 +756,40 @@ public class BundleUtils {
                 }
             }
             return null;
+        }
+    }
+
+    private static class BundleListenerImpl implements BundleListener {
+        private String symbolicName;
+        private Version version;
+        private int eventTypeMask;
+        private CountDownLatch latch;
+
+        private BundleEvent event;
+
+        public BundleListenerImpl(String symbolicName, Version version, int eventTypeMask, CountDownLatch latch) {
+            this.symbolicName = symbolicName;
+            this.version = version;
+            this.eventTypeMask = eventTypeMask;
+            this.latch = latch;
+        }
+
+        public void bundleChanged(BundleEvent event) {
+            if (match(event)) {
+                this.event = event;
+                latch.countDown();
+            }
+        }
+
+        private boolean match(BundleEvent event) {
+            Bundle bundle = event.getBundle();
+            return bundle.getSymbolicName().equals(symbolicName)
+                    && (version == null || bundle.getVersion().equals(version))
+                    && (eventTypeMask & event.getType()) == 1;
+        }
+
+        public BundleEvent getBundleEvent() {
+            return event;
         }
     }
 }
