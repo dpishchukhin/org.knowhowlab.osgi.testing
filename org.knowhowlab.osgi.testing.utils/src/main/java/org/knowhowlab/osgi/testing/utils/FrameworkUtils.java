@@ -29,6 +29,12 @@ import java.util.concurrent.TimeUnit;
  * @see org.osgi.framework.FrameworkEvent
  */
 public class FrameworkUtils {
+    /**
+     * Utility class. Only static methods are available.
+     */
+    private FrameworkUtils() {
+    }
+
     public static FrameworkEvent waitForFrameworkEvent(BundleContext bc, int bundleId, int eventTypeMask, long timeoutInMillis) {
         return waitForFrameworkEvent(bc, bundleId, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
     }

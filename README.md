@@ -2,6 +2,14 @@
 
 OSGi specific assertions and utility classes that help to write OSGi integration/system tests.
 
+## Blog with more samples and tutorials
+
+[http://knowhowlab.org](http://knowhowlab.org)
+
+## Mailing List
+
+[http://groups.google.com/group/knowhowlab-osgi-testing](http://groups.google.com/group/knowhowlab-osgi-testing)
+
 ## Usage
 
 ### Add Maven dependencies:
@@ -12,7 +20,7 @@ OSGi specific assertions and utility classes that help to write OSGi integration
     </dependency>
     <dependency>
         <groupId>org.knowhowlab.osgi</groupId>
-        <artifactId>org.knowhowlab.osgi.testing.utils</artifactId>
+        <artifactId>org.knowhowlab.osgi.testing.assertions</artifactId>
         <version>1.0.1</version>
     </dependency>
 
@@ -100,7 +108,3 @@ OSGi specific assertions and utility classes that help to write OSGi integration
 
 
 As you can see with OSGi assertions and utils you can concentrate on your functionality testing without any low-level OSGi API calls.
-
-## Blog with more samples and tutorials
-
-[http://knowhowlab.org](http://knowhowlab.org)

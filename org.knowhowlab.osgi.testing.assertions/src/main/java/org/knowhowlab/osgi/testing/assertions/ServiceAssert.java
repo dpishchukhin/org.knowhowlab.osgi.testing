@@ -19,6 +19,8 @@ package org.knowhowlab.osgi.testing.assertions;
 import org.junit.Assert;
 import org.knowhowlab.osgi.testing.utils.ServiceUtils;
 import org.osgi.framework.Filter;
+import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.framework.ServiceEvent;
 
 import java.util.concurrent.TimeUnit;
 
@@ -448,7 +450,7 @@ public class ServiceAssert extends OSGiAssert {
      * Asserts that service with filter is unavailable in OSGi registry within given timeoutInMillis. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param filter  service filter
+     * @param filter          service filter
      * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      */
     public static void assertServiceUnavailable(Filter filter, long timeoutInMillis) {
@@ -459,8 +461,8 @@ public class ServiceAssert extends OSGiAssert {
      * Asserts that service with filter is unavailable in OSGi registry within given timeoutInMillis. If it not as expected
      * {@link AssertionError} is thrown with the given message
      *
-     * @param message message
-     * @param filter  service filter
+     * @param message         message
+     * @param filter          service filter
      * @param timeoutInMillis time interval in milliseconds to wait. If zero, the method will wait indefinitely.
      */
     public static void assertServiceUnavailable(String message, Filter filter, long timeoutInMillis) {
@@ -494,5 +496,122 @@ public class ServiceAssert extends OSGiAssert {
         //noinspection unchecked
         Object service = ServiceUtils.getService(getBundleContext(), filter, timeout, timeUnit);
         Assert.assertNull(message, service);
+    }
+
+    public static void assertServiceEvent(int eventTypeMask, Filter filter, long timeoutInMills) {
+        assertServiceEvent(null, eventTypeMask, filter, timeoutInMills);
+    }
+
+    public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, long timeoutInMills) {
+        assertServiceEvent(message, eventTypeMask, filter, timeoutInMills, TimeUnit.MILLISECONDS);
+    }
+
+    public static void assertServiceEvent(int eventTypeMask, Filter filter, long timeout, TimeUnit timeUnit) {
+        assertServiceEvent(null, eventTypeMask, filter, timeout, timeUnit);
+    }
+
+    public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, long timeout, TimeUnit timeUnit) {
+        assertServiceEvent(message, eventTypeMask, filter, false, timeout, timeUnit);
+    }
+
+    public static void assertServiceEvent(int eventTypeMask, Filter filter, boolean all, long timeoutInMills) {
+        assertServiceEvent(null, eventTypeMask, filter, all, timeoutInMills);
+    }
+
+    public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, boolean all, long timeoutInMills) {
+        assertServiceEvent(message, eventTypeMask, filter, all, timeoutInMills, TimeUnit.MILLISECONDS);
+    }
+
+    public static void assertServiceEvent(int eventTypeMask, Filter filter, boolean all, long timeout, TimeUnit timeUnit) {
+        assertServiceEvent(null, eventTypeMask, filter, all, timeout, timeUnit);
+    }
+
+    public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, boolean all, long timeout, TimeUnit timeUnit) {
+        Assert.assertNotNull("Filter is null", filter);
+        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        try {
+            ServiceEvent event = ServiceUtils.waitForServiceEvent(getBundleContext(), filter, eventTypeMask, all, timeout, timeUnit);
+            Assert.assertNotNull(message, event);
+        } catch (InvalidSyntaxException e) {
+            Assert.fail("Invalid filter: " + filter);
+        }
+    }
+
+    public static void assertServiceEvent(int eventTypeMask, String className, long timeoutInMills) {
+        assertServiceEvent(null, eventTypeMask, className, timeoutInMills);
+    }
+
+    public static void assertServiceEvent(String message, int eventTypeMask, String className, long timeoutInMills) {
+        assertServiceEvent(message, eventTypeMask, className, timeoutInMills, TimeUnit.MILLISECONDS);
+    }
+
+    public static void assertServiceEvent(int eventTypeMask, String className, long timeout, TimeUnit timeUnit) {
+        assertServiceEvent(null, eventTypeMask, className, timeout, timeUnit);
+    }
+
+    public static void assertServiceEvent(String message, int eventTypeMask, String className, long timeout, TimeUnit timeUnit) {
+        assertServiceEvent(message, eventTypeMask, className, false, timeout, timeUnit);
+    }
+
+    public static void assertServiceEvent(int eventTypeMask, String className, boolean all, long timeoutInMills) {
+        assertServiceEvent(null, eventTypeMask, className, all, timeoutInMills);
+    }
+
+    public static void assertServiceEvent(String message, int eventTypeMask, String className, boolean all, long timeoutInMills) {
+        assertServiceEvent(message, eventTypeMask, className, all, timeoutInMills, TimeUnit.MILLISECONDS);
+    }
+
+    public static void assertServiceEvent(int eventTypeMask, String className, boolean all, long timeout, TimeUnit timeUnit) {
+        assertServiceEvent(null, eventTypeMask, className, all, timeout, timeUnit);
+    }
+
+    public static void assertServiceEvent(String message, int eventTypeMask, String className, boolean all, long timeout, TimeUnit timeUnit) {
+        Assert.assertNotNull("Class name is null", className);
+        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        try {
+            ServiceEvent event = ServiceUtils.waitForServiceEvent(getBundleContext(), className, eventTypeMask, all, timeout, timeUnit);
+            Assert.assertNotNull(message, event);
+        } catch (InvalidSyntaxException e) {
+            Assert.fail(e.getMessage());
+        }
+    }
+
+    public static void assertServiceEvent(int eventTypeMask, Class clazz, long timeoutInMills) {
+        assertServiceEvent(null, eventTypeMask, clazz, timeoutInMills);
+    }
+
+    public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, long timeoutInMills) {
+        assertServiceEvent(message, eventTypeMask, clazz, timeoutInMills, TimeUnit.MILLISECONDS);
+    }
+
+    public static void assertServiceEvent(int eventTypeMask, Class clazz, long timeout, TimeUnit timeUnit) {
+        assertServiceEvent(null, eventTypeMask, clazz, timeout, timeUnit);
+    }
+
+    public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, long timeout, TimeUnit timeUnit) {
+        assertServiceEvent(message, eventTypeMask, clazz, false, timeout, timeUnit);
+    }
+
+    public static void assertServiceEvent(int eventTypeMask, Class clazz, boolean all, long timeoutInMills) {
+        assertServiceEvent(null, eventTypeMask, clazz, all, timeoutInMills);
+    }
+
+    public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, boolean all, long timeoutInMills) {
+        assertServiceEvent(message, eventTypeMask, clazz, all, timeoutInMills, TimeUnit.MILLISECONDS);
+    }
+
+    public static void assertServiceEvent(int eventTypeMask, Class clazz, boolean all, long timeout, TimeUnit timeUnit) {
+        assertServiceEvent(null, eventTypeMask, clazz, all, timeout, timeUnit);
+    }
+
+    public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, boolean all, long timeout, TimeUnit timeUnit) {
+        Assert.assertNotNull("Class is null", clazz);
+        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        try {
+            ServiceEvent event = ServiceUtils.waitForServiceEvent(getBundleContext(), clazz, eventTypeMask, all, timeout, timeUnit);
+            Assert.assertNotNull(message, event);
+        } catch (InvalidSyntaxException e) {
+            Assert.fail(e.getMessage());
+        }
     }
 }

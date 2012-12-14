@@ -20,6 +20,7 @@ import org.junit.Assert;
 import org.knowhowlab.osgi.testing.utils.BundleUtils;
 import org.knowhowlab.osgi.testing.utils.ServiceUtils;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleEvent;
 import org.osgi.framework.Version;
 import org.osgi.service.packageadmin.PackageAdmin;
 
@@ -510,4 +511,61 @@ public class BundleAssert extends OSGiAssert {
         Assert.assertTrue(message, (type & PackageAdmin.BUNDLE_TYPE_FRAGMENT) != 0);
     }
 
+    public static void assertBundleEvent(int eventTypeMask, int bundleId, long timeoutInMills) {
+        assertBundleEvent(null, eventTypeMask, bundleId, timeoutInMills);
+    }
+
+    public static void assertBundleEvent(String message, int eventTypeMask, int bundleId, long timeoutInMills) {
+        assertBundleEvent(message, eventTypeMask, bundleId, timeoutInMills, TimeUnit.MILLISECONDS);
+    }
+
+    public static void assertBundleEvent(int eventTypeMask, int bundleId, long timeout, TimeUnit timeUnit) {
+        assertBundleEvent(null, eventTypeMask, bundleId, timeout, timeUnit);
+    }
+
+    public static void assertBundleEvent(String message, int eventTypeMask, int bundleId, long timeout, TimeUnit timeUnit) {
+        Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
+        Assert.assertNotNull(String.format("Unknown bundle with ID: %d", bundleId), bundle);
+        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        BundleEvent event = BundleUtils.waitForBundleEvent(getBundleContext(), bundleId, eventTypeMask, timeout, timeUnit);
+        Assert.assertNotNull(message, event);
+    }
+
+    public static void assertBundleEvent(int eventTypeMask, String symbolicName, long timeoutInMills) {
+        assertBundleEvent(null, eventTypeMask, symbolicName, timeoutInMills);
+    }
+
+    public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, long timeoutInMills) {
+        assertBundleEvent(message, eventTypeMask, symbolicName, timeoutInMills, TimeUnit.MILLISECONDS);
+    }
+
+    public static void assertBundleEvent(int eventTypeMask, String symbolicName, long timeout, TimeUnit timeUnit) {
+        assertBundleEvent(null, eventTypeMask, symbolicName, timeout, timeUnit);
+    }
+
+    public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, long timeout, TimeUnit timeUnit) {
+        Assert.assertNotNull("SymbolicName is null", symbolicName);
+        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        BundleEvent event = BundleUtils.waitForBundleEvent(getBundleContext(), symbolicName, eventTypeMask, timeout, timeUnit);
+        Assert.assertNotNull(message, event);
+    }
+
+    public static void assertBundleEvent(int eventTypeMask, String symbolicName, Version version, long timeoutInMills) {
+        assertBundleEvent(null, eventTypeMask, symbolicName, version, timeoutInMills);
+    }
+
+    public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeoutInMills) {
+        assertBundleEvent(message, eventTypeMask, symbolicName, version, timeoutInMills, TimeUnit.MILLISECONDS);
+    }
+
+    public static void assertBundleEvent(int eventTypeMask, String symbolicName, long timeout, Version version, TimeUnit timeUnit) {
+        assertBundleEvent(null, eventTypeMask, symbolicName, version, timeout, timeUnit);
+    }
+
+    public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
+        Assert.assertNotNull("SymbolicName is null", symbolicName);
+        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        BundleEvent event = BundleUtils.waitForBundleEvent(getBundleContext(), symbolicName, version, eventTypeMask, timeout, timeUnit);
+        Assert.assertNotNull(message, event);
+    }
 }
