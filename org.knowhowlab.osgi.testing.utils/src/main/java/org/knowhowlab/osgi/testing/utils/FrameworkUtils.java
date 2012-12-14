@@ -113,7 +113,7 @@ public class FrameworkUtils {
             Bundle bundle = event.getBundle();
             return bundle.getSymbolicName().equals(symbolicName)
                     && (version == null || bundle.getVersion().equals(version))
-                    && (eventTypeMask & event.getType()) == 1;
+                    && (eventTypeMask & event.getType()) != 0;
         }
 
         public FrameworkEvent getFrameworkEvent() {

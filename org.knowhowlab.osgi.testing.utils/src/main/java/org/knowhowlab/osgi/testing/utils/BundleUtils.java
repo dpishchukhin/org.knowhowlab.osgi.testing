@@ -252,7 +252,7 @@ public class BundleUtils {
     }
 
     public static Future<Bundle> installBundleAsync(final BundleContext bc, final String location, final InputStream input, long delay, TimeUnit timeUnit) {
-        return Executors.newScheduledThreadPool(1).schedule(new Callable<Bundle>() {
+        return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Bundle>() {
             public Bundle call() throws Exception {
                 return bc.installBundle(location, input);
             }
@@ -340,7 +340,7 @@ public class BundleUtils {
     }
 
     public static Future<?> startBundleAsync(final BundleContext bc, final Bundle bundle, final int options, long delay, TimeUnit timeUnit) {
-        return Executors.newScheduledThreadPool(1).schedule(new Callable<Object>() {
+        return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
             public Object call() throws Exception {
                 bundle.start(options);
                 return null;
@@ -441,7 +441,7 @@ public class BundleUtils {
     }
 
     public static Future<?> stopBundleAsync(final BundleContext bc, final Bundle bundle, final int options, long delay, TimeUnit timeUnit) {
-        return Executors.newScheduledThreadPool(1).schedule(new Callable<Object>() {
+        return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
             public Object call() throws Exception {
                 bundle.stop(options);
                 return null;
@@ -494,7 +494,7 @@ public class BundleUtils {
     }
 
     public static Future<?> uninstallBundleAsync(final BundleContext bc, final Bundle bundle, long delay, TimeUnit timeUnit) {
-        return Executors.newScheduledThreadPool(1).schedule(new Callable<Object>() {
+        return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
             public Object call() throws Exception {
                 bundle.uninstall();
                 return null;
@@ -785,7 +785,7 @@ public class BundleUtils {
             Bundle bundle = event.getBundle();
             return bundle.getSymbolicName().equals(symbolicName)
                     && (version == null || bundle.getVersion().equals(version))
-                    && (eventTypeMask & event.getType()) == 1;
+                    && (eventTypeMask & event.getType()) != 0;
         }
 
         public BundleEvent getBundleEvent() {

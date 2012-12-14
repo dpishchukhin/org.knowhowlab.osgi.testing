@@ -545,7 +545,7 @@ public class ServiceUtils {
     }
 
     public static <T> Future<ServiceRegistration> registerServiceAsync(final BundleContext bc, final Class<T> clazz, final T service, final Dictionary properties, long delay, TimeUnit timeUnit) {
-        return Executors.newScheduledThreadPool(1).schedule(new Callable<ServiceRegistration>() {
+        return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<ServiceRegistration>() {
             public ServiceRegistration call() throws Exception {
                 return bc.registerService(clazz.getName(), service, properties);
             }
@@ -553,7 +553,7 @@ public class ServiceUtils {
     }
 
     public static Future<ServiceRegistration> registerServiceAsync(final BundleContext bc, final String clazz, final Object service, final Dictionary properties, long delay, TimeUnit timeUnit) {
-        return Executors.newScheduledThreadPool(1).schedule(new Callable<ServiceRegistration>() {
+        return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<ServiceRegistration>() {
             public ServiceRegistration call() throws Exception {
                 return bc.registerService(clazz, service, properties);
             }
@@ -561,7 +561,7 @@ public class ServiceUtils {
     }
 
     public static Future<ServiceRegistration> registerServiceAsync(final BundleContext bc, final String[] clazzes, final Object service, final Dictionary properties, long delay, TimeUnit timeUnit) {
-        return Executors.newScheduledThreadPool(1).schedule(new Callable<ServiceRegistration>() {
+        return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<ServiceRegistration>() {
             public ServiceRegistration call() throws Exception {
                 return bc.registerService(clazzes, service, properties);
             }
@@ -577,7 +577,7 @@ public class ServiceUtils {
     }
 
     public static Future<?> updateServiceAsync(final ServiceRegistration registration, final Dictionary properties, long delay, TimeUnit timeUnit) {
-        return Executors.newScheduledThreadPool(1).schedule(new Callable<Object>() {
+        return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
             public Object call() throws Exception {
                 registration.setProperties(properties);
                 return null;
@@ -594,7 +594,7 @@ public class ServiceUtils {
     }
 
     public static Future<?> unregisterServiceAsync(final ServiceRegistration registration, long delay, TimeUnit timeUnit) {
-        return Executors.newScheduledThreadPool(1).schedule(new Callable<Object>() {
+        return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
             public Object call() throws Exception {
                 registration.unregister();
                 return null;
@@ -764,7 +764,7 @@ public class ServiceUtils {
         }
 
         private boolean match(ServiceEvent event) {
-            return (eventTypeMask & event.getType()) == 1;
+            return (eventTypeMask & event.getType()) != 0;
         }
 
         public ServiceEvent getServiceEvent() {
