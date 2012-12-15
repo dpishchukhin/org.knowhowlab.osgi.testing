@@ -2,11 +2,11 @@
 
 OSGi specific assertions and utility classes that help to write OSGi integration/system tests.
 
-## Blog with more samples and tutorials
+### Blog with more samples and tutorials
 
 [http://knowhowlab.org](http://knowhowlab.org)
 
-## Mailing List
+### Mailing List
 
 [http://groups.google.com/group/knowhowlab-osgi-testing](http://groups.google.com/group/knowhowlab-osgi-testing)
 
