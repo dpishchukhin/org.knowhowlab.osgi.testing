@@ -23,7 +23,8 @@ OSGi specific assertions and utility classes that help to write OSGi integration
     // start bundle in 2 sec
     startBundleAsync(getBundleContext(), "org.knowhowlab.osgi.testing.it.test.bundle", 2, TimeUnit.SECONDS);
     // bundle is still stopped
-    assertBundleState(Bundle.RESOLVED | Bundle.INSTALLED, "org.knowhowlab.osgi.testing.it.test.bundle", 1L, TimeUnit.MILLISECONDS);
+    assertBundleState(Bundle.RESOLVED | Bundle.INSTALLED, "org.knowhowlab.osgi.testing.it.test.bundle", 
+                      1L, TimeUnit.MILLISECONDS);
     // bundle is active after 5 sec
     assertBundleState(Bundle.ACTIVE, "org.knowhowlab.osgi.testing.it.test.bundle", 5, TimeUnit.SECONDS);
     ...
@@ -44,7 +45,6 @@ OSGi specific assertions and utility classes that help to write OSGi integration
             startLevel.setStartLevel(10);
         }
     }, 2, TimeUnit.SECONDS);
-
     // start level changed within 5 sec
     assertFrameworkEvent(FrameworkEvent.STARTLEVEL_CHANGED, 0, 5, TimeUnit.SECONDS);
 
