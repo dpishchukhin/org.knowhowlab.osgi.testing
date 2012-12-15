@@ -623,65 +623,115 @@ public class BundleUtils {
     }
 
     /**
-     * TODO
+     * Uninstalls a bundle asynchronously
+     *
+     * @param bundle bundle
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> uninstallBundleAsync(BundleContext bc, Bundle bundle) {
-        return uninstallBundleAsync(bc, bundle, 0L);
+    public static Future<?> uninstallBundleAsync(Bundle bundle) {
+        return uninstallBundleAsync(bundle, 0L);
     }
 
     /**
-     * TODO
+     * Uninstalls a bundle asynchronously
+     *
+     * @param bc       BundleContext
+     * @param bundleId bundle id
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> uninstallBundleAsync(BundleContext bc, long bundleId) {
         return uninstallBundleAsync(bc, bundleId, 0L);
     }
 
     /**
-     * TODO
+     * Uninstalls a bundle asynchronously
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> uninstallBundleAsync(BundleContext bc, String symbolicName) {
         return uninstallBundleAsync(bc, symbolicName, 0L);
     }
 
     /**
-     * TODO
+     * Uninstalls a bundle asynchronously
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param version      version
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> uninstallBundleAsync(BundleContext bc, String symbolicName, Version version) {
         return uninstallBundleAsync(bc, symbolicName, version, 0L);
     }
 
     /**
-     * TODO
+     * Uninstalls a bundle asynchronously with delayInMillis
+     *
+     * @param bundle        bundle
+     * @param delayInMillis time interval in millis to wait before uninstall. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> uninstallBundleAsync(BundleContext bc, Bundle bundle, long delayInMillis) {
-        return uninstallBundleAsync(bc, bundle, delayInMillis, TimeUnit.MILLISECONDS);
+    public static Future<?> uninstallBundleAsync(Bundle bundle, long delayInMillis) {
+        return uninstallBundleAsync(bundle, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Uninstalls a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param bundleId      bundle id
+     * @param delayInMillis time interval in millis to wait before uninstall. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> uninstallBundleAsync(BundleContext bc, long bundleId, long delayInMillis) {
         return uninstallBundleAsync(bc, bundleId, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Uninstalls a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param delayInMillis time interval in millis to wait before uninstall. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> uninstallBundleAsync(BundleContext bc, String symbolicName, long delayInMillis) {
         return uninstallBundleAsync(bc, symbolicName, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Uninstalls a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param version       version
+     * @param delayInMillis time interval in millis to wait before uninstall. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> uninstallBundleAsync(BundleContext bc, String symbolicName, Version version, long delayInMillis) {
         return uninstallBundleAsync(bc, symbolicName, version, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Uninstalls a bundle asynchronously with delay
+     *
+     * @param bundle   bundle
+     * @param delay    time interval to wait before uninstall. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> uninstallBundleAsync(final BundleContext bc, final Bundle bundle, long delay, TimeUnit timeUnit) {
+    public static Future<?> uninstallBundleAsync(final Bundle bundle, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
             public Object call() throws Exception {
                 bundle.uninstall();
@@ -691,171 +741,378 @@ public class BundleUtils {
     }
 
     /**
-     * TODO
+     * Uninstalls a bundle asynchronously with delay
+     *
+     * @param bc       BundleContext
+     * @param bundleId bundle id
+     * @param delay    time interval to wait before uninstall. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> uninstallBundleAsync(BundleContext bc, long bundleId, long delay, TimeUnit timeUnit) {
-        return uninstallBundleAsync(bc, findBundle(bc, bundleId), delay, timeUnit);
+        return uninstallBundleAsync(findBundle(bc, bundleId), delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Uninstalls a bundle asynchronously with delay
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param delay        time interval to wait before uninstall. If zero, the method will not wait.
+     * @param timeUnit     time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> uninstallBundleAsync(BundleContext bc, String symbolicName, long delay, TimeUnit timeUnit) {
-        return uninstallBundleAsync(bc, findBundle(bc, symbolicName), delay, timeUnit);
+        return uninstallBundleAsync(findBundle(bc, symbolicName), delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Uninstalls a bundle asynchronously with delay
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param version      version
+     * @param delay        time interval to wait before uninstall. If zero, the method will not wait.
+     * @param timeUnit     time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> uninstallBundleAsync(BundleContext bc, String symbolicName, Version version, long delay, TimeUnit timeUnit) {
-        return uninstallBundleAsync(bc, findBundle(bc, symbolicName, version), delay, timeUnit);
+        return uninstallBundleAsync(findBundle(bc, symbolicName, version), delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously
+     *
+     * @param bundle bundle
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> updateBundleAsync(BundleContext bc, Bundle bundle) {
-        return updateBundleAsync(bc, bundle, 0L);
+    public static Future<?> updateBundleAsync(Bundle bundle) {
+        return updateBundleAsync(bundle, 0L);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously
+     *
+     * @param bc       BundleContext
+     * @param bundleId bundle id
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, long bundleId) {
         return updateBundleAsync(bc, bundleId, 0L);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName) {
         return updateBundleAsync(bc, symbolicName, 0L);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param version      version
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, Version version) {
         return updateBundleAsync(bc, symbolicName, version, 0L);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously
+     *
+     * @param bundle Bundle
+     * @param input  The <code>InputStream</code> from which to read the new
+     *               bundle or <code>null</code> to indicate the Framework must create
+     *               the input stream from this bundle's
+     *               {@link Constants#BUNDLE_UPDATELOCATION Bundle-UpdateLocation}
+     *               Manifest header, if present, or this bundle's original location.
+     *               The input stream must always be closed when this method completes,
+     *               even if an exception is thrown.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> updateBundleAsync(BundleContext bc, Bundle bundle, InputStream input) {
-        return updateBundleAsync(bc, bundle, input, 0L);
+    public static Future<?> updateBundleAsync(Bundle bundle, InputStream input) {
+        return updateBundleAsync(bundle, input, 0L);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously
+     *
+     * @param bc       BundleContext
+     * @param bundleId bundle id
+     * @param input    The <code>InputStream</code> from which to read the new
+     *                 bundle or <code>null</code> to indicate the Framework must create
+     *                 the input stream from this bundle's
+     *                 {@link Constants#BUNDLE_UPDATELOCATION Bundle-UpdateLocation}
+     *                 Manifest header, if present, or this bundle's original location.
+     *                 The input stream must always be closed when this method completes,
+     *                 even if an exception is thrown.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, long bundleId, InputStream input) {
         return updateBundleAsync(bc, bundleId, input, 0L);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param input        The <code>InputStream</code> from which to read the new
+     *                     bundle or <code>null</code> to indicate the Framework must create
+     *                     the input stream from this bundle's
+     *                     {@link Constants#BUNDLE_UPDATELOCATION Bundle-UpdateLocation}
+     *                     Manifest header, if present, or this bundle's original location.
+     *                     The input stream must always be closed when this method completes,
+     *                     even if an exception is thrown.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, InputStream input) {
         return updateBundleAsync(bc, symbolicName, input, 0L);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param version      version
+     * @param input        The <code>InputStream</code> from which to read the new
+     *                     bundle or <code>null</code> to indicate the Framework must create
+     *                     the input stream from this bundle's
+     *                     {@link Constants#BUNDLE_UPDATELOCATION Bundle-UpdateLocation}
+     *                     Manifest header, if present, or this bundle's original location.
+     *                     The input stream must always be closed when this method completes,
+     *                     even if an exception is thrown.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, Version version, InputStream input) {
         return updateBundleAsync(bc, symbolicName, version, input, 0L);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delayInMillis
+     *
+     * @param bundle        Bundle
+     * @param delayInMillis time interval in millis to wait before update. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> updateBundleAsync(BundleContext bc, Bundle bundle, long delayInMillis) {
-        return updateBundleAsync(bc, bundle, delayInMillis, TimeUnit.MILLISECONDS);
+    public static Future<?> updateBundleAsync(Bundle bundle, long delayInMillis) {
+        return updateBundleAsync(bundle, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param bundleId      bundle id
+     * @param delayInMillis time interval in millis to wait before update. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, long bundleId, long delayInMillis) {
         return updateBundleAsync(bc, bundleId, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param delayInMillis time interval in millis to wait before update. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, long delayInMillis) {
         return updateBundleAsync(bc, symbolicName, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param version       version
+     * @param delayInMillis time interval in millis to wait before update. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, Version version, long delayInMillis) {
         return updateBundleAsync(bc, symbolicName, version, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delayInMillis
+     *
+     * @param bundle        Bundle
+     * @param input         The <code>InputStream</code> from which to read the new
+     *                      bundle or <code>null</code> to indicate the Framework must create
+     *                      the input stream from this bundle's
+     *                      {@link Constants#BUNDLE_UPDATELOCATION Bundle-UpdateLocation}
+     *                      Manifest header, if present, or this bundle's original location.
+     *                      The input stream must always be closed when this method completes,
+     *                      even if an exception is thrown.
+     * @param delayInMillis time interval in millis to wait before update. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> updateBundleAsync(BundleContext bc, Bundle bundle, InputStream input, long delayInMillis) {
-        return updateBundleAsync(bc, bundle, input, delayInMillis, TimeUnit.MILLISECONDS);
+    public static Future<?> updateBundleAsync(Bundle bundle, InputStream input, long delayInMillis) {
+        return updateBundleAsync(bundle, input, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param bundleId      bundle id
+     * @param input         The <code>InputStream</code> from which to read the new
+     *                      bundle or <code>null</code> to indicate the Framework must create
+     *                      the input stream from this bundle's
+     *                      {@link Constants#BUNDLE_UPDATELOCATION Bundle-UpdateLocation}
+     *                      Manifest header, if present, or this bundle's original location.
+     *                      The input stream must always be closed when this method completes,
+     *                      even if an exception is thrown.
+     * @param delayInMillis time interval in millis to wait before update. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, long bundleId, InputStream input, long delayInMillis) {
         return updateBundleAsync(bc, bundleId, input, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param input         The <code>InputStream</code> from which to read the new
+     *                      bundle or <code>null</code> to indicate the Framework must create
+     *                      the input stream from this bundle's
+     *                      {@link Constants#BUNDLE_UPDATELOCATION Bundle-UpdateLocation}
+     *                      Manifest header, if present, or this bundle's original location.
+     *                      The input stream must always be closed when this method completes,
+     *                      even if an exception is thrown.
+     * @param delayInMillis time interval in millis to wait before update. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, InputStream input, long delayInMillis) {
         return updateBundleAsync(bc, symbolicName, input, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param version       version
+     * @param input         The <code>InputStream</code> from which to read the new
+     *                      bundle or <code>null</code> to indicate the Framework must create
+     *                      the input stream from this bundle's
+     *                      {@link Constants#BUNDLE_UPDATELOCATION Bundle-UpdateLocation}
+     *                      Manifest header, if present, or this bundle's original location.
+     *                      The input stream must always be closed when this method completes,
+     *                      even if an exception is thrown.
+     * @param delayInMillis time interval in millis to wait before update. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, Version version, InputStream input, long delayInMillis) {
         return updateBundleAsync(bc, symbolicName, version, input, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delay
+     *
+     * @param bundle   Bundle
+     * @param delay    time interval to wait before update. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> updateBundleAsync(BundleContext bc, Bundle bundle, long delay, TimeUnit timeUnit) {
-        return updateBundleAsync(bc, bundle, null, delay, timeUnit);
+    public static Future<?> updateBundleAsync(Bundle bundle, long delay, TimeUnit timeUnit) {
+        return updateBundleAsync(bundle, null, delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delay
+     *
+     * @param bc       BundleContext
+     * @param bundleId bundle id
+     * @param delay    time interval to wait before update. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, long bundleId, long delay, TimeUnit timeUnit) {
-        return updateBundleAsync(bc, findBundle(bc, bundleId), delay, timeUnit);
+        return updateBundleAsync(findBundle(bc, bundleId), delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delay
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param delay        time interval to wait before update. If zero, the method will not wait.
+     * @param timeUnit     time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, long delay, TimeUnit timeUnit) {
-        return updateBundleAsync(bc, findBundle(bc, symbolicName), delay, timeUnit);
+        return updateBundleAsync(findBundle(bc, symbolicName), delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delay
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param version      version
+     * @param delay        time interval to wait before update. If zero, the method will not wait.
+     * @param timeUnit     time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, Version version, long delay, TimeUnit timeUnit) {
-        return updateBundleAsync(bc, findBundle(bc, symbolicName, version), delay, timeUnit);
+        return updateBundleAsync(findBundle(bc, symbolicName, version), delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delay
+     *
+     * @param bundle   Bundle
+     * @param input    The <code>InputStream</code> from which to read the new
+     *                 bundle or <code>null</code> to indicate the Framework must create
+     *                 the input stream from this bundle's
+     *                 {@link Constants#BUNDLE_UPDATELOCATION Bundle-UpdateLocation}
+     *                 Manifest header, if present, or this bundle's original location.
+     *                 The input stream must always be closed when this method completes,
+     *                 even if an exception is thrown.
+     * @param delay    time interval to wait before update. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> updateBundleAsync(final BundleContext bc, final Bundle bundle, final InputStream input, long delay, TimeUnit timeUnit) {
-        return Executors.newScheduledThreadPool(1).schedule(new Callable<Object>() {
+    public static Future<?> updateBundleAsync(final Bundle bundle, final InputStream input, long delay, TimeUnit timeUnit) {
+        return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
             public Object call() throws Exception {
                 bundle.update(input);
                 return null;
@@ -864,24 +1121,67 @@ public class BundleUtils {
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delay
+     *
+     * @param bc       BundleContext
+     * @param bundleId bundle id
+     * @param input    The <code>InputStream</code> from which to read the new
+     *                 bundle or <code>null</code> to indicate the Framework must create
+     *                 the input stream from this bundle's
+     *                 {@link Constants#BUNDLE_UPDATELOCATION Bundle-UpdateLocation}
+     *                 Manifest header, if present, or this bundle's original location.
+     *                 The input stream must always be closed when this method completes,
+     *                 even if an exception is thrown.
+     * @param delay    time interval to wait before update. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, long bundleId, InputStream input, long delay, TimeUnit timeUnit) {
-        return updateBundleAsync(bc, findBundle(bc, bundleId), input, delay, timeUnit);
+        return updateBundleAsync(findBundle(bc, bundleId), input, delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delay
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param input        The <code>InputStream</code> from which to read the new
+     *                     bundle or <code>null</code> to indicate the Framework must create
+     *                     the input stream from this bundle's
+     *                     {@link Constants#BUNDLE_UPDATELOCATION Bundle-UpdateLocation}
+     *                     Manifest header, if present, or this bundle's original location.
+     *                     The input stream must always be closed when this method completes,
+     *                     even if an exception is thrown.
+     * @param delay        time interval to wait before update. If zero, the method will not wait.
+     * @param timeUnit     time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, InputStream input, long delay, TimeUnit timeUnit) {
-        return updateBundleAsync(bc, findBundle(bc, symbolicName), input, delay, timeUnit);
+        return updateBundleAsync(findBundle(bc, symbolicName), input, delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Updates a bundle asynchronously with delay
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param version      version
+     * @param input        The <code>InputStream</code> from which to read the new
+     *                     bundle or <code>null</code> to indicate the Framework must create
+     *                     the input stream from this bundle's
+     *                     {@link Constants#BUNDLE_UPDATELOCATION Bundle-UpdateLocation}
+     *                     Manifest header, if present, or this bundle's original location.
+     *                     The input stream must always be closed when this method completes,
+     *                     even if an exception is thrown.
+     * @param delay        time interval to wait before update. If zero, the method will not wait.
+     * @param timeUnit     time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, Version version, InputStream input, long delay, TimeUnit timeUnit) {
-        return updateBundleAsync(bc, findBundle(bc, symbolicName, version), input, delay, timeUnit);
+        return updateBundleAsync(findBundle(bc, symbolicName, version), input, delay, timeUnit);
     }
 
     /**

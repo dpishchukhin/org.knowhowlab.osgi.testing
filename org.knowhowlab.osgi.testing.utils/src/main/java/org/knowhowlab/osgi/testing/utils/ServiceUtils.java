@@ -521,49 +521,121 @@ public class ServiceUtils {
     }
 
     /**
-     * TODO
+     * Registers service asynchronously
+     *
+     * @param bc         BundleContext
+     * @param clazz      The class under which the service can be located.
+     * @param service    The service object or a <code>ServiceFactory</code> object.
+     * @param properties The properties for this service.
+     * @return A <code>Future&lt;ServiceRegistration&gt;</code> object for use by the bundle
+     *         registering the service to update the service's properties or to
+     *         unregister the service.
+     * @since 1.1
      */
     public static <T> Future<ServiceRegistration> registerServiceAsync(BundleContext bc, Class<T> clazz, T service, Dictionary properties) {
         return registerServiceAsync(bc, clazz, service, properties, 0L);
     }
 
     /**
-     * TODO
+     * Registers service asynchronously
+     *
+     * @param bc         BundleContext
+     * @param clazz      The class name under which the service can be located.
+     * @param service    The service object or a <code>ServiceFactory</code> object.
+     * @param properties The properties for this service.
+     * @return A <code>Future&lt;ServiceRegistration&gt;</code> object for use by the bundle
+     *         registering the service to update the service's properties or to
+     *         unregister the service.
+     * @since 1.1
      */
     public static Future<ServiceRegistration> registerServiceAsync(BundleContext bc, String clazz, Object service, Dictionary properties) {
         return registerServiceAsync(bc, clazz, service, properties, 0L);
     }
 
     /**
-     * TODO
+     * Registers service asynchronously
+     *
+     * @param bc         BundleContext
+     * @param clazzes    The class names under which the service can be located.
+     *                   The class names in this array will be stored in the service's
+     *                   properties under the key {@link Constants#OBJECTCLASS}.
+     * @param service    The service object or a <code>ServiceFactory</code> object.
+     * @param properties The properties for this service.
+     * @return A <code>Future&lt;ServiceRegistration&gt;</code> object for use by the bundle
+     *         registering the service to update the service's properties or to
+     *         unregister the service.
+     * @since 1.1
      */
     public static Future<ServiceRegistration> registerServiceAsync(BundleContext bc, String[] clazzes, Object service, Dictionary properties) {
         return registerServiceAsync(bc, clazzes, service, properties, 0L);
     }
 
     /**
-     * TODO
+     * Registers service asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param clazz         The class under which the service can be located.
+     * @param service       The service object or a <code>ServiceFactory</code> object.
+     * @param properties    The properties for this service.
+     * @param delayInMillis time interval in millis to wait before registration. If zero, the method will not wait.
+     * @return A <code>Future&lt;ServiceRegistration&gt;</code> object for use by the bundle
+     *         registering the service to update the service's properties or to
+     *         unregister the service.
+     * @since 1.1
      */
     public static <T> Future<ServiceRegistration> registerServiceAsync(BundleContext bc, Class<T> clazz, T service, Dictionary properties, long delayInMillis) {
         return registerServiceAsync(bc, clazz, service, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Registers service asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param clazz         The class name under which the service can be located.
+     * @param service       The service object or a <code>ServiceFactory</code> object.
+     * @param properties    The properties for this service.
+     * @param delayInMillis time interval in millis to wait before registration. If zero, the method will not wait.
+     * @return A <code>Future&lt;ServiceRegistration&gt;</code> object for use by the bundle
+     *         registering the service to update the service's properties or to
+     *         unregister the service.
+     * @since 1.1
      */
     public static Future<ServiceRegistration> registerServiceAsync(BundleContext bc, String clazz, Object service, Dictionary properties, long delayInMillis) {
         return registerServiceAsync(bc, clazz, service, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Registers service asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param clazzes       The class names under which the service can be located.
+     *                      The class names in this array will be stored in the service's
+     *                      properties under the key {@link Constants#OBJECTCLASS}.
+     * @param service       The service object or a <code>ServiceFactory</code> object.
+     * @param properties    The properties for this service.
+     * @param delayInMillis time interval in millis to wait before registration. If zero, the method will not wait.
+     * @return A <code>Future&lt;ServiceRegistration&gt;</code> object for use by the bundle
+     *         registering the service to update the service's properties or to
+     *         unregister the service.
+     * @since 1.1
      */
     public static Future<ServiceRegistration> registerServiceAsync(BundleContext bc, String[] clazzes, Object service, Dictionary properties, long delayInMillis) {
         return registerServiceAsync(bc, clazzes, service, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Registers service asynchronously with delay
+     *
+     * @param bc         BundleContext
+     * @param clazz      The class under which the service can be located.
+     * @param service    The service object or a <code>ServiceFactory</code> object.
+     * @param properties The properties for this service.
+     * @param delay      time interval to wait before registration. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return A <code>Future&lt;ServiceRegistration&gt;</code> object for use by the bundle
+     *         registering the service to update the service's properties or to
+     *         unregister the service.
+     * @since 1.1
      */
     public static <T> Future<ServiceRegistration> registerServiceAsync(final BundleContext bc, final Class<T> clazz, final T service, final Dictionary properties, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<ServiceRegistration>() {
@@ -574,7 +646,18 @@ public class ServiceUtils {
     }
 
     /**
-     * TODO
+     * Registers service asynchronously with delay
+     *
+     * @param bc         BundleContext
+     * @param clazz      The class name under which the service can be located.
+     * @param service    The service object or a <code>ServiceFactory</code> object.
+     * @param properties The properties for this service.
+     * @param delay      time interval to wait before registration. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return A <code>Future&lt;ServiceRegistration&gt;</code> object for use by the bundle
+     *         registering the service to update the service's properties or to
+     *         unregister the service.
+     * @since 1.1
      */
     public static Future<ServiceRegistration> registerServiceAsync(final BundleContext bc, final String clazz, final Object service, final Dictionary properties, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<ServiceRegistration>() {
@@ -585,7 +668,20 @@ public class ServiceUtils {
     }
 
     /**
-     * TODO
+     * Registers service asynchronously with delay
+     *
+     * @param bc         BundleContext
+     * @param clazzes    The class names under which the service can be located.
+     *                   The class names in this array will be stored in the service's
+     *                   properties under the key {@link Constants#OBJECTCLASS}.
+     * @param service    The service object or a <code>ServiceFactory</code> object.
+     * @param properties The properties for this service.
+     * @param delay      time interval to wait before registration. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return A <code>Future&lt;ServiceRegistration&gt;</code> object for use by the bundle
+     *         registering the service to update the service's properties or to
+     *         unregister the service.
+     * @since 1.1
      */
     public static Future<ServiceRegistration> registerServiceAsync(final BundleContext bc, final String[] clazzes, final Object service, final Dictionary properties, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<ServiceRegistration>() {
@@ -596,21 +692,48 @@ public class ServiceUtils {
     }
 
     /**
-     * TODO
+     * Updates registered service properties asynchronously
+     *
+     * @param registration Service registration
+     * @param properties   The properties for this service. See {@link Constants}
+     *                     for a list of standard service property keys. Changes should not
+     *                     be made to this object after calling this method. To update the
+     *                     service's properties this method should be called again.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateServiceAsync(ServiceRegistration registration, Dictionary properties) {
         return updateServiceAsync(registration, properties, 0L);
     }
 
     /**
-     * TODO
+     * Updates registered service properties asynchronously with delayInMillis
+     *
+     * @param registration Service registration
+     * @param properties   The properties for this service. See {@link Constants}
+     *                     for a list of standard service property keys. Changes should not
+     *                     be made to this object after calling this method. To update the
+     *                     service's properties this method should be called again.
+     * @param delayInMillis time interval in millis to wait before update. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateServiceAsync(ServiceRegistration registration, Dictionary properties, long delayInMillis) {
         return updateServiceAsync(registration, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Updates registered service properties asynchronously with delay
+     *
+     * @param registration Service registration
+     * @param properties   The properties for this service. See {@link Constants}
+     *                     for a list of standard service property keys. Changes should not
+     *                     be made to this object after calling this method. To update the
+     *                     service's properties this method should be called again.
+     * @param delay      time interval to wait before update. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> updateServiceAsync(final ServiceRegistration registration, final Dictionary properties, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
@@ -622,21 +745,36 @@ public class ServiceUtils {
     }
 
     /**
-     * TODO
+     * Unregisters a service asynchronously
+     *
+     * @param registration Service registration
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> unregisterServiceAsync(ServiceRegistration registration) {
         return unregisterServiceAsync(registration, 0L);
     }
 
     /**
-     * TODO
+     * Unregisters a service asynchronously with delayInMillis
+     *
+     * @param registration Service registration
+     * @param delayInMillis time interval in millis to wait before unregistration. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> unregisterServiceAsync(ServiceRegistration registration, long delayInMillis) {
         return unregisterServiceAsync(registration, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Unregisters a service asynchronously with delay
+     *
+     * @param registration Service registration
+     * @param delay      time interval to wait before unregistration. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> unregisterServiceAsync(final ServiceRegistration registration, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
@@ -813,7 +951,7 @@ public class ServiceUtils {
      * Wait for ServiceEvent with event type mask for defined class
      *
      * @param bc            BundleContext
-     * @param clazz     class (could be null)
+     * @param clazz         class (could be null)
      * @param eventTypeMask ServiceEvent type mask
      * @param all           use AllServiceListener
      * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
