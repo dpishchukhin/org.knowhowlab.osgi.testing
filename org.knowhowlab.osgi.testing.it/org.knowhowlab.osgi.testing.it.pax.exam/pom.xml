@@ -84,7 +84,7 @@
         <dependency>
             <groupId>org.ops4j.pax.runner</groupId>
             <artifactId>pax-runner-no-jcl</artifactId>
-            <version>LATEST</version>
+            <version>1.8.5</version>
             <scope>test</scope>
         </dependency>
         <dependency>
