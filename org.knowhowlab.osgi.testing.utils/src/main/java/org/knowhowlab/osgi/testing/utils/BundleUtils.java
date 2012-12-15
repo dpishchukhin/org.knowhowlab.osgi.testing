@@ -231,42 +231,93 @@ public class BundleUtils {
     }
 
     /**
-     * TODO
+     * Installs a bundle asynchronously
+     *
+     * @param bc       BundleContext
+     * @param location The location identifier of the bundle to install.
+     * @return A <code>Future&lt;Bundle&gt;</code> object of the installed bundle.
+     * @since 1.1
      */
     public static Future<Bundle> installBundleAsync(BundleContext bc, String location) {
         return installBundleAsync(bc, location, 0);
     }
 
     /**
-     * TODO
+     * Installs a bundle asynchronously
+     *
+     * @param bc       BundleContext
+     * @param location The location identifier of the bundle to install.
+     * @param input    The <code>InputStream</code> object from which this bundle
+     *                 will be read or <code>null</code> to indicate the Framework must
+     *                 create the input stream from the specified location identifier.
+     *                 The input stream must always be closed when this method completes,
+     *                 even if an exception is thrown.
+     * @return A <code>Future&lt;Bundle&gt;</code> object of the installed bundle.
+     * @since 1.1
      */
     public static Future<Bundle> installBundleAsync(BundleContext bc, String location, InputStream input) {
         return installBundleAsync(bc, location, input, 0);
     }
 
     /**
-     * TODO
+     * Installs a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param location      The location identifier of the bundle to install.
+     * @param delayInMillis time interval in millis to wait before installation. If zero, the method will not wait.
+     * @return A <code>Future&lt;Bundle&gt;</code> object of the installed bundle.
+     * @since 1.1
      */
     public static Future<Bundle> installBundleAsync(BundleContext bc, String location, long delayInMillis) {
         return installBundleAsync(bc, location, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Installs a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param location      The location identifier of the bundle to install.
+     * @param input         The <code>InputStream</code> object from which this bundle
+     *                      will be read or <code>null</code> to indicate the Framework must
+     *                      create the input stream from the specified location identifier.
+     *                      The input stream must always be closed when this method completes,
+     *                      even if an exception is thrown.
+     * @param delayInMillis time interval in millis to wait before installation. If zero, the method will not wait.
+     * @return A <code>Future&lt;Bundle&gt;</code> object of the installed bundle.
+     * @since 1.1
      */
     public static Future<Bundle> installBundleAsync(BundleContext bc, String location, InputStream input, long delayInMillis) {
         return installBundleAsync(bc, location, input, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Installs a bundle asynchronously with delay
+     *
+     * @param bc       BundleContext
+     * @param location The location identifier of the bundle to install.
+     * @param delay    time interval to wait before installation. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return A <code>Future&lt;Bundle&gt;</code> object of the installed bundle.
+     * @since 1.1
      */
     public static Future<Bundle> installBundleAsync(BundleContext bc, String location, long delay, TimeUnit timeUnit) {
         return installBundleAsync(bc, location, null, delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Installs a bundle asynchronously with delay
+     *
+     * @param bc       BundleContext
+     * @param location The location identifier of the bundle to install.
+     * @param input    The <code>InputStream</code> object from which this bundle
+     *                 will be read or <code>null</code> to indicate the Framework must
+     *                 create the input stream from the specified location identifier.
+     *                 The input stream must always be closed when this method completes,
+     *                 even if an exception is thrown.
+     * @param delay    time interval to wait before installation. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return A <code>Future&lt;Bundle&gt;</code> object of the installed bundle.
+     * @since 1.1
      */
     public static Future<Bundle> installBundleAsync(final BundleContext bc, final String location, final InputStream input, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Bundle>() {
@@ -277,149 +328,298 @@ public class BundleUtils {
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously
+     *
+     * @param bundle Bundle
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> startBundleAsync(BundleContext bc, Bundle bundle) {
-        return startBundleAsync(bc, bundle, 0L);
+    public static Future<?> startBundleAsync(Bundle bundle) {
+        return startBundleAsync(bundle, 0L);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously
+     *
+     * @param bc       BundleContext
+     * @param bundleId bundle id
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, long bundleId) {
         return startBundleAsync(bc, bundleId, 0L);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName) {
         return startBundleAsync(bc, symbolicName, 0L);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param version      version
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, Version version) {
         return startBundleAsync(bc, symbolicName, version, 0L);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously
+     *
+     * @param bundle  Bundle
+     * @param options The options for starting this bundle. See
+     *                {@link Bundle#START_TRANSIENT} and {@link Bundle#START_ACTIVATION_POLICY}. The
+     *                Framework must ignore unrecognized options.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> startBundleAsync(BundleContext bc, Bundle bundle, int options) {
-        return startBundleAsync(bc, bundle, options, 0L);
+    public static Future<?> startBundleAsync(Bundle bundle, int options) {
+        return startBundleAsync(bundle, options, 0L);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously
+     *
+     * @param bc       BundleContext
+     * @param bundleId bundle id
+     * @param options  The options for starting this bundle. See
+     *                 {@link Bundle#START_TRANSIENT} and {@link Bundle#START_ACTIVATION_POLICY}. The
+     *                 Framework must ignore unrecognized options.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, long bundleId, int options) {
         return startBundleAsync(bc, bundleId, options, 0L);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param options      The options for starting this bundle. See
+     *                     {@link Bundle#START_TRANSIENT} and {@link Bundle#START_ACTIVATION_POLICY}. The
+     *                     Framework must ignore unrecognized options.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, int options) {
         return startBundleAsync(bc, symbolicName, options, 0L);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param version      version
+     * @param options      The options for starting this bundle. See
+     *                     {@link Bundle#START_TRANSIENT} and {@link Bundle#START_ACTIVATION_POLICY}. The
+     *                     Framework must ignore unrecognized options.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, Version version, int options) {
         return startBundleAsync(bc, symbolicName, version, options, 0L);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delayInMillis
+     *
+     * @param bundle        Bundle
+     * @param delayInMillis time interval in millis to wait before start. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> startBundleAsync(BundleContext bc, Bundle bundle, long delayInMillis) {
-        return startBundleAsync(bc, bundle, delayInMillis, TimeUnit.MILLISECONDS);
+    public static Future<?> startBundleAsync(Bundle bundle, long delayInMillis) {
+        return startBundleAsync(bundle, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param bundleId      bundle id
+     * @param delayInMillis time interval in millis to wait before start. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, long bundleId, long delayInMillis) {
         return startBundleAsync(bc, bundleId, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param delayInMillis time interval in millis to wait before start. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, long delayInMillis) {
         return startBundleAsync(bc, symbolicName, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param version       version
+     * @param delayInMillis time interval in millis to wait before start. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, Version version, long delayInMillis) {
         return startBundleAsync(bc, symbolicName, version, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delayInMillis
+     *
+     * @param bundle        Bundle
+     * @param options       The options for starting this bundle. See
+     *                      {@link Bundle#START_TRANSIENT} and {@link Bundle#START_ACTIVATION_POLICY}. The
+     *                      Framework must ignore unrecognized options.
+     * @param delayInMillis time interval in millis to wait before start. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> startBundleAsync(BundleContext bc, Bundle bundle, int options, long delayInMillis) {
-        return startBundleAsync(bc, bundle, options, delayInMillis, TimeUnit.MILLISECONDS);
+    public static Future<?> startBundleAsync(Bundle bundle, int options, long delayInMillis) {
+        return startBundleAsync(bundle, options, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param bundleId      bundle id
+     * @param options       The options for starting this bundle. See
+     *                      {@link Bundle#START_TRANSIENT} and {@link Bundle#START_ACTIVATION_POLICY}. The
+     *                      Framework must ignore unrecognized options.
+     * @param delayInMillis time interval in millis to wait before start. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, long bundleId, int options, long delayInMillis) {
         return startBundleAsync(bc, bundleId, options, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param options       The options for starting this bundle. See
+     *                      {@link Bundle#START_TRANSIENT} and {@link Bundle#START_ACTIVATION_POLICY}. The
+     *                      Framework must ignore unrecognized options.
+     * @param delayInMillis time interval in millis to wait before start. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, int options, long delayInMillis) {
         return startBundleAsync(bc, symbolicName, options, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param version       version
+     * @param options       The options for starting this bundle. See
+     *                      {@link Bundle#START_TRANSIENT} and {@link Bundle#START_ACTIVATION_POLICY}. The
+     *                      Framework must ignore unrecognized options.
+     * @param delayInMillis time interval in millis to wait before start. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, Version version, int options, long delayInMillis) {
         return startBundleAsync(bc, symbolicName, version, options, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delay
+     *
+     * @param bundle   Bundle
+     * @param delay    time interval to wait before start. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> startBundleAsync(BundleContext bc, Bundle bundle, long delay, TimeUnit timeUnit) {
-        return startBundleAsync(bc, bundle, 0, delay, timeUnit);
+    public static Future<?> startBundleAsync(Bundle bundle, long delay, TimeUnit timeUnit) {
+        return startBundleAsync(bundle, 0, delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delay
+     *
+     * @param bc       BundleContext
+     * @param bundleId bundle id symbolicName
+     * @param delay    time interval to wait before start. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, long bundleId, long delay, TimeUnit timeUnit) {
-        return startBundleAsync(bc, findBundle(bc, bundleId), delay, timeUnit);
+        return startBundleAsync(findBundle(bc, bundleId), delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delay
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param delay        time interval to wait before start. If zero, the method will not wait.
+     * @param timeUnit     time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, long delay, TimeUnit timeUnit) {
-        return startBundleAsync(bc, findBundle(bc, symbolicName), delay, timeUnit);
+        return startBundleAsync(findBundle(bc, symbolicName), delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delay
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param version      version
+     * @param delay        time interval to wait before start. If zero, the method will not wait.
+     * @param timeUnit     time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, Version version, long delay, TimeUnit timeUnit) {
-        return startBundleAsync(bc, findBundle(bc, symbolicName, version), delay, timeUnit);
+        return startBundleAsync(findBundle(bc, symbolicName, version), delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delay
+     *
+     * @param bundle   Bundle
+     * @param options  The options for starting this bundle. See
+     *                 {@link Bundle#START_TRANSIENT} and {@link Bundle#START_ACTIVATION_POLICY}. The
+     *                 Framework must ignore unrecognized options.
+     * @param delay    time interval to wait before start. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> startBundleAsync(final BundleContext bc, final Bundle bundle, final int options, long delay, TimeUnit timeUnit) {
+    public static Future<?> startBundleAsync(final Bundle bundle, final int options, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
             public Object call() throws Exception {
                 bundle.start(options);
@@ -429,170 +629,350 @@ public class BundleUtils {
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delay
+     *
+     * @param bc       BundleContext
+     * @param bundleId bundle id
+     * @param options  The options for starting this bundle. See
+     *                 {@link Bundle#START_TRANSIENT} and {@link Bundle#START_ACTIVATION_POLICY}. The
+     *                 Framework must ignore unrecognized options.
+     * @param delay    time interval to wait before start. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, long bundleId, int options, long delay, TimeUnit timeUnit) {
-        return startBundleAsync(bc, findBundle(bc, bundleId), options, delay, timeUnit);
+        return startBundleAsync(findBundle(bc, bundleId), options, delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delay
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param options      The options for starting this bundle. See
+     *                     {@link Bundle#START_TRANSIENT} and {@link Bundle#START_ACTIVATION_POLICY}. The
+     *                     Framework must ignore unrecognized options.
+     * @param delay        time interval to wait before start. If zero, the method will not wait.
+     * @param timeUnit     time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, int options, long delay, TimeUnit timeUnit) {
-        return startBundleAsync(bc, findBundle(bc, symbolicName), options, delay, timeUnit);
+        return startBundleAsync(findBundle(bc, symbolicName), options, delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Starts a bundle asynchronously with delay
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param version      version
+     * @param options      The options for starting this bundle. See
+     *                     {@link Bundle#START_TRANSIENT} and {@link Bundle#START_ACTIVATION_POLICY}. The
+     *                     Framework must ignore unrecognized options.
+     * @param delay        time interval to wait before start. If zero, the method will not wait.
+     * @param timeUnit     time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, Version version, int options, long delay, TimeUnit timeUnit) {
-        return startBundleAsync(bc, findBundle(bc, symbolicName, version), options, delay, timeUnit);
+        return startBundleAsync(findBundle(bc, symbolicName, version), options, delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously
+     *
+     * @param bundle Bundle
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> stopBundleAsync(BundleContext bc, Bundle bundle) {
-        return stopBundleAsync(bc, bundle, 0L);
+    public static Future<?> stopBundleAsync(Bundle bundle) {
+        return stopBundleAsync(bundle, 0L);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously
+     *
+     * @param bc       BundleContext
+     * @param bundleId bundle id
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, long bundleId) {
         return stopBundleAsync(bc, bundleId, 0L);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName) {
         return stopBundleAsync(bc, symbolicName, 0L);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param version      version
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, Version version) {
         return stopBundleAsync(bc, symbolicName, version, 0L);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously
+     *
+     * @param bundle  Bundle
+     * @param options The options for stoping this bundle. See
+     *                {@link Bundle#STOP_TRANSIENT}. The Framework must ignore unrecognized
+     *                options.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> stopBundleAsync(BundleContext bc, Bundle bundle, int options) {
-        return stopBundleAsync(bc, bundle, options, 0L);
+    public static Future<?> stopBundleAsync(Bundle bundle, int options) {
+        return stopBundleAsync(bundle, options, 0L);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously
+     *
+     * @param bc       BundleContext
+     * @param bundleId bundle id
+     * @param options  The options for stoping this bundle. See
+     *                 {@link Bundle#STOP_TRANSIENT}. The Framework must ignore unrecognized
+     *                 options.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, long bundleId, int options) {
         return stopBundleAsync(bc, bundleId, options, 0L);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param options      The options for stoping this bundle. See
+     *                     {@link Bundle#STOP_TRANSIENT}. The Framework must ignore unrecognized
+     *                     options.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, int options) {
         return stopBundleAsync(bc, symbolicName, options, 0L);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param version      version
+     * @param options      The options for stoping this bundle. See
+     *                     {@link Bundle#STOP_TRANSIENT}. The Framework must ignore unrecognized
+     *                     options.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, Version version, int options) {
         return stopBundleAsync(bc, symbolicName, version, options, 0L);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delayInMillis
+     *
+     * @param bundle        Bundle
+     * @param delayInMillis time interval in millis to wait before stop. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> stopBundleAsync(BundleContext bc, Bundle bundle, long delayInMillis) {
-        return stopBundleAsync(bc, bundle, delayInMillis, TimeUnit.MILLISECONDS);
+    public static Future<?> stopBundleAsync(Bundle bundle, long delayInMillis) {
+        return stopBundleAsync(bundle, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param bundleId      bundle id
+     * @param delayInMillis time interval in millis to wait before stop. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, long bundleId, long delayInMillis) {
         return stopBundleAsync(bc, bundleId, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param delayInMillis time interval in millis to wait before stop. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, long delayInMillis) {
         return stopBundleAsync(bc, symbolicName, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param version       version
+     * @param delayInMillis time interval in millis to wait before stop. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, Version version, long delayInMillis) {
         return stopBundleAsync(bc, symbolicName, version, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delayInMillis
+     *
+     * @param bundle        Bundle
+     * @param options       The options for stoping this bundle. See
+     *                      {@link Bundle#STOP_TRANSIENT}. The Framework must ignore unrecognized
+     *                      options.
+     * @param delayInMillis time interval in millis to wait before stop. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> stopBundleAsync(BundleContext bc, Bundle bundle, int options, long delayInMillis) {
-        return stopBundleAsync(bc, bundle, options, delayInMillis, TimeUnit.MILLISECONDS);
+    public static Future<?> stopBundleAsync(Bundle bundle, int options, long delayInMillis) {
+        return stopBundleAsync(bundle, options, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param bundleId      bundle id
+     * @param options       The options for stoping this bundle. See
+     *                      {@link Bundle#STOP_TRANSIENT}. The Framework must ignore unrecognized
+     *                      options.
+     * @param delayInMillis time interval in millis to wait before stop. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, long bundleId, int options, long delayInMillis) {
         return stopBundleAsync(bc, bundleId, options, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param options       The options for stoping this bundle. See
+     *                      {@link Bundle#STOP_TRANSIENT}. The Framework must ignore unrecognized
+     *                      options.
+     * @param delayInMillis time interval in millis to wait before stop. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, int options, long delayInMillis) {
-        return stopBundleAsync(bc, symbolicName, delayInMillis, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(bc, symbolicName, options, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param symbolicName  symbolicName
+     * @param version       version
+     * @param options       The options for stoping this bundle. See
+     *                      {@link Bundle#STOP_TRANSIENT}. The Framework must ignore unrecognized
+     *                      options.
+     * @param delayInMillis time interval in millis to wait before stop. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, Version version, int options, long delayInMillis) {
-        return stopBundleAsync(bc, symbolicName, version, delayInMillis, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(bc, symbolicName, version, options, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delay
+     *
+     * @param bundle   Bundle
+     * @param delay    time interval to wait before stop. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> stopBundleAsync(BundleContext bc, Bundle bundle, long delay, TimeUnit timeUnit) {
-        return stopBundleAsync(bc, bundle, 0, delay, TimeUnit.MILLISECONDS);
+    public static Future<?> stopBundleAsync(Bundle bundle, long delay, TimeUnit timeUnit) {
+        return stopBundleAsync(bundle, 0, delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delay
+     *
+     * @param bc       BundleContext
+     * @param bundleId bundle id symbolicName
+     * @param delay    time interval to wait before stop. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, long bundleId, long delay, TimeUnit timeUnit) {
-        return stopBundleAsync(bc, findBundle(bc, bundleId), delay, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(findBundle(bc, bundleId), delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delay
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param delay        time interval to wait before stop. If zero, the method will not wait.
+     * @param timeUnit     time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, long delay, TimeUnit timeUnit) {
-        return stopBundleAsync(bc, findBundle(bc, symbolicName), delay, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(findBundle(bc, symbolicName), delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delay
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param version      version
+     * @param delay        time interval to wait before stop. If zero, the method will not wait.
+     * @param timeUnit     time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, Version version, long delay, TimeUnit timeUnit) {
-        return stopBundleAsync(bc, findBundle(bc, symbolicName, version), delay, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(findBundle(bc, symbolicName, version), delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delay
+     *
+     * @param bundle   Bundle
+     * @param options  The options for stoping this bundle. See
+     *                 {@link Bundle#STOP_TRANSIENT}. The Framework must ignore unrecognized
+     *                 options.
+     * @param delay    time interval to wait before stop. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
-    public static Future<?> stopBundleAsync(final BundleContext bc, final Bundle bundle, final int options, long delay, TimeUnit timeUnit) {
+    public static Future<?> stopBundleAsync(final Bundle bundle, final int options, long delay, TimeUnit timeUnit) {
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<Object>() {
             public Object call() throws Exception {
                 bundle.stop(options);
@@ -602,24 +982,55 @@ public class BundleUtils {
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delay
+     *
+     * @param bc       BundleContext
+     * @param bundleId bundle id
+     * @param options  The options for stoping this bundle. See
+     *                 {@link Bundle#STOP_TRANSIENT}. The Framework must ignore unrecognized
+     *                 options.
+     * @param delay    time interval to wait before stop. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, long bundleId, int options, long delay, TimeUnit timeUnit) {
-        return stopBundleAsync(bc, findBundle(bc, bundleId), options, delay, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(findBundle(bc, bundleId), options, delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delay
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param options      The options for stoping this bundle. See
+     *                     {@link Bundle#STOP_TRANSIENT}. The Framework must ignore unrecognized
+     *                     options.
+     * @param delay        time interval to wait before stop. If zero, the method will not wait.
+     * @param timeUnit     time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, int options, long delay, TimeUnit timeUnit) {
-        return stopBundleAsync(bc, findBundle(bc, symbolicName), options, delay, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(findBundle(bc, symbolicName), options, delay, timeUnit);
     }
 
     /**
-     * TODO
+     * Stops a bundle asynchronously with delay
+     *
+     * @param bc           BundleContext
+     * @param symbolicName symbolicName
+     * @param version      version
+     * @param options      The options for stoping this bundle. See
+     *                     {@link Bundle#STOP_TRANSIENT}. The Framework must ignore unrecognized
+     *                     options.
+     * @param delay        time interval to wait before stop. If zero, the method will not wait.
+     * @param timeUnit     time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, Version version, int options, long delay, TimeUnit timeUnit) {
-        return stopBundleAsync(bc, findBundle(bc, symbolicName, version), options, delay, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(findBundle(bc, symbolicName, version), options, delay, timeUnit);
     }
 
     /**
