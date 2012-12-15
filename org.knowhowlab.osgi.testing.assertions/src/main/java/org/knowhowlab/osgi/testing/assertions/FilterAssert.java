@@ -23,11 +23,11 @@ import org.osgi.framework.InvalidSyntaxException;
 /**
  * A set of OSGi Filter specific assertion methods useful for writing tests.
  * <p/>
- * Before use it should be initialized
+ * Before use it could be initialized with default BundleContext
  * {@link OSGiAssert#setDefaultBundleContext(org.osgi.framework.BundleContext)}
  *
  * @author dmytro.pishchukhin
- * @version 1.0
+ * @version 1.1
  * @see java.lang.AssertionError
  * @see org.knowhowlab.osgi.testing.assertions.OSGiAssert
  */

@@ -26,7 +26,15 @@ import org.osgi.framework.Version;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author dpishchukhin
+ * A set of OSGi Framework specific assertion methods useful for writing tests.
+ * <p/>
+ * Before use it could be initialized with default BundleContext
+ * {@link OSGiAssert#setDefaultBundleContext(org.osgi.framework.BundleContext)}
+ *
+ * @author dmytro.pishchukhin
+ * @version 1.1
+ * @see java.lang.AssertionError
+ * @see org.knowhowlab.osgi.testing.assertions.OSGiAssert
  */
 public class FrameworkAssert extends OSGiAssert {
     /**
@@ -36,28 +44,56 @@ public class FrameworkAssert extends OSGiAssert {
     }
 
     /**
-     * TODO
+     * Asserts that FrameworkEvent for defined bundle will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask   FrameworkEvent type mask
+     * @param bundleId        bundle id
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertFrameworkEvent(int eventTypeMask, int bundleId, long timeoutInMills) {
-        assertFrameworkEvent(null, eventTypeMask, bundleId, timeoutInMills);
+    public static void assertFrameworkEvent(int eventTypeMask, int bundleId, long timeoutInMillis) {
+        assertFrameworkEvent(null, eventTypeMask, bundleId, timeoutInMillis);
     }
 
     /**
-     * TODO
+     * Asserts that FrameworkEvent for defined bundle will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message       message
+     * @param eventTypeMask FrameworkEvent type mask
+     * @param bundleId        bundle id
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertFrameworkEvent(String message, int eventTypeMask, int bundleId, long timeoutInMills) {
-        assertFrameworkEvent(message, eventTypeMask, bundleId, timeoutInMills, TimeUnit.MILLISECONDS);
+    public static void assertFrameworkEvent(String message, int eventTypeMask, int bundleId, long timeoutInMillis) {
+        assertFrameworkEvent(message, eventTypeMask, bundleId, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Asserts that FrameworkEvent for defined bundle will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask FrameworkEvent type mask
+     * @param bundleId        bundle id
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertFrameworkEvent(int eventTypeMask, int bundleId, long timeout, TimeUnit timeUnit) {
         assertFrameworkEvent(null, eventTypeMask, bundleId, timeout, timeUnit);
     }
 
     /**
-     * TODO
+     * Asserts that FrameworkEvent for defined bundle will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message       message
+     * @param eventTypeMask FrameworkEvent type mask
+     * @param bundleId        bundle id
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertFrameworkEvent(String message, int eventTypeMask, int bundleId, long timeout, TimeUnit timeUnit) {
         Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
@@ -68,28 +104,56 @@ public class FrameworkAssert extends OSGiAssert {
     }
 
     /**
-     * TODO
+     * Asserts that FrameworkEvent for defined bundle will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask FrameworkEvent type mask
+     * @param symbolicName  symbolicName
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, long timeoutInMills) {
-        assertFrameworkEvent(null, eventTypeMask, symbolicName, timeoutInMills, TimeUnit.MILLISECONDS);
+    public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, long timeoutInMillis) {
+        assertFrameworkEvent(null, eventTypeMask, symbolicName, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Asserts that FrameworkEvent for defined bundle will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message       message
+     * @param eventTypeMask FrameworkEvent type mask
+     * @param symbolicName  symbolicName
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertFrameworkEvent(String message, int eventTypeMask, String symbolicName, long timeoutInMills) {
-        assertFrameworkEvent(eventTypeMask, symbolicName, timeoutInMills, TimeUnit.MILLISECONDS);
+    public static void assertFrameworkEvent(String message, int eventTypeMask, String symbolicName, long timeoutInMillis) {
+        assertFrameworkEvent(eventTypeMask, symbolicName, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Asserts that FrameworkEvent for defined bundle will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask FrameworkEvent type mask
+     * @param symbolicName  symbolicName
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, long timeout, TimeUnit timeUnit) {
         assertFrameworkEvent(null, eventTypeMask, symbolicName, timeout, timeUnit);
     }
 
     /**
-     * TODO
+     * Asserts that FrameworkEvent for defined bundle will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message       message
+     * @param eventTypeMask FrameworkEvent type mask
+     * @param symbolicName  symbolicName
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertFrameworkEvent(String message, int eventTypeMask, String symbolicName, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
@@ -99,28 +163,60 @@ public class FrameworkAssert extends OSGiAssert {
     }
 
     /**
-     * TODO
+     * Asserts that FrameworkEvent for defined bundle will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask FrameworkEvent type mask
+     * @param symbolicName  symbolicName
+     * @param version       version
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, Version version, long timeoutInMills) {
-        assertFrameworkEvent(eventTypeMask, symbolicName, version, timeoutInMills, TimeUnit.MILLISECONDS);
+    public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, Version version, long timeoutInMillis) {
+        assertFrameworkEvent(eventTypeMask, symbolicName, version, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Asserts that FrameworkEvent for defined bundle will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message       message
+     * @param eventTypeMask FrameworkEvent type mask
+     * @param symbolicName  symbolicName
+     * @param version       version
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertFrameworkEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeoutInMills) {
-        assertFrameworkEvent(message, eventTypeMask, symbolicName, version, timeoutInMills, TimeUnit.MILLISECONDS);
+    public static void assertFrameworkEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeoutInMillis) {
+        assertFrameworkEvent(message, eventTypeMask, symbolicName, version, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Asserts that FrameworkEvent for defined bundle will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask FrameworkEvent type mask
+     * @param symbolicName  symbolicName
+     * @param version       version
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
         assertFrameworkEvent(null, eventTypeMask, symbolicName, version, timeout, timeUnit);
     }
 
     /**
-     * TODO
+     * Asserts that FrameworkEvent for defined bundle will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message       message
+     * @param eventTypeMask FrameworkEvent type mask
+     * @param symbolicName  symbolicName
+     * @param version       version
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertFrameworkEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);

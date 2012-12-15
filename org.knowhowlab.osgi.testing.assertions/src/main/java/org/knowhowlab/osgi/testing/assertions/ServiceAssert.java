@@ -27,11 +27,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * A set of OSGi services specific assertion methods useful for writing tests.
  * <p/>
- * Before use it should be initialized
+ * Before use it could be initialized with default BundleContext
  * {@link OSGiAssert#setDefaultBundleContext(org.osgi.framework.BundleContext)}
  *
  * @author dmytro.pishchukhin
- * @version 1.0
+ * @version 1.1
  * @see java.lang.AssertionError
  * @see org.knowhowlab.osgi.testing.assertions.OSGiAssert
  */
@@ -535,56 +535,116 @@ public class ServiceAssert extends OSGiAssert {
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param filter          service filter
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertServiceEvent(int eventTypeMask, Filter filter, long timeoutInMills) {
-        assertServiceEvent(null, eventTypeMask, filter, timeoutInMills);
+    public static void assertServiceEvent(int eventTypeMask, Filter filter, long timeoutInMillis) {
+        assertServiceEvent(null, eventTypeMask, filter, timeoutInMillis);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param filter          service filter
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, long timeoutInMills) {
-        assertServiceEvent(message, eventTypeMask, filter, timeoutInMills, TimeUnit.MILLISECONDS);
+    public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, long timeoutInMillis) {
+        assertServiceEvent(message, eventTypeMask, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask ServiceEvent type mask
+     * @param filter        service filter
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, Filter filter, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(null, eventTypeMask, filter, timeout, timeUnit);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message       message
+     * @param eventTypeMask ServiceEvent type mask
+     * @param filter        service filter
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(message, eventTypeMask, filter, false, timeout, timeUnit);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param filter          service filter
+     * @param all             use AllServiceListener
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertServiceEvent(int eventTypeMask, Filter filter, boolean all, long timeoutInMills) {
-        assertServiceEvent(null, eventTypeMask, filter, all, timeoutInMills);
+    public static void assertServiceEvent(int eventTypeMask, Filter filter, boolean all, long timeoutInMillis) {
+        assertServiceEvent(null, eventTypeMask, filter, all, timeoutInMillis);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param filter          service filter
+     * @param all             use AllServiceListener
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, boolean all, long timeoutInMills) {
-        assertServiceEvent(message, eventTypeMask, filter, all, timeoutInMills, TimeUnit.MILLISECONDS);
+    public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, boolean all, long timeoutInMillis) {
+        assertServiceEvent(message, eventTypeMask, filter, all, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask ServiceEvent type mask
+     * @param filter        service filter
+     * @param all           use AllServiceListener
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, Filter filter, boolean all, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(null, eventTypeMask, filter, all, timeout, timeUnit);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message       message
+     * @param eventTypeMask ServiceEvent type mask
+     * @param filter        service filter
+     * @param all           use AllServiceListener
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, boolean all, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("Filter is null", filter);
@@ -598,56 +658,116 @@ public class ServiceAssert extends OSGiAssert {
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class name filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param className       service class name
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertServiceEvent(int eventTypeMask, String className, long timeoutInMills) {
-        assertServiceEvent(null, eventTypeMask, className, timeoutInMills);
+    public static void assertServiceEvent(int eventTypeMask, String className, long timeoutInMillis) {
+        assertServiceEvent(null, eventTypeMask, className, timeoutInMillis);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class name filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param className       service class name
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertServiceEvent(String message, int eventTypeMask, String className, long timeoutInMills) {
-        assertServiceEvent(message, eventTypeMask, className, timeoutInMills, TimeUnit.MILLISECONDS);
+    public static void assertServiceEvent(String message, int eventTypeMask, String className, long timeoutInMillis) {
+        assertServiceEvent(message, eventTypeMask, className, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class name filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask ServiceEvent type mask
+     * @param className     service class name
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, String className, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(null, eventTypeMask, className, timeout, timeUnit);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class name filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message       message
+     * @param eventTypeMask ServiceEvent type mask
+     * @param className     service class name
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertServiceEvent(String message, int eventTypeMask, String className, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(message, eventTypeMask, className, false, timeout, timeUnit);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class name filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param className       service class name
+     * @param all             use AllServiceListener
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertServiceEvent(int eventTypeMask, String className, boolean all, long timeoutInMills) {
-        assertServiceEvent(null, eventTypeMask, className, all, timeoutInMills);
+    public static void assertServiceEvent(int eventTypeMask, String className, boolean all, long timeoutInMillis) {
+        assertServiceEvent(null, eventTypeMask, className, all, timeoutInMillis);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class name filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param className       service class name
+     * @param all             use AllServiceListener
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertServiceEvent(String message, int eventTypeMask, String className, boolean all, long timeoutInMills) {
-        assertServiceEvent(message, eventTypeMask, className, all, timeoutInMills, TimeUnit.MILLISECONDS);
+    public static void assertServiceEvent(String message, int eventTypeMask, String className, boolean all, long timeoutInMillis) {
+        assertServiceEvent(message, eventTypeMask, className, all, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class name filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask ServiceEvent type mask
+     * @param className     service class name
+     * @param all           use AllServiceListener
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, String className, boolean all, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(null, eventTypeMask, className, all, timeout, timeUnit);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class name filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message       message
+     * @param eventTypeMask ServiceEvent type mask
+     * @param className     service class name
+     * @param all           use AllServiceListener
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertServiceEvent(String message, int eventTypeMask, String className, boolean all, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("Class name is null", className);
@@ -661,56 +781,116 @@ public class ServiceAssert extends OSGiAssert {
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param clazz           service class
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertServiceEvent(int eventTypeMask, Class clazz, long timeoutInMills) {
-        assertServiceEvent(null, eventTypeMask, clazz, timeoutInMills);
+    public static void assertServiceEvent(int eventTypeMask, Class clazz, long timeoutInMillis) {
+        assertServiceEvent(null, eventTypeMask, clazz, timeoutInMillis);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param clazz           service class
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, long timeoutInMills) {
-        assertServiceEvent(message, eventTypeMask, clazz, timeoutInMills, TimeUnit.MILLISECONDS);
+    public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, long timeoutInMillis) {
+        assertServiceEvent(message, eventTypeMask, clazz, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask ServiceEvent type mask
+     * @param clazz         service class
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, Class clazz, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(null, eventTypeMask, clazz, timeout, timeUnit);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message       message
+     * @param eventTypeMask ServiceEvent type mask
+     * @param clazz         service class
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(message, eventTypeMask, clazz, false, timeout, timeUnit);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param clazz           service class
+     * @param all             use AllServiceListener
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertServiceEvent(int eventTypeMask, Class clazz, boolean all, long timeoutInMills) {
-        assertServiceEvent(null, eventTypeMask, clazz, all, timeoutInMills);
+    public static void assertServiceEvent(int eventTypeMask, Class clazz, boolean all, long timeoutInMillis) {
+        assertServiceEvent(null, eventTypeMask, clazz, all, timeoutInMillis);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param clazz           service class
+     * @param all             use AllServiceListener
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, boolean all, long timeoutInMills) {
-        assertServiceEvent(message, eventTypeMask, clazz, all, timeoutInMills, TimeUnit.MILLISECONDS);
+    public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, boolean all, long timeoutInMillis) {
+        assertServiceEvent(message, eventTypeMask, clazz, all, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask ServiceEvent type mask
+     * @param clazz         service class
+     * @param all           use AllServiceListener
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, Class clazz, boolean all, long timeout, TimeUnit timeUnit) {
         assertServiceEvent(null, eventTypeMask, clazz, all, timeout, timeUnit);
     }
 
     /**
-     * TODO
+     * Asserts that ServiceEvent with class filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message       message
+     * @param eventTypeMask ServiceEvent type mask
+     * @param clazz         service class
+     * @param all           use AllServiceListener
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, boolean all, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("Class is null", clazz);

@@ -29,11 +29,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * A set of OSGi Bundle specific assertion methods useful for writing tests.
  * <p/>
- * Before use it should be initialized
+ * Before use it could be initialized with default BundleContext
  * {@link OSGiAssert#setDefaultBundleContext(org.osgi.framework.BundleContext)}
  *
  * @author dmytro.pishchukhin
- * @version 1.0
+ * @version 1.1
  * @see java.lang.AssertionError
  * @see org.knowhowlab.osgi.testing.assertions.OSGiAssert
  */
@@ -548,28 +548,56 @@ public class BundleAssert extends OSGiAssert {
     }
 
     /**
-     * TODO
+     * Asserts that BundleEvent for defined bundle will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask   BundleEvent type mask
+     * @param bundleId        bundle id
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertBundleEvent(int eventTypeMask, int bundleId, long timeoutInMills) {
-        assertBundleEvent(null, eventTypeMask, bundleId, timeoutInMills);
+    public static void assertBundleEvent(int eventTypeMask, int bundleId, long timeoutInMillis) {
+        assertBundleEvent(null, eventTypeMask, bundleId, timeoutInMillis);
     }
 
     /**
-     * TODO
+     * Asserts that BundleEvent for defined bundle will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param eventTypeMask   BundleEvent type mask
+     * @param bundleId        bundle id
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertBundleEvent(String message, int eventTypeMask, int bundleId, long timeoutInMills) {
-        assertBundleEvent(message, eventTypeMask, bundleId, timeoutInMills, TimeUnit.MILLISECONDS);
+    public static void assertBundleEvent(String message, int eventTypeMask, int bundleId, long timeoutInMillis) {
+        assertBundleEvent(message, eventTypeMask, bundleId, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Asserts that BundleEvent for defined bundle will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask BundleEvent type mask
+     * @param bundleId      bundle id
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertBundleEvent(int eventTypeMask, int bundleId, long timeout, TimeUnit timeUnit) {
         assertBundleEvent(null, eventTypeMask, bundleId, timeout, timeUnit);
     }
 
     /**
-     * TODO
+     * Asserts that BundleEvent for defined bundle will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message       message
+     * @param eventTypeMask BundleEvent type mask
+     * @param bundleId      bundle id
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertBundleEvent(String message, int eventTypeMask, int bundleId, long timeout, TimeUnit timeUnit) {
         Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
@@ -580,28 +608,56 @@ public class BundleAssert extends OSGiAssert {
     }
 
     /**
-     * TODO
+     * Asserts that BundleEvent for defined bundle will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask   BundleEvent type mask
+     * @param symbolicName    symbolicName
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertBundleEvent(int eventTypeMask, String symbolicName, long timeoutInMills) {
-        assertBundleEvent(null, eventTypeMask, symbolicName, timeoutInMills);
+    public static void assertBundleEvent(int eventTypeMask, String symbolicName, long timeoutInMillis) {
+        assertBundleEvent(null, eventTypeMask, symbolicName, timeoutInMillis);
     }
 
     /**
-     * TODO
+     * Asserts that BundleEvent for defined bundle will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param eventTypeMask   BundleEvent type mask
+     * @param symbolicName    symbolicName
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, long timeoutInMills) {
-        assertBundleEvent(message, eventTypeMask, symbolicName, timeoutInMills, TimeUnit.MILLISECONDS);
+    public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, long timeoutInMillis) {
+        assertBundleEvent(message, eventTypeMask, symbolicName, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Asserts that BundleEvent for defined bundle will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask   BundleEvent type mask
+     * @param symbolicName    symbolicName
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertBundleEvent(int eventTypeMask, String symbolicName, long timeout, TimeUnit timeUnit) {
         assertBundleEvent(null, eventTypeMask, symbolicName, timeout, timeUnit);
     }
 
     /**
-     * TODO
+     * Asserts that BundleEvent for defined bundle will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param eventTypeMask   BundleEvent type mask
+     * @param symbolicName    symbolicName
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
@@ -611,28 +667,60 @@ public class BundleAssert extends OSGiAssert {
     }
 
     /**
-     * TODO
+     * Asserts that BundleEvent for defined bundle will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask   BundleEvent type mask
+     * @param symbolicName    symbolicName
+     * @param version         version
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertBundleEvent(int eventTypeMask, String symbolicName, Version version, long timeoutInMills) {
-        assertBundleEvent(null, eventTypeMask, symbolicName, version, timeoutInMills);
+    public static void assertBundleEvent(int eventTypeMask, String symbolicName, Version version, long timeoutInMillis) {
+        assertBundleEvent(null, eventTypeMask, symbolicName, version, timeoutInMillis);
     }
 
     /**
-     * TODO
+     * Asserts that BundleEvent for defined bundle will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param eventTypeMask   BundleEvent type mask
+     * @param symbolicName    symbolicName
+     * @param version         version
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.1
      */
-    public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeoutInMills) {
-        assertBundleEvent(message, eventTypeMask, symbolicName, version, timeoutInMills, TimeUnit.MILLISECONDS);
+    public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeoutInMillis) {
+        assertBundleEvent(message, eventTypeMask, symbolicName, version, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * TODO
+     * Asserts that BundleEvent for defined bundle will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param eventTypeMask   BundleEvent type mask
+     * @param symbolicName    symbolicName
+     * @param version         version
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertBundleEvent(int eventTypeMask, String symbolicName, long timeout, Version version, TimeUnit timeUnit) {
         assertBundleEvent(null, eventTypeMask, symbolicName, version, timeout, timeUnit);
     }
 
     /**
-     * TODO
+     * Asserts that BundleEvent for defined bundle will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param eventTypeMask   BundleEvent type mask
+     * @param symbolicName    symbolicName
+     * @param version         version
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.1
      */
     public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
         Assert.assertNotNull("SymbolicName is null", symbolicName);
