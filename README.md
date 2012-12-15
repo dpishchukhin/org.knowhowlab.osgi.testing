@@ -10,23 +10,62 @@ OSGi specific assertions and utility classes that help to write OSGi integration
 
 [http://groups.google.com/group/knowhowlab-osgi-testing](http://groups.google.com/group/knowhowlab-osgi-testing)
 
+## Changes
+
+### 1.1.0 (15 Dec 2012)
+
+- Added support of Bundle Events, Service Events and Framework Events
+- Added support of asynchronous change of Bundle and Service states
+
+#### Samples
+
+    ...
+    // start bundle in 2 sec
+    startBundleAsync(getBundleContext(), "org.knowhowlab.osgi.testing.it.test.bundle", 2, TimeUnit.SECONDS);
+    // bundle is still stopped
+    assertBundleState(Bundle.RESOLVED | Bundle.INSTALLED, "org.knowhowlab.osgi.testing.it.test.bundle", 1L, TimeUnit.MILLISECONDS);
+    // bundle is active after 5 sec
+    assertBundleState(Bundle.ACTIVE, "org.knowhowlab.osgi.testing.it.test.bundle", 5, TimeUnit.SECONDS);
+    ...
+    // start bundle in 2 sec
+    startBundleAsync(getBundleContext(), "org.knowhowlab.osgi.testing.it.test.bundle", 2, TimeUnit.SECONDS);
+    // expect bundle event within 5 sec
+    assertBundleEvent(BundleEvent.STARTED, "org.knowhowlab.osgi.testing.it.test.bundle", 5, TimeUnit.SECONDS);
+    ...
+    // register service in 2 sec
+    registerServiceAsync(getBundleContext(), TestService.class, new TestService(), null, 2, TimeUnit.SECONDS);
+    // service registered within 5 sec
+    assertServiceEvent(ServiceEvent.REGISTERED, TestService.class, 5, TimeUnit.SECONDS);
+    ...
+    // change start level
+    Executors.newSingleThreadScheduledExecutor().schedule(new Runnable() {
+        public void run() {
+            StartLevel startLevel = ServiceUtils.getService(getBundleContext(), StartLevel.class);
+            startLevel.setStartLevel(10);
+        }
+    }, 2, TimeUnit.SECONDS);
+
+    // start level changed within 5 sec
+    assertFrameworkEvent(FrameworkEvent.STARTLEVEL_CHANGED, 0, 5, TimeUnit.SECONDS);
+
+
 ## Usage
 
 ### Add Maven dependencies:
     <dependency>
         <groupId>org.knowhowlab.osgi</groupId>
         <artifactId>org.knowhowlab.osgi.testing.utils</artifactId>
-        <version>1.0.1</version>
+        <version>1.1.0</version>
     </dependency>
     <dependency>
         <groupId>org.knowhowlab.osgi</groupId>
         <artifactId>org.knowhowlab.osgi.testing.assertions</artifactId>
-        <version>1.0.1</version>
+        <version>1.1.0</version>
     </dependency>
 
 ### Add dependency in PaxExam tests
-    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.utils").version("1.0.1"),
-    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.assertions").version("1.0.1")
+    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.utils").version("1.1.0"),
+    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.assertions").version("1.1.0")
 
 ## There is a comparison of the same test with and without OSGiLab testing assertions and utils.
 
