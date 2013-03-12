@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2012 Dmytro Pishchukhin (http://knowhowlab.org)
+ * Copyright (c) 2010-2013 Dmytro Pishchukhin (http://knowhowlab.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,4 +31,14 @@ public class ConfigurationAdminUtils {
      */
     private ConfigurationAdminUtils() {
     }
+
+    // provide config
+    // provide config for factory
+    // get config?
+    // config events?
+    // create config PID
+    // validate config PID
+    // delete config
+    // config plugins
+
 }
