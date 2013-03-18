@@ -16,7 +16,13 @@
 
 package org.knowhowlab.osgi.testing.assertions.cmpn;
 
+import org.junit.Assert;
 import org.knowhowlab.osgi.testing.assertions.OSGiAssert;
+import org.knowhowlab.osgi.testing.utils.cmpn.EventAdminUtils;
+import org.osgi.framework.Filter;
+import org.osgi.service.event.Event;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * A set of OSGi EventAdmin specific assertion methods useful for writing tests.
@@ -34,5 +40,223 @@ public class EventAdminAssert extends OSGiAssert {
      * Utility class. Only static methods are available.
      */
     private EventAdminAssert() {
+    }
+
+    /**
+     * Asserts that Event for defined topic will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param topic           topic
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
+    public static void assertEvent(String topic, long timeoutInMillis) {
+        assertEvent(null, topic, timeoutInMillis);
+    }
+
+    /**
+     * Asserts that Event for defined topic will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param topic           topic
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
+    public static void assertEvent(String message, String topic, long timeoutInMillis) {
+        assertEvent(message, topic, timeoutInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Asserts that Event for defined topic and filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param topic           topic
+     * @param filter          filter
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
+    public static void assertEvent(String topic, Filter filter, long timeoutInMillis) {
+        assertEvent(null, topic, filter, timeoutInMillis);
+    }
+
+    /**
+     * Asserts that Event for defined topic and filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param topic           topic
+     * @param filter          filter
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
+    public static void assertEvent(String message, String topic, Filter filter, long timeoutInMillis) {
+        assertEvent(message, topic, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Asserts that Event for defined topics will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param topics          topics
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
+    public static void assertEvent(String[] topics, long timeoutInMillis) {
+        assertEvent(null, topics, timeoutInMillis);
+    }
+
+    /**
+     * Asserts that Event for defined topics will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param topics          topics
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
+    public static void assertEvent(String message, String[] topics, long timeoutInMillis) {
+        assertEvent(message, topics, timeoutInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Asserts that Event for defined topics and filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param topics          topics
+     * @param filter          filter
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
+    public static void assertEvent(String[] topics, Filter filter, long timeoutInMillis) {
+        assertEvent(null, topics, filter, timeoutInMillis);
+    }
+
+    /**
+     * Asserts that Event for defined topics and filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param topics          topics
+     * @param filter          filter
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
+    public static void assertEvent(String message, String[] topics, Filter filter, long timeoutInMillis) {
+        assertEvent(message, topics, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Asserts that Event for defined topic will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param topic    topic
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit time unit for the time interval
+     * @since 1.0
+     */
+    public static void assertEvent(String topic, long timeout, TimeUnit timeUnit) {
+        assertEvent(null, topic, timeout, timeUnit);
+    }
+
+    /**
+     * Asserts that Event for defined topic will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message  message
+     * @param topic    topic
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit time unit for the time interval
+     * @since 1.0
+     */
+    public static void assertEvent(String message, String topic, long timeout, TimeUnit timeUnit) {
+        assertEvent(message, topic, null, timeout, timeUnit);
+    }
+
+    /**
+     * Asserts that Event for defined topic and filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param topic    topic
+     * @param filter   filter
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit time unit for the time interval
+     * @since 1.0
+     */
+    public static void assertEvent(String topic, Filter filter, long timeout, TimeUnit timeUnit) {
+        assertEvent(null, topic, filter, timeout, timeUnit);
+    }
+
+    /**
+     * Asserts that Event for defined topic and filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message  message
+     * @param topic    topic
+     * @param filter   filter
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit time unit for the time interval
+     * @since 1.0
+     */
+    public static void assertEvent(String message, String topic, Filter filter, long timeout, TimeUnit timeUnit) {
+        Event event = EventAdminUtils.waitForEvent(getBundleContext(), topic, filter, timeout, timeUnit);
+        Assert.assertNotNull(message, event);
+    }
+
+    /**
+     * Asserts that Event for defined topics will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param topics   topics
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit time unit for the time interval
+     * @since 1.0
+     */
+    public static void assertEvent(String[] topics, long timeout, TimeUnit timeUnit) {
+        assertEvent(null, topics, timeout, timeUnit);
+    }
+
+    /**
+     * Asserts that Event for defined topics will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message  message
+     * @param topics   topics
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit time unit for the time interval
+     * @since 1.0
+     */
+    public static void assertEvent(String message, String[] topics, long timeout, TimeUnit timeUnit) {
+        assertEvent(message, topics, null, timeout, timeUnit);
+    }
+
+    /**
+     * Asserts that Event for defined topics and filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown
+     *
+     * @param topics   topics
+     * @param filter   filter
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit time unit for the time interval
+     * @since 1.0
+     */
+    public static void assertEvent(String[] topics, Filter filter, long timeout, TimeUnit timeUnit) {
+        assertEvent(null, topics, filter, timeout, timeUnit);
+    }
+
+    /**
+     * Asserts that Event for defined topics and filter will be fired within given timeout. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message  message
+     * @param topics   topics
+     * @param filter   filter
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit time unit for the time interval
+     * @since 1.0
+     */
+    public static void assertEvent(String message, String[] topics, Filter filter, long timeout, TimeUnit timeUnit) {
+        Event event = EventAdminUtils.waitForEvent(getBundleContext(), topics, filter, timeout, timeUnit);
+        Assert.assertNotNull(message, event);
     }
 }
