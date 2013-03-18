@@ -60,6 +60,7 @@
                         </Export-Package>
                         <Import-Package>
                             org.osgi*,
+                            org.osgi.service.event;resolution:=optional
                         </Import-Package>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>

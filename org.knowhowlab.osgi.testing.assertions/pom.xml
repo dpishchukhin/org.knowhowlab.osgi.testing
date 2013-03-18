@@ -69,6 +69,7 @@
                         </Export-Package>
                         <Import-Package>
                             org.osgi*,
+                            org.osgi.service.event;resolution:=optional,
                             org.junit*,
                             org.knowhowlab.osgi.testing.utils*
                         </Import-Package>
