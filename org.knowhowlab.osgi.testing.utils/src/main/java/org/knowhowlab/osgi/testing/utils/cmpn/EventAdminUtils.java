@@ -48,67 +48,226 @@ public class EventAdminUtils {
     private EventAdminUtils() {
     }
 
-    // post with delay
+    /**
+     * Post an Event with delay
+     *
+     * @param eventAdmin    EventAdmin
+     * @param topic         topic
+     * @param delayInMillis time interval in millis to wait before post. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(EventAdmin eventAdmin, String topic, long delayInMillis) {
         return postEvent(eventAdmin, topic, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Post an Event with delay
+     *
+     * @param eventAdmin    EventAdmin
+     * @param topic         topic
+     * @param properties    event properties
+     * @param delayInMillis time interval in millis to wait before post. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(EventAdmin eventAdmin, String topic, Dictionary properties, long delayInMillis) {
         return postEvent(eventAdmin, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Post an Event with delay
+     *
+     * @param eventAdmin    EventAdmin
+     * @param topic         topic
+     * @param properties    event properties
+     * @param delayInMillis time interval in millis to wait before post. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(EventAdmin eventAdmin, String topic, Map properties, long delayInMillis) {
         return postEvent(eventAdmin, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Post an Event with delay
+     *
+     * @param eventAdmin    EventAdmin
+     * @param event         event
+     * @param delayInMillis time interval in millis to wait before post. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(EventAdmin eventAdmin, Event event, long delayInMillis) {
         return postEvent(eventAdmin, event, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Post an Event with delay
+     *
+     * @param bc            BundleContext
+     * @param topic         topic
+     * @param delayInMillis time interval in millis to wait before post. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(BundleContext bc, String topic, long delayInMillis) {
         return postEvent(bc, topic, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Post an Event with delay
+     *
+     * @param bc            BundleContext
+     * @param topic         topic
+     * @param properties    event properties
+     * @param delayInMillis time interval in millis to wait before post. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(BundleContext bc, String topic, Dictionary properties, long delayInMillis) {
         return postEvent(bc, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Post an Event with delay
+     *
+     * @param bc            BundleContext
+     * @param topic         topic
+     * @param properties    event properties
+     * @param delayInMillis time interval in millis to wait before post. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(BundleContext bc, String topic, Map properties, long delayInMillis) {
         return postEvent(bc, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Post an Event with delay
+     *
+     * @param bc            BundleContext
+     * @param event         event
+     * @param delayInMillis time interval in millis to wait before post. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(BundleContext bc, Event event, long delayInMillis) {
         return postEvent(bc, event, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Post an Event with delay
+     *
+     * @param eventAdmin EventAdmin
+     * @param topic      topic
+     * @param delay      time interval to wait before post. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(EventAdmin eventAdmin, String topic, long delay, TimeUnit timeUnit) {
         return postEvent(eventAdmin, new Event(topic, (Map) null), delay, timeUnit);
     }
 
+    /**
+     * Post an Event with delay
+     *
+     * @param eventAdmin EventAdmin
+     * @param topic      topic
+     * @param properties event properties
+     * @param delay      time interval to wait before post. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(EventAdmin eventAdmin, String topic, Dictionary properties, long delay, TimeUnit timeUnit) {
         return postEvent(eventAdmin, new Event(topic, properties), delay, timeUnit);
     }
 
+    /**
+     * Post an Event with delay
+     *
+     * @param eventAdmin EventAdmin
+     * @param topic      topic
+     * @param properties event properties
+     * @param delay      time interval to wait before post. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(EventAdmin eventAdmin, String topic, Map properties, long delay, TimeUnit timeUnit) {
         return postEvent(eventAdmin, new Event(topic, properties), delay, timeUnit);
     }
 
+    /**
+     * Post an Event with delay
+     *
+     * @param bc       BundleContext
+     * @param topic         topic
+     * @param delay    time interval to wait before post. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(BundleContext bc, String topic, long delay, TimeUnit timeUnit) {
         return postEvent(ServiceUtils.getService(bc, EventAdmin.class), new Event(topic, (Map) null), delay, timeUnit);
     }
 
+    /**
+     * Post an Event with delay
+     *
+     * @param bc       BundleContext
+     * @param topic         topic
+     * @param properties    event properties
+     * @param delay    time interval to wait before post. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(BundleContext bc, String topic, Dictionary properties, long delay, TimeUnit timeUnit) {
         return postEvent(ServiceUtils.getService(bc, EventAdmin.class), new Event(topic, properties), delay, timeUnit);
     }
 
+    /**
+     * Post an Event with delay
+     *
+     * @param bc       BundleContext
+     * @param topic         topic
+     * @param properties    event properties
+     * @param delay    time interval to wait before post. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(BundleContext bc, String topic, Map properties, long delay, TimeUnit timeUnit) {
         return postEvent(ServiceUtils.getService(bc, EventAdmin.class), new Event(topic, properties), delay, timeUnit);
     }
 
+    /**
+     * Post an Event with delay
+     *
+     * @param bc       BundleContext
+     * @param event    event
+     * @param delay    time interval to wait before post. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(BundleContext bc, final Event event, long delay, TimeUnit timeUnit) {
         return postEvent(ServiceUtils.getService(bc, EventAdmin.class), event, delay, timeUnit);
     }
 
+    /**
+     * Post an Event with delay
+     *
+     * @param eventAdmin EventAdmin
+     * @param event      event
+     * @param delay      time interval to wait before post. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> postEvent(final EventAdmin eventAdmin, final Event event, long delay, TimeUnit timeUnit) {
         if (eventAdmin == null) {
             throw new NullPointerException("EventAdmin is null");
@@ -121,67 +280,226 @@ public class EventAdminUtils {
         }, delay, timeUnit);
     }
 
-    // send with delay
+    /**
+     * Send an Event with delay
+     *
+     * @param eventAdmin EventAdmin
+     * @param topic         topic
+     * @param delayInMillis time interval in millis to wait before send. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(EventAdmin eventAdmin, String topic, long delayInMillis) {
         return sendEvent(eventAdmin, topic, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Send an Event with delay
+     *
+     * @param eventAdmin EventAdmin
+     * @param topic         topic
+     * @param properties    event properties
+     * @param delayInMillis time interval in millis to wait before send. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(EventAdmin eventAdmin, String topic, Dictionary properties, long delayInMillis) {
         return sendEvent(eventAdmin, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Send an Event with delay
+     *
+     * @param eventAdmin EventAdmin
+     * @param topic         topic
+     * @param properties    event properties
+     * @param delayInMillis time interval in millis to wait before send. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(EventAdmin eventAdmin, String topic, Map properties, long delayInMillis) {
         return sendEvent(eventAdmin, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Send an Event with delay
+     *
+     * @param eventAdmin EventAdmin
+     * @param event      event
+     * @param delayInMillis time interval in millis to wait before send. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(EventAdmin eventAdmin, Event event, long delayInMillis) {
         return sendEvent(eventAdmin, event, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Send an Event with delay
+     *
+     * @param bc       BundleContext
+     * @param topic         topic
+     * @param delayInMillis time interval in millis to wait before send. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(BundleContext bc, String topic, long delayInMillis) {
         return sendEvent(bc, topic, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Send an Event with delay
+     *
+     * @param bc       BundleContext
+     * @param topic         topic
+     * @param properties    event properties
+     * @param delayInMillis time interval in millis to wait before send. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(BundleContext bc, String topic, Dictionary properties, long delayInMillis) {
         return sendEvent(bc, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Send an Event with delay
+     *
+     * @param bc       BundleContext
+     * @param topic         topic
+     * @param properties    event properties
+     * @param delayInMillis time interval in millis to wait before send. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(BundleContext bc, String topic, Map properties, long delayInMillis) {
         return sendEvent(bc, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Send an Event with delay
+     *
+     * @param bc       BundleContext
+     * @param event      event
+     * @param delayInMillis time interval in millis to wait before send. If zero, the method will not wait.
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(BundleContext bc, Event event, long delayInMillis) {
         return sendEvent(bc, event, delayInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Send an Event with delay
+     *
+     * @param eventAdmin EventAdmin
+     * @param topic         topic
+     * @param delay      time interval to wait before send. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(EventAdmin eventAdmin, String topic, long delay, TimeUnit timeUnit) {
         return sendEvent(eventAdmin, new Event(topic, (Map) null), delay, timeUnit);
     }
 
+    /**
+     * Send an Event with delay
+     *
+     * @param eventAdmin EventAdmin
+     * @param topic         topic
+     * @param properties    event properties
+     * @param delay      time interval to wait before send. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(EventAdmin eventAdmin, String topic, Dictionary properties, long delay, TimeUnit timeUnit) {
         return sendEvent(eventAdmin, new Event(topic, properties), delay, timeUnit);
     }
 
+    /**
+     * Send an Event with delay
+     *
+     * @param eventAdmin EventAdmin
+     * @param topic         topic
+     * @param properties    event properties
+     * @param delay      time interval to wait before send. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(EventAdmin eventAdmin, String topic, Map properties, long delay, TimeUnit timeUnit) {
         return sendEvent(eventAdmin, new Event(topic, properties), delay, timeUnit);
     }
 
+    /**
+     * Send an Event with delay
+     *
+     * @param bc       BundleContext
+     * @param topic         topic
+     * @param delay      time interval to wait before send. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(BundleContext bc, String topic, long delay, TimeUnit timeUnit) {
         return sendEvent(ServiceUtils.getService(bc, EventAdmin.class), new Event(topic, (Map) null), delay, timeUnit);
     }
 
+    /**
+     * Send an Event with delay
+     *
+     * @param bc       BundleContext
+     * @param topic         topic
+     * @param properties    event properties
+     * @param delay      time interval to wait before send. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(BundleContext bc, String topic, Dictionary properties, long delay, TimeUnit timeUnit) {
         return sendEvent(ServiceUtils.getService(bc, EventAdmin.class), new Event(topic, properties), delay, timeUnit);
     }
 
+    /**
+     * Send an Event with delay
+     *
+     * @param bc       BundleContext
+     * @param topic         topic
+     * @param properties    event properties
+     * @param delay      time interval to wait before send. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(BundleContext bc, String topic, Map properties, long delay, TimeUnit timeUnit) {
         return sendEvent(ServiceUtils.getService(bc, EventAdmin.class), new Event(topic, properties), delay, timeUnit);
     }
 
+    /**
+     * Send an Event with delay
+     *
+     * @param bc       BundleContext
+     * @param event      event
+     * @param delay      time interval to wait before send. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(BundleContext bc, final Event event, long delay, TimeUnit timeUnit) {
         return sendEvent(ServiceUtils.getService(bc, EventAdmin.class), event, delay, timeUnit);
     }
 
+    /**
+     * Send an Event with delay
+     *
+     * @param eventAdmin EventAdmin
+     * @param event      event
+     * @param delay      time interval to wait before send. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return The Future's <tt>get</tt> method will return <tt>null</tt> upon <em>successful</em> completion.
+     * @since 1.0
+     */
     public static Future<?> sendEvent(final EventAdmin eventAdmin, final Event event, long delay, TimeUnit timeUnit) {
         if (eventAdmin == null) {
             throw new NullPointerException("EventAdmin is null");
@@ -194,27 +512,91 @@ public class EventAdminUtils {
         }, delay, timeUnit);
     }
 
-    // wait for event
+    /**
+     * Wait for Event with topics
+     *
+     * @param bc              BundleContext
+     * @param topic           topic
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return Event or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
+     */
     public static Event waitForEvent(BundleContext bc, String topic, long timeoutInMillis) {
         return waitForEvent(bc, topic, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for Event with topic and filter
+     *
+     * @param bc              BundleContext
+     * @param topic           topic
+     * @param filter          filter
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return Event or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
+     */
     public static Event waitForEvent(BundleContext bc, String topic, Filter filter, long timeoutInMillis) {
         return waitForEvent(bc, topic, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for Event with topics
+     *
+     * @param bc              BundleContext
+     * @param topics          topics
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return Event or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
+     */
     public static Event waitForEvent(BundleContext bc, String[] topics, long timeoutInMillis) {
         return waitForEvent(bc, topics, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for Event with topics and filter
+     *
+     * @param bc              BundleContext
+     * @param topics          topics
+     * @param filter          filter
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return Event or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
+     */
     public static Event waitForEvent(BundleContext bc, String[] topics, Filter filter, long timeoutInMillis) {
         return waitForEvent(bc, topics, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Wait for Event with topic
+     *
+     * @param bc       BundleContext
+     * @param topic    topic
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit time unit for the time interval
+     * @return Event or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
+     */
     public static Event waitForEvent(BundleContext bc, String topic, long timeout, TimeUnit timeUnit) {
         return waitForEvent(bc, topic, null, timeout, timeUnit);
     }
 
+    /**
+     * Wait for Event with topic and filter
+     *
+     * @param bc       BundleContext
+     * @param topic    topic
+     * @param filter   filter
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit time unit for the time interval
+     * @return Event or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
+     */
     public static Event waitForEvent(BundleContext bc, String topic, Filter filter, long timeout, TimeUnit timeUnit) {
         CountDownLatch latch = new CountDownLatch(1);
 
@@ -238,10 +620,33 @@ public class EventAdminUtils {
         }
     }
 
+    /**
+     * Wait for Event with topics
+     *
+     * @param bc       BundleContext
+     * @param topics   topics
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit time unit for the time interval
+     * @return Event or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
+     */
     public static Event waitForEvent(BundleContext bc, String[] topics, long timeout, TimeUnit timeUnit) {
         return waitForEvent(bc, topics, null, timeout, timeUnit);
     }
 
+    /**
+     * Wait for Event with topics and filter
+     *
+     * @param bc       BundleContext
+     * @param topics   topics
+     * @param filter   filter
+     * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit time unit for the time interval
+     * @return Event or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
+     */
     public static Event waitForEvent(BundleContext bc, String[] topics, Filter filter, long timeout, TimeUnit timeUnit) {
         CountDownLatch latch = new CountDownLatch(1);
 
