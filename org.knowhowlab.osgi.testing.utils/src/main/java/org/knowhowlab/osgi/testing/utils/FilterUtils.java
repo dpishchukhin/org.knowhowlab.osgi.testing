@@ -18,8 +18,11 @@ package org.knowhowlab.osgi.testing.utils;
 
 import org.osgi.framework.Constants;
 import org.osgi.framework.Filter;
-import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.InvalidSyntaxException;
+
+import static java.lang.String.format;
+import static org.osgi.framework.Constants.OBJECTCLASS;
+import static org.osgi.framework.FrameworkUtil.createFilter;
 
 /**
  * OSGi Filter utilities class
@@ -115,7 +118,7 @@ public class FilterUtils {
      * @since 1.0
      */
     public static Filter create(Class clazz) throws InvalidSyntaxException {
-        return eq(Constants.OBJECTCLASS, clazz.getName());
+        return eq(OBJECTCLASS, clazz.getName());
     }
 
     /**
@@ -162,7 +165,7 @@ public class FilterUtils {
      * @since 1.0
      */
     public static Filter create(String className) throws InvalidSyntaxException {
-        return eq(Constants.OBJECTCLASS, className);
+        return eq(OBJECTCLASS, className);
     }
 
     /**
@@ -177,7 +180,7 @@ public class FilterUtils {
      * @since 1.0
      */
     public static Filter and(String filter1, String filter2) throws InvalidSyntaxException {
-        return FrameworkUtil.createFilter(String.format(AND_TEMPLATE, filter1, filter2));
+        return createFilter(format(AND_TEMPLATE, filter1, filter2));
     }
 
     /**
@@ -192,7 +195,7 @@ public class FilterUtils {
      * @since 1.0
      */
     public static Filter and(Filter filter1, String filter2) throws InvalidSyntaxException {
-        return FrameworkUtil.createFilter(String.format(AND_TEMPLATE, filter1, filter2));
+        return createFilter(format(AND_TEMPLATE, filter1, filter2));
     }
 
     /**
@@ -207,7 +210,7 @@ public class FilterUtils {
      * @since 1.0
      */
     public static Filter and(Filter filter1, Filter filter2) throws InvalidSyntaxException {
-        return FrameworkUtil.createFilter(String.format(AND_TEMPLATE, filter1, filter2));
+        return createFilter(format(AND_TEMPLATE, filter1, filter2));
     }
 
     /**
@@ -222,7 +225,7 @@ public class FilterUtils {
      * @since 1.0
      */
     public static Filter or(String filter1, String filter2) throws InvalidSyntaxException {
-        return FrameworkUtil.createFilter(String.format(OR_TEMPLATE, filter1, filter2));
+        return createFilter(format(OR_TEMPLATE, filter1, filter2));
     }
 
     /**
@@ -237,7 +240,7 @@ public class FilterUtils {
      * @since 1.0
      */
     public static Filter or(Filter filter1, String filter2) throws InvalidSyntaxException {
-        return FrameworkUtil.createFilter(String.format(OR_TEMPLATE, filter1, filter2));
+        return createFilter(format(OR_TEMPLATE, filter1, filter2));
     }
 
     /**
@@ -252,7 +255,7 @@ public class FilterUtils {
      * @since 1.0
      */
     public static Filter or(Filter filter1, Filter filter2) throws InvalidSyntaxException {
-        return FrameworkUtil.createFilter(String.format(OR_TEMPLATE, filter1, filter2));
+        return createFilter(format(OR_TEMPLATE, filter1, filter2));
     }
 
     /**
@@ -266,7 +269,7 @@ public class FilterUtils {
      * @since 1.0
      */
     public static Filter not(String filter) throws InvalidSyntaxException {
-        return FrameworkUtil.createFilter(String.format(NOT_TEMPLATE, filter));
+        return createFilter(format(NOT_TEMPLATE, filter));
     }
 
     /**
@@ -280,7 +283,7 @@ public class FilterUtils {
      * @since 1.0
      */
     public static Filter not(Filter filter) throws InvalidSyntaxException {
-        return FrameworkUtil.createFilter(String.format(NOT_TEMPLATE, filter));
+        return createFilter(format(NOT_TEMPLATE, filter));
     }
 
     /**
@@ -295,7 +298,7 @@ public class FilterUtils {
      * @since 1.0
      */
     public static Filter eq(String key, Object value) throws InvalidSyntaxException {
-        return FrameworkUtil.createFilter(String.format(EQUALS_FILTER_TEMPLATE, key, value));
+        return createFilter(format(EQUALS_FILTER_TEMPLATE, key, value));
     }
 
     /**
@@ -310,7 +313,7 @@ public class FilterUtils {
      * @since 1.0
      */
     public static Filter approx(String key, Object value) throws InvalidSyntaxException {
-        return FrameworkUtil.createFilter(String.format(APPROX_FILTER_TEMPLATE, key, value));
+        return createFilter(format(APPROX_FILTER_TEMPLATE, key, value));
     }
 
     /**
@@ -325,7 +328,7 @@ public class FilterUtils {
      * @since 1.0
      */
     public static Filter ge(String key, Object value) throws InvalidSyntaxException {
-        return FrameworkUtil.createFilter(String.format(GE_FILTER_TEMPLATE, key, value));
+        return createFilter(format(GE_FILTER_TEMPLATE, key, value));
     }
 
     /**
@@ -340,7 +343,7 @@ public class FilterUtils {
      * @since 1.0
      */
     public static Filter le(String key, Object value) throws InvalidSyntaxException {
-        return FrameworkUtil.createFilter(String.format(LE_FILTER_TEMPLATE, key, value));
+        return createFilter(format(LE_FILTER_TEMPLATE, key, value));
     }
 
     /**
@@ -354,6 +357,6 @@ public class FilterUtils {
      * @since 1.0
      */
     public static Filter present(String key) throws InvalidSyntaxException {
-        return FrameworkUtil.createFilter(String.format(PRESENT_FILTER_TEMPLATE, key));
+        return createFilter(format(PRESENT_FILTER_TEMPLATE, key));
     }
 }

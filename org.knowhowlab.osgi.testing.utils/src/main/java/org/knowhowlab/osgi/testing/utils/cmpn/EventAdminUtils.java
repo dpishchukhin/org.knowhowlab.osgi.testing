@@ -16,19 +16,22 @@
 
 package org.knowhowlab.osgi.testing.utils.cmpn;
 
-import org.knowhowlab.osgi.testing.utils.ServiceUtils;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
-import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.concurrent.*;
+
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.knowhowlab.osgi.testing.utils.ServiceUtils.getService;
+import static org.osgi.service.event.EventConstants.EVENT_FILTER;
+import static org.osgi.service.event.EventConstants.EVENT_TOPIC;
 
 /**
  * OSGi EventAdmin utilities class
@@ -58,7 +61,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> postEvent(EventAdmin eventAdmin, String topic, long delayInMillis) {
-        return postEvent(eventAdmin, topic, delayInMillis, TimeUnit.MILLISECONDS);
+        return postEvent(eventAdmin, topic, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -72,7 +75,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> postEvent(EventAdmin eventAdmin, String topic, Dictionary properties, long delayInMillis) {
-        return postEvent(eventAdmin, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
+        return postEvent(eventAdmin, topic, properties, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -86,7 +89,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> postEvent(EventAdmin eventAdmin, String topic, Map properties, long delayInMillis) {
-        return postEvent(eventAdmin, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
+        return postEvent(eventAdmin, topic, properties, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -99,7 +102,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> postEvent(EventAdmin eventAdmin, Event event, long delayInMillis) {
-        return postEvent(eventAdmin, event, delayInMillis, TimeUnit.MILLISECONDS);
+        return postEvent(eventAdmin, event, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -112,7 +115,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> postEvent(BundleContext bc, String topic, long delayInMillis) {
-        return postEvent(bc, topic, delayInMillis, TimeUnit.MILLISECONDS);
+        return postEvent(bc, topic, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -126,7 +129,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> postEvent(BundleContext bc, String topic, Dictionary properties, long delayInMillis) {
-        return postEvent(bc, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
+        return postEvent(bc, topic, properties, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -140,7 +143,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> postEvent(BundleContext bc, String topic, Map properties, long delayInMillis) {
-        return postEvent(bc, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
+        return postEvent(bc, topic, properties, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -153,7 +156,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> postEvent(BundleContext bc, Event event, long delayInMillis) {
-        return postEvent(bc, event, delayInMillis, TimeUnit.MILLISECONDS);
+        return postEvent(bc, event, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -211,7 +214,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> postEvent(BundleContext bc, String topic, long delay, TimeUnit timeUnit) {
-        return postEvent(ServiceUtils.getService(bc, EventAdmin.class), new Event(topic, (Map) null), delay, timeUnit);
+        return postEvent(getService(bc, EventAdmin.class), new Event(topic, (Map) null), delay, timeUnit);
     }
 
     /**
@@ -226,7 +229,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> postEvent(BundleContext bc, String topic, Dictionary properties, long delay, TimeUnit timeUnit) {
-        return postEvent(ServiceUtils.getService(bc, EventAdmin.class), new Event(topic, properties), delay, timeUnit);
+        return postEvent(getService(bc, EventAdmin.class), new Event(topic, properties), delay, timeUnit);
     }
 
     /**
@@ -241,7 +244,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> postEvent(BundleContext bc, String topic, Map properties, long delay, TimeUnit timeUnit) {
-        return postEvent(ServiceUtils.getService(bc, EventAdmin.class), new Event(topic, properties), delay, timeUnit);
+        return postEvent(getService(bc, EventAdmin.class), new Event(topic, properties), delay, timeUnit);
     }
 
     /**
@@ -255,7 +258,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> postEvent(BundleContext bc, final Event event, long delay, TimeUnit timeUnit) {
-        return postEvent(ServiceUtils.getService(bc, EventAdmin.class), event, delay, timeUnit);
+        return postEvent(getService(bc, EventAdmin.class), event, delay, timeUnit);
     }
 
     /**
@@ -290,7 +293,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> sendEvent(EventAdmin eventAdmin, String topic, long delayInMillis) {
-        return sendEvent(eventAdmin, topic, delayInMillis, TimeUnit.MILLISECONDS);
+        return sendEvent(eventAdmin, topic, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -304,7 +307,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> sendEvent(EventAdmin eventAdmin, String topic, Dictionary properties, long delayInMillis) {
-        return sendEvent(eventAdmin, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
+        return sendEvent(eventAdmin, topic, properties, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -318,7 +321,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> sendEvent(EventAdmin eventAdmin, String topic, Map properties, long delayInMillis) {
-        return sendEvent(eventAdmin, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
+        return sendEvent(eventAdmin, topic, properties, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -331,7 +334,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> sendEvent(EventAdmin eventAdmin, Event event, long delayInMillis) {
-        return sendEvent(eventAdmin, event, delayInMillis, TimeUnit.MILLISECONDS);
+        return sendEvent(eventAdmin, event, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -344,7 +347,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> sendEvent(BundleContext bc, String topic, long delayInMillis) {
-        return sendEvent(bc, topic, delayInMillis, TimeUnit.MILLISECONDS);
+        return sendEvent(bc, topic, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -358,7 +361,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> sendEvent(BundleContext bc, String topic, Dictionary properties, long delayInMillis) {
-        return sendEvent(bc, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
+        return sendEvent(bc, topic, properties, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -372,7 +375,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> sendEvent(BundleContext bc, String topic, Map properties, long delayInMillis) {
-        return sendEvent(bc, topic, properties, delayInMillis, TimeUnit.MILLISECONDS);
+        return sendEvent(bc, topic, properties, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -385,7 +388,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> sendEvent(BundleContext bc, Event event, long delayInMillis) {
-        return sendEvent(bc, event, delayInMillis, TimeUnit.MILLISECONDS);
+        return sendEvent(bc, event, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -443,7 +446,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> sendEvent(BundleContext bc, String topic, long delay, TimeUnit timeUnit) {
-        return sendEvent(ServiceUtils.getService(bc, EventAdmin.class), new Event(topic, (Map) null), delay, timeUnit);
+        return sendEvent(getService(bc, EventAdmin.class), new Event(topic, (Map) null), delay, timeUnit);
     }
 
     /**
@@ -458,7 +461,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> sendEvent(BundleContext bc, String topic, Dictionary properties, long delay, TimeUnit timeUnit) {
-        return sendEvent(ServiceUtils.getService(bc, EventAdmin.class), new Event(topic, properties), delay, timeUnit);
+        return sendEvent(getService(bc, EventAdmin.class), new Event(topic, properties), delay, timeUnit);
     }
 
     /**
@@ -473,7 +476,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> sendEvent(BundleContext bc, String topic, Map properties, long delay, TimeUnit timeUnit) {
-        return sendEvent(ServiceUtils.getService(bc, EventAdmin.class), new Event(topic, properties), delay, timeUnit);
+        return sendEvent(getService(bc, EventAdmin.class), new Event(topic, properties), delay, timeUnit);
     }
 
     /**
@@ -487,7 +490,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Future<?> sendEvent(BundleContext bc, final Event event, long delay, TimeUnit timeUnit) {
-        return sendEvent(ServiceUtils.getService(bc, EventAdmin.class), event, delay, timeUnit);
+        return sendEvent(getService(bc, EventAdmin.class), event, delay, timeUnit);
     }
 
     /**
@@ -523,7 +526,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Event waitForEvent(BundleContext bc, String topic, long timeoutInMillis) {
-        return waitForEvent(bc, topic, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForEvent(bc, topic, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -538,7 +541,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Event waitForEvent(BundleContext bc, String topic, Filter filter, long timeoutInMillis) {
-        return waitForEvent(bc, topic, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForEvent(bc, topic, filter, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -552,7 +555,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Event waitForEvent(BundleContext bc, String[] topics, long timeoutInMillis) {
-        return waitForEvent(bc, topics, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForEvent(bc, topics, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -567,7 +570,7 @@ public class EventAdminUtils {
      * @since 1.0
      */
     public static Event waitForEvent(BundleContext bc, String[] topics, Filter filter, long timeoutInMillis) {
-        return waitForEvent(bc, topics, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForEvent(bc, topics, filter, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -604,10 +607,10 @@ public class EventAdminUtils {
         EventHandlerImpl handler = new EventHandlerImpl(latch);
         Dictionary<String, Object> props = new Hashtable<String, Object>();
         if (topic != null) {
-            props.put(EventConstants.EVENT_TOPIC, topic);
+            props.put(EVENT_TOPIC, topic);
         }
         if (filter != null) {
-            props.put(EventConstants.EVENT_FILTER, filter.toString());
+            props.put(EVENT_FILTER, filter.toString());
         }
         ServiceRegistration registration = bc.registerService(EventHandler.class.getName(), handler, props);
 
@@ -654,10 +657,10 @@ public class EventAdminUtils {
         EventHandlerImpl handler = new EventHandlerImpl(latch);
         Dictionary<String, Object> props = new Hashtable<String, Object>();
         if (topics != null) {
-            props.put(EventConstants.EVENT_TOPIC, topics);
+            props.put(EVENT_TOPIC, topics);
         }
         if (filter != null) {
-            props.put(EventConstants.EVENT_FILTER, filter.toString());
+            props.put(EVENT_FILTER, filter.toString());
         }
         ServiceRegistration registration = bc.registerService(EventHandler.class.getName(), handler, props);
 
@@ -675,7 +678,7 @@ public class EventAdminUtils {
         if (timeoutInMillis < 0) {
             throw new IllegalArgumentException("timeout value is negative");
         }
-        if (latch.await(timeoutInMillis, TimeUnit.MILLISECONDS)) {
+        if (latch.await(timeoutInMillis, MILLISECONDS)) {
             return handler.getEvent();
         } else {
             return null;

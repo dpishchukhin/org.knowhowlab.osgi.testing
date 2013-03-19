@@ -16,14 +16,17 @@
 
 package org.knowhowlab.osgi.testing.assertions;
 
-import org.junit.Assert;
-import org.knowhowlab.osgi.testing.utils.BundleUtils;
-import org.knowhowlab.osgi.testing.utils.FrameworkUtils;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkEvent;
 import org.osgi.framework.Version;
 
 import java.util.concurrent.TimeUnit;
+
+import static java.lang.String.format;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.junit.Assert.assertNotNull;
+import static org.knowhowlab.osgi.testing.utils.BundleUtils.findBundle;
+import static org.knowhowlab.osgi.testing.utils.FrameworkUtils.waitForFrameworkEvent;
 
 /**
  * A set of OSGi Framework specific assertion methods useful for writing tests.
@@ -67,7 +70,7 @@ public class FrameworkAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertFrameworkEvent(String message, int eventTypeMask, int bundleId, long timeoutInMillis) {
-        assertFrameworkEvent(message, eventTypeMask, bundleId, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertFrameworkEvent(message, eventTypeMask, bundleId, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -96,11 +99,11 @@ public class FrameworkAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertFrameworkEvent(String message, int eventTypeMask, int bundleId, long timeout, TimeUnit timeUnit) {
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
-        Assert.assertNotNull(String.format("Unknown bundle with ID: %d", bundleId), bundle);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
-        FrameworkEvent event = FrameworkUtils.waitForFrameworkEvent(getBundleContext(), bundleId, eventTypeMask, timeout, timeUnit);
-        Assert.assertNotNull(message, event);
+        Bundle bundle = findBundle(getBundleContext(), bundleId);
+        assertNotNull(format("Unknown bundle with ID: %d", bundleId), bundle);
+        assertNotNull("TimeUnit is null", timeUnit);
+        FrameworkEvent event = waitForFrameworkEvent(getBundleContext(), bundleId, eventTypeMask, timeout, timeUnit);
+        assertNotNull(message, event);
     }
 
     /**
@@ -113,7 +116,7 @@ public class FrameworkAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, long timeoutInMillis) {
-        assertFrameworkEvent(null, eventTypeMask, symbolicName, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertFrameworkEvent(null, eventTypeMask, symbolicName, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -127,7 +130,7 @@ public class FrameworkAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertFrameworkEvent(String message, int eventTypeMask, String symbolicName, long timeoutInMillis) {
-        assertFrameworkEvent(eventTypeMask, symbolicName, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertFrameworkEvent(eventTypeMask, symbolicName, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -156,10 +159,10 @@ public class FrameworkAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertFrameworkEvent(String message, int eventTypeMask, String symbolicName, long timeout, TimeUnit timeUnit) {
-        Assert.assertNotNull("SymbolicName is null", symbolicName);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
-        FrameworkEvent event = FrameworkUtils.waitForFrameworkEvent(getBundleContext(), symbolicName, eventTypeMask, timeout, timeUnit);
-        Assert.assertNotNull(message, event);
+        assertNotNull("SymbolicName is null", symbolicName);
+        assertNotNull("TimeUnit is null", timeUnit);
+        FrameworkEvent event = waitForFrameworkEvent(getBundleContext(), symbolicName, eventTypeMask, timeout, timeUnit);
+        assertNotNull(message, event);
     }
 
     /**
@@ -173,7 +176,7 @@ public class FrameworkAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, Version version, long timeoutInMillis) {
-        assertFrameworkEvent(eventTypeMask, symbolicName, version, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertFrameworkEvent(eventTypeMask, symbolicName, version, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -188,7 +191,7 @@ public class FrameworkAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertFrameworkEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeoutInMillis) {
-        assertFrameworkEvent(message, eventTypeMask, symbolicName, version, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertFrameworkEvent(message, eventTypeMask, symbolicName, version, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -219,9 +222,9 @@ public class FrameworkAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertFrameworkEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
-        Assert.assertNotNull("SymbolicName is null", symbolicName);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
-        FrameworkEvent event = FrameworkUtils.waitForFrameworkEvent(getBundleContext(), symbolicName, version, eventTypeMask, timeout, timeUnit);
-        Assert.assertNotNull(message, event);
+        assertNotNull("SymbolicName is null", symbolicName);
+        assertNotNull("TimeUnit is null", timeUnit);
+        FrameworkEvent event = waitForFrameworkEvent(getBundleContext(), symbolicName, version, eventTypeMask, timeout, timeUnit);
+        assertNotNull(message, event);
     }
 }

@@ -17,12 +17,16 @@
 package org.knowhowlab.osgi.testing.assertions;
 
 import org.junit.Assert;
-import org.knowhowlab.osgi.testing.utils.ServiceUtils;
 import org.osgi.framework.Filter;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceEvent;
 
 import java.util.concurrent.TimeUnit;
+
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.junit.Assert.assertNotNull;
+import static org.knowhowlab.osgi.testing.utils.ServiceUtils.getService;
+import static org.knowhowlab.osgi.testing.utils.ServiceUtils.waitForServiceEvent;
 
 /**
  * A set of OSGi services specific assertion methods useful for writing tests.
@@ -62,10 +66,10 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(String message, Class clazz) {
-        Assert.assertNotNull("Class is null", clazz);
+        assertNotNull("Class is null", clazz);
         //noinspection unchecked
-        Object service = ServiceUtils.getService(getBundleContext(), clazz);
-        Assert.assertNotNull(message, service);
+        Object service = getService(getBundleContext(), clazz);
+        assertNotNull(message, service);
     }
 
     /**
@@ -90,7 +94,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(String message, Class clazz, long timeoutInMillis) {
-        assertServiceAvailable(message, clazz, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertServiceAvailable(message, clazz, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -117,11 +121,11 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(String message, Class clazz, long timeout, TimeUnit timeUnit) {
-        Assert.assertNotNull("Class is null", clazz);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        assertNotNull("Class is null", clazz);
+        assertNotNull("TimeUnit is null", timeUnit);
         //noinspection unchecked
-        Object service = ServiceUtils.getService(getBundleContext(), clazz, timeout, timeUnit);
-        Assert.assertNotNull(message, service);
+        Object service = getService(getBundleContext(), clazz, timeout, timeUnit);
+        assertNotNull(message, service);
     }
 
     /**
@@ -144,10 +148,10 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(String message, String className) {
-        Assert.assertNotNull("Class name is null", className);
+        assertNotNull("Class name is null", className);
         //noinspection unchecked
-        Object service = ServiceUtils.getService(getBundleContext(), className);
-        Assert.assertNotNull(message, service);
+        Object service = getService(getBundleContext(), className);
+        assertNotNull(message, service);
     }
 
     /**
@@ -172,7 +176,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(String message, String className, long timeoutInMillis) {
-        assertServiceAvailable(message, className, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertServiceAvailable(message, className, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -199,11 +203,11 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(String message, String className, long timeout, TimeUnit timeUnit) {
-        Assert.assertNotNull("Class name is null", className);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        assertNotNull("Class name is null", className);
+        assertNotNull("TimeUnit is null", timeUnit);
         //noinspection unchecked
-        Object service = ServiceUtils.getService(getBundleContext(), className, timeout, timeUnit);
-        Assert.assertNotNull(message, service);
+        Object service = getService(getBundleContext(), className, timeout, timeUnit);
+        assertNotNull(message, service);
     }
 
     /**
@@ -226,10 +230,10 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(String message, Filter filter) {
-        Assert.assertNotNull("Filter is null", filter);
+        assertNotNull("Filter is null", filter);
         //noinspection unchecked
-        Object service = ServiceUtils.getService(getBundleContext(), filter);
-        Assert.assertNotNull(message, service);
+        Object service = getService(getBundleContext(), filter);
+        assertNotNull(message, service);
     }
 
     /**
@@ -254,7 +258,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(String message, Filter filter, long timeoutInMillis) {
-        assertServiceAvailable(message, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertServiceAvailable(message, filter, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -281,11 +285,11 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(String message, Filter filter, long timeout, TimeUnit timeUnit) {
-        Assert.assertNotNull("Filter is null", filter);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        assertNotNull("Filter is null", filter);
+        assertNotNull("TimeUnit is null", timeUnit);
         //noinspection unchecked
-        Object service = ServiceUtils.getService(getBundleContext(), filter, timeout, timeUnit);
-        Assert.assertNotNull(message, service);
+        Object service = getService(getBundleContext(), filter, timeout, timeUnit);
+        assertNotNull(message, service);
     }
 
     /**
@@ -308,9 +312,9 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(String message, Class clazz) {
-        Assert.assertNotNull("Class is null", clazz);
+        assertNotNull("Class is null", clazz);
         //noinspection unchecked
-        Object service = ServiceUtils.getService(getBundleContext(), clazz);
+        Object service = getService(getBundleContext(), clazz);
         Assert.assertNull(message, service);
     }
 
@@ -336,7 +340,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(String message, Class clazz, long timeoutInMillis) {
-        assertServiceUnavailable(message, clazz, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertServiceUnavailable(message, clazz, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -363,10 +367,10 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(String message, Class clazz, long timeout, TimeUnit timeUnit) {
-        Assert.assertNotNull("Class is null", clazz);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        assertNotNull("Class is null", clazz);
+        assertNotNull("TimeUnit is null", timeUnit);
         //noinspection unchecked
-        Object service = ServiceUtils.getService(getBundleContext(), clazz, timeout, timeUnit);
+        Object service = getService(getBundleContext(), clazz, timeout, timeUnit);
         Assert.assertNull(message, service);
     }
 
@@ -390,9 +394,9 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(String message, String className) {
-        Assert.assertNotNull("Class name is null", className);
+        assertNotNull("Class name is null", className);
         //noinspection unchecked
-        Object service = ServiceUtils.getService(getBundleContext(), className);
+        Object service = getService(getBundleContext(), className);
         Assert.assertNull(message, service);
     }
 
@@ -418,7 +422,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(String message, String className, long timeoutInMillis) {
-        assertServiceUnavailable(message, className, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertServiceUnavailable(message, className, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -445,10 +449,10 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(String message, String className, long timeout, TimeUnit timeUnit) {
-        Assert.assertNotNull("Class name is null", className);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        assertNotNull("Class name is null", className);
+        assertNotNull("TimeUnit is null", timeUnit);
         //noinspection unchecked
-        Object service = ServiceUtils.getService(getBundleContext(), className, timeout, timeUnit);
+        Object service = getService(getBundleContext(), className, timeout, timeUnit);
         Assert.assertNull(message, service);
     }
 
@@ -472,9 +476,9 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(String message, Filter filter) {
-        Assert.assertNotNull("Filter is null", filter);
+        assertNotNull("Filter is null", filter);
         //noinspection unchecked
-        Object service = ServiceUtils.getService(getBundleContext(), filter);
+        Object service = getService(getBundleContext(), filter);
         Assert.assertNull(message, service);
     }
 
@@ -500,7 +504,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(String message, Filter filter, long timeoutInMillis) {
-        assertServiceUnavailable(message, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertServiceUnavailable(message, filter, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -527,10 +531,10 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(String message, Filter filter, long timeout, TimeUnit timeUnit) {
-        Assert.assertNotNull("Filter is null", filter);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        assertNotNull("Filter is null", filter);
+        assertNotNull("TimeUnit is null", timeUnit);
         //noinspection unchecked
-        Object service = ServiceUtils.getService(getBundleContext(), filter, timeout, timeUnit);
+        Object service = getService(getBundleContext(), filter, timeout, timeUnit);
         Assert.assertNull(message, service);
     }
 
@@ -558,7 +562,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, long timeoutInMillis) {
-        assertServiceEvent(message, eventTypeMask, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertServiceEvent(message, eventTypeMask, filter, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -616,7 +620,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, boolean all, long timeoutInMillis) {
-        assertServiceEvent(message, eventTypeMask, filter, all, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertServiceEvent(message, eventTypeMask, filter, all, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -647,11 +651,11 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, boolean all, long timeout, TimeUnit timeUnit) {
-        Assert.assertNotNull("Filter is null", filter);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        assertNotNull("Filter is null", filter);
+        assertNotNull("TimeUnit is null", timeUnit);
         try {
-            ServiceEvent event = ServiceUtils.waitForServiceEvent(getBundleContext(), filter, eventTypeMask, all, timeout, timeUnit);
-            Assert.assertNotNull(message, event);
+            ServiceEvent event = waitForServiceEvent(getBundleContext(), filter, eventTypeMask, all, timeout, timeUnit);
+            assertNotNull(message, event);
         } catch (InvalidSyntaxException e) {
             Assert.fail("Invalid filter: " + filter);
         }
@@ -681,7 +685,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(String message, int eventTypeMask, String className, long timeoutInMillis) {
-        assertServiceEvent(message, eventTypeMask, className, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertServiceEvent(message, eventTypeMask, className, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -739,7 +743,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(String message, int eventTypeMask, String className, boolean all, long timeoutInMillis) {
-        assertServiceEvent(message, eventTypeMask, className, all, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertServiceEvent(message, eventTypeMask, className, all, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -770,11 +774,11 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(String message, int eventTypeMask, String className, boolean all, long timeout, TimeUnit timeUnit) {
-        Assert.assertNotNull("Class name is null", className);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        assertNotNull("Class name is null", className);
+        assertNotNull("TimeUnit is null", timeUnit);
         try {
-            ServiceEvent event = ServiceUtils.waitForServiceEvent(getBundleContext(), className, eventTypeMask, all, timeout, timeUnit);
-            Assert.assertNotNull(message, event);
+            ServiceEvent event = waitForServiceEvent(getBundleContext(), className, eventTypeMask, all, timeout, timeUnit);
+            assertNotNull(message, event);
         } catch (InvalidSyntaxException e) {
             Assert.fail(e.getMessage());
         }
@@ -804,7 +808,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, long timeoutInMillis) {
-        assertServiceEvent(message, eventTypeMask, clazz, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertServiceEvent(message, eventTypeMask, clazz, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -862,7 +866,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, boolean all, long timeoutInMillis) {
-        assertServiceEvent(message, eventTypeMask, clazz, all, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertServiceEvent(message, eventTypeMask, clazz, all, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -893,11 +897,11 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, boolean all, long timeout, TimeUnit timeUnit) {
-        Assert.assertNotNull("Class is null", clazz);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
+        assertNotNull("Class is null", clazz);
+        assertNotNull("TimeUnit is null", timeUnit);
         try {
-            ServiceEvent event = ServiceUtils.waitForServiceEvent(getBundleContext(), clazz, eventTypeMask, all, timeout, timeUnit);
-            Assert.assertNotNull(message, event);
+            ServiceEvent event = waitForServiceEvent(getBundleContext(), clazz, eventTypeMask, all, timeout, timeUnit);
+            assertNotNull(message, event);
         } catch (InvalidSyntaxException e) {
             Assert.fail(e.getMessage());
         }

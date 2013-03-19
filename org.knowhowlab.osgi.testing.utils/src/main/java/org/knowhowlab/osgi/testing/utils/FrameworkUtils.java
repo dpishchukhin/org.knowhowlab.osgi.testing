@@ -21,6 +21,9 @@ import org.osgi.framework.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.knowhowlab.osgi.testing.utils.BundleUtils.findBundle;
+
 /**
  * OSGi Framework utilities class
  *
@@ -49,7 +52,7 @@ public class FrameworkUtils {
      * @since 1.1
      */
     public static FrameworkEvent waitForFrameworkEvent(BundleContext bc, int bundleId, int eventTypeMask, long timeoutInMillis) {
-        return waitForFrameworkEvent(bc, bundleId, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForFrameworkEvent(bc, bundleId, eventTypeMask, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -64,7 +67,7 @@ public class FrameworkUtils {
      * @since 1.1
      */
     public static FrameworkEvent waitForFrameworkEvent(BundleContext bc, String symbolicName, int eventTypeMask, long timeoutInMillis) {
-        return waitForFrameworkEvent(bc, symbolicName, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForFrameworkEvent(bc, symbolicName, eventTypeMask, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -80,7 +83,7 @@ public class FrameworkUtils {
      * @since 1.1
      */
     public static FrameworkEvent waitForFrameworkEvent(BundleContext bc, String symbolicName, Version version, int eventTypeMask, long timeoutInMillis) {
-        return waitForFrameworkEvent(bc, symbolicName, version, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForFrameworkEvent(bc, symbolicName, version, eventTypeMask, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -97,7 +100,7 @@ public class FrameworkUtils {
      * @since 1.1
      */
     public static FrameworkEvent waitForFrameworkEvent(BundleContext bc, int bundleId, int eventTypeMask, long timeout, TimeUnit timeUnit) {
-        Bundle bundle = BundleUtils.findBundle(bc, bundleId);
+        Bundle bundle = findBundle(bc, bundleId);
         if (bundle == null) {
             throw new IllegalArgumentException("bundleId is invalid");
         }
@@ -154,7 +157,7 @@ public class FrameworkUtils {
         if (timeoutInMillis < 0) {
             throw new IllegalArgumentException("timeout value is negative");
         }
-        if (latch.await(timeoutInMillis, TimeUnit.MILLISECONDS)) {
+        if (latch.await(timeoutInMillis, MILLISECONDS)) {
             return listener.getFrameworkEvent();
         } else {
             return null;

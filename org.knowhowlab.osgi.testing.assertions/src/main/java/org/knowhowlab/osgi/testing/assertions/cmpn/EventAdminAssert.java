@@ -16,13 +16,15 @@
 
 package org.knowhowlab.osgi.testing.assertions.cmpn;
 
-import org.junit.Assert;
 import org.knowhowlab.osgi.testing.assertions.OSGiAssert;
-import org.knowhowlab.osgi.testing.utils.cmpn.EventAdminUtils;
 import org.osgi.framework.Filter;
 import org.osgi.service.event.Event;
 
 import java.util.concurrent.TimeUnit;
+
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.junit.Assert.assertNotNull;
+import static org.knowhowlab.osgi.testing.utils.cmpn.EventAdminUtils.waitForEvent;
 
 /**
  * A set of OSGi EventAdmin specific assertion methods useful for writing tests.
@@ -64,7 +66,7 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String message, String topic, long timeoutInMillis) {
-        assertEvent(message, topic, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertEvent(message, topic, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -91,7 +93,7 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String message, String topic, Filter filter, long timeoutInMillis) {
-        assertEvent(message, topic, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertEvent(message, topic, filter, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -116,7 +118,7 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String message, String[] topics, long timeoutInMillis) {
-        assertEvent(message, topics, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertEvent(message, topics, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -143,7 +145,7 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String message, String[] topics, Filter filter, long timeoutInMillis) {
-        assertEvent(message, topics, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertEvent(message, topics, filter, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -199,8 +201,8 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String message, String topic, Filter filter, long timeout, TimeUnit timeUnit) {
-        Event event = EventAdminUtils.waitForEvent(getBundleContext(), topic, filter, timeout, timeUnit);
-        Assert.assertNotNull(message, event);
+        Event event = waitForEvent(getBundleContext(), topic, filter, timeout, timeUnit);
+        assertNotNull(message, event);
     }
 
     /**
@@ -256,7 +258,7 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String message, String[] topics, Filter filter, long timeout, TimeUnit timeUnit) {
-        Event event = EventAdminUtils.waitForEvent(getBundleContext(), topics, filter, timeout, timeUnit);
-        Assert.assertNotNull(message, event);
+        Event event = waitForEvent(getBundleContext(), topics, filter, timeout, timeUnit);
+        assertNotNull(message, event);
     }
 }

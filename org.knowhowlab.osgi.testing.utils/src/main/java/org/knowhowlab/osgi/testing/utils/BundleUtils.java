@@ -24,6 +24,9 @@ import org.osgi.util.tracker.BundleTrackerCustomizer;
 import java.io.InputStream;
 import java.util.concurrent.*;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.knowhowlab.osgi.testing.utils.ServiceUtils.getService;
+
 /**
  * OSGi Bundles utilities class
  *
@@ -85,7 +88,7 @@ public class BundleUtils {
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, Version version) {
-        PackageAdmin packageAdmin = ServiceUtils.getService(bc, PackageAdmin.class);
+        PackageAdmin packageAdmin = getService(bc, PackageAdmin.class);
         if (packageAdmin != null) {
             Bundle[] bundles = packageAdmin.getBundles(symbolicName, version != null ? version.toString() : null);
             if (bundles != null && bundles.length > 0) {
@@ -107,7 +110,7 @@ public class BundleUtils {
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, long timeoutInMillis) {
-        return findBundle(bc, symbolicName, version, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return findBundle(bc, symbolicName, version, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -122,7 +125,7 @@ public class BundleUtils {
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, Version version, int stateMask, long timeoutInMillis) {
-        return findBundle(bc, symbolicName, version, stateMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return findBundle(bc, symbolicName, version, stateMask, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -136,7 +139,7 @@ public class BundleUtils {
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, long timeoutInMillis) {
-        return findBundle(bc, symbolicName, null, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return findBundle(bc, symbolicName, null, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -151,7 +154,7 @@ public class BundleUtils {
      * @since 1.0
      */
     public static Bundle findBundle(BundleContext bc, String symbolicName, int stateMask, long timeoutInMillis) {
-        return findBundle(bc, symbolicName, null, stateMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return findBundle(bc, symbolicName, null, stateMask, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -269,7 +272,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<Bundle> installBundleAsync(BundleContext bc, String location, long delayInMillis) {
-        return installBundleAsync(bc, location, delayInMillis, TimeUnit.MILLISECONDS);
+        return installBundleAsync(bc, location, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -287,7 +290,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<Bundle> installBundleAsync(BundleContext bc, String location, InputStream input, long delayInMillis) {
-        return installBundleAsync(bc, location, input, delayInMillis, TimeUnit.MILLISECONDS);
+        return installBundleAsync(bc, location, input, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -444,7 +447,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> startBundleAsync(Bundle bundle, long delayInMillis) {
-        return startBundleAsync(bundle, delayInMillis, TimeUnit.MILLISECONDS);
+        return startBundleAsync(bundle, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -457,7 +460,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, long bundleId, long delayInMillis) {
-        return startBundleAsync(bc, bundleId, delayInMillis, TimeUnit.MILLISECONDS);
+        return startBundleAsync(bc, bundleId, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -470,7 +473,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, long delayInMillis) {
-        return startBundleAsync(bc, symbolicName, delayInMillis, TimeUnit.MILLISECONDS);
+        return startBundleAsync(bc, symbolicName, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -484,7 +487,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, Version version, long delayInMillis) {
-        return startBundleAsync(bc, symbolicName, version, delayInMillis, TimeUnit.MILLISECONDS);
+        return startBundleAsync(bc, symbolicName, version, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -499,7 +502,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> startBundleAsync(Bundle bundle, int options, long delayInMillis) {
-        return startBundleAsync(bundle, options, delayInMillis, TimeUnit.MILLISECONDS);
+        return startBundleAsync(bundle, options, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -515,7 +518,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, long bundleId, int options, long delayInMillis) {
-        return startBundleAsync(bc, bundleId, options, delayInMillis, TimeUnit.MILLISECONDS);
+        return startBundleAsync(bc, bundleId, options, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -531,7 +534,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, int options, long delayInMillis) {
-        return startBundleAsync(bc, symbolicName, options, delayInMillis, TimeUnit.MILLISECONDS);
+        return startBundleAsync(bc, symbolicName, options, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -548,7 +551,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> startBundleAsync(BundleContext bc, String symbolicName, Version version, int options, long delayInMillis) {
-        return startBundleAsync(bc, symbolicName, version, options, delayInMillis, TimeUnit.MILLISECONDS);
+        return startBundleAsync(bc, symbolicName, version, options, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -797,7 +800,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> stopBundleAsync(Bundle bundle, long delayInMillis) {
-        return stopBundleAsync(bundle, delayInMillis, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(bundle, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -810,7 +813,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, long bundleId, long delayInMillis) {
-        return stopBundleAsync(bc, bundleId, delayInMillis, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(bc, bundleId, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -823,7 +826,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, long delayInMillis) {
-        return stopBundleAsync(bc, symbolicName, delayInMillis, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(bc, symbolicName, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -837,7 +840,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, Version version, long delayInMillis) {
-        return stopBundleAsync(bc, symbolicName, version, delayInMillis, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(bc, symbolicName, version, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -852,7 +855,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> stopBundleAsync(Bundle bundle, int options, long delayInMillis) {
-        return stopBundleAsync(bundle, options, delayInMillis, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(bundle, options, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -868,7 +871,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, long bundleId, int options, long delayInMillis) {
-        return stopBundleAsync(bc, bundleId, options, delayInMillis, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(bc, bundleId, options, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -884,7 +887,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, int options, long delayInMillis) {
-        return stopBundleAsync(bc, symbolicName, options, delayInMillis, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(bc, symbolicName, options, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -901,7 +904,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> stopBundleAsync(BundleContext bc, String symbolicName, Version version, int options, long delayInMillis) {
-        return stopBundleAsync(bc, symbolicName, version, options, delayInMillis, TimeUnit.MILLISECONDS);
+        return stopBundleAsync(bc, symbolicName, version, options, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -1090,7 +1093,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> uninstallBundleAsync(Bundle bundle, long delayInMillis) {
-        return uninstallBundleAsync(bundle, delayInMillis, TimeUnit.MILLISECONDS);
+        return uninstallBundleAsync(bundle, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -1103,7 +1106,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> uninstallBundleAsync(BundleContext bc, long bundleId, long delayInMillis) {
-        return uninstallBundleAsync(bc, bundleId, delayInMillis, TimeUnit.MILLISECONDS);
+        return uninstallBundleAsync(bc, bundleId, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -1116,7 +1119,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> uninstallBundleAsync(BundleContext bc, String symbolicName, long delayInMillis) {
-        return uninstallBundleAsync(bc, symbolicName, delayInMillis, TimeUnit.MILLISECONDS);
+        return uninstallBundleAsync(bc, symbolicName, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -1130,7 +1133,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> uninstallBundleAsync(BundleContext bc, String symbolicName, Version version, long delayInMillis) {
-        return uninstallBundleAsync(bc, symbolicName, version, delayInMillis, TimeUnit.MILLISECONDS);
+        return uninstallBundleAsync(bc, symbolicName, version, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -1327,7 +1330,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> updateBundleAsync(Bundle bundle, long delayInMillis) {
-        return updateBundleAsync(bundle, delayInMillis, TimeUnit.MILLISECONDS);
+        return updateBundleAsync(bundle, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -1340,7 +1343,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, long bundleId, long delayInMillis) {
-        return updateBundleAsync(bc, bundleId, delayInMillis, TimeUnit.MILLISECONDS);
+        return updateBundleAsync(bc, bundleId, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -1353,7 +1356,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, long delayInMillis) {
-        return updateBundleAsync(bc, symbolicName, delayInMillis, TimeUnit.MILLISECONDS);
+        return updateBundleAsync(bc, symbolicName, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -1367,7 +1370,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, Version version, long delayInMillis) {
-        return updateBundleAsync(bc, symbolicName, version, delayInMillis, TimeUnit.MILLISECONDS);
+        return updateBundleAsync(bc, symbolicName, version, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -1386,7 +1389,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> updateBundleAsync(Bundle bundle, InputStream input, long delayInMillis) {
-        return updateBundleAsync(bundle, input, delayInMillis, TimeUnit.MILLISECONDS);
+        return updateBundleAsync(bundle, input, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -1406,7 +1409,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, long bundleId, InputStream input, long delayInMillis) {
-        return updateBundleAsync(bc, bundleId, input, delayInMillis, TimeUnit.MILLISECONDS);
+        return updateBundleAsync(bc, bundleId, input, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -1426,7 +1429,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, InputStream input, long delayInMillis) {
-        return updateBundleAsync(bc, symbolicName, input, delayInMillis, TimeUnit.MILLISECONDS);
+        return updateBundleAsync(bc, symbolicName, input, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -1447,7 +1450,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static Future<?> updateBundleAsync(BundleContext bc, String symbolicName, Version version, InputStream input, long delayInMillis) {
-        return updateBundleAsync(bc, symbolicName, version, input, delayInMillis, TimeUnit.MILLISECONDS);
+        return updateBundleAsync(bc, symbolicName, version, input, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -1608,7 +1611,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static BundleEvent waitForBundleEvent(BundleContext bc, int bundleId, int eventTypeMask, long timeoutInMillis) {
-        return waitForBundleEvent(bc, bundleId, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForBundleEvent(bc, bundleId, eventTypeMask, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -1623,7 +1626,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static BundleEvent waitForBundleEvent(BundleContext bc, String symbolicName, int eventTypeMask, long timeoutInMillis) {
-        return waitForBundleEvent(bc, symbolicName, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForBundleEvent(bc, symbolicName, eventTypeMask, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -1639,7 +1642,7 @@ public class BundleUtils {
      * @since 1.1
      */
     public static BundleEvent waitForBundleEvent(BundleContext bc, String symbolicName, Version version, int eventTypeMask, long timeoutInMillis) {
-        return waitForBundleEvent(bc, symbolicName, version, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForBundleEvent(bc, symbolicName, version, eventTypeMask, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -1713,7 +1716,7 @@ public class BundleUtils {
         if (timeoutInMillis < 0) {
             throw new IllegalArgumentException("timeout value is negative");
         }
-        if (latch.await(timeoutInMillis, TimeUnit.MILLISECONDS)) {
+        if (latch.await(timeoutInMillis, MILLISECONDS)) {
             return listener.getBundleEvent();
         } else {
             return null;
@@ -1738,7 +1741,7 @@ public class BundleUtils {
         }
         Bundle[] bundles = tracker.getBundles();
         if (bundles == null) {
-            if (latch.await(timeoutInMillis, TimeUnit.MILLISECONDS)) {
+            if (latch.await(timeoutInMillis, MILLISECONDS)) {
                 bundles = tracker.getBundles();
                 return bundles == null ? null : bundles[0];
             } else {
@@ -1801,7 +1804,7 @@ public class BundleUtils {
 
         @Override
         protected Object isTrackedBundle(Bundle bundle, BundleEvent event) {
-            PackageAdmin packageAdmin = ServiceUtils.getService(bc, PackageAdmin.class);
+            PackageAdmin packageAdmin = getService(bc, PackageAdmin.class);
             if (packageAdmin != null) {
                 Bundle[] bundles = packageAdmin.getBundles(symbolicName, version != null ? version.toString() : null);
                 if (bundles != null && bundles.length > 0) {

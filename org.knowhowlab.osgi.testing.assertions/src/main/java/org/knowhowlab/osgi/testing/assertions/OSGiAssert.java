@@ -18,7 +18,8 @@ package org.knowhowlab.osgi.testing.assertions;
 
 import org.junit.Assert;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkUtil;
+
+import static org.osgi.framework.FrameworkUtil.getBundle;
 
 /**
  * Abstract OSGi Asset class with BundleContext Handling
@@ -52,7 +53,7 @@ public abstract class OSGiAssert {
      */
     public static BundleContext getBundleContext() {
         BundleContext bc = defaultBundleContext == null
-                ? FrameworkUtil.getBundle(OSGiAssert.class).getBundleContext()
+                ? getBundle(OSGiAssert.class).getBundleContext()
                 : defaultBundleContext;
         Assert.assertNotNull("BundleContext is null", bc);
         return bc;

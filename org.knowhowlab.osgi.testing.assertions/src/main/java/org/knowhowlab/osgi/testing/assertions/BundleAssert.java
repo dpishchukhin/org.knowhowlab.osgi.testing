@@ -17,14 +17,21 @@
 package org.knowhowlab.osgi.testing.assertions;
 
 import org.junit.Assert;
-import org.knowhowlab.osgi.testing.utils.BundleUtils;
-import org.knowhowlab.osgi.testing.utils.ServiceUtils;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleEvent;
 import org.osgi.framework.Version;
 import org.osgi.service.packageadmin.PackageAdmin;
 
 import java.util.concurrent.TimeUnit;
+
+import static java.lang.String.format;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.knowhowlab.osgi.testing.utils.BundleUtils.findBundle;
+import static org.knowhowlab.osgi.testing.utils.BundleUtils.waitForBundleEvent;
+import static org.knowhowlab.osgi.testing.utils.ServiceUtils.getService;
+import static org.osgi.service.packageadmin.PackageAdmin.BUNDLE_TYPE_FRAGMENT;
 
 /**
  * A set of OSGi Bundle specific assertion methods useful for writing tests.
@@ -66,9 +73,9 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleState(String message, int state, long bundleId) {
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
-        Assert.assertNotNull(String.format("Unknown bundle with ID: %d", bundleId), bundle);
-        Assert.assertEquals(message, state, bundle.getState());
+        Bundle bundle = findBundle(getBundleContext(), bundleId);
+        assertNotNull(format("Unknown bundle with ID: %d", bundleId), bundle);
+        assertEquals(message, state, bundle.getState());
     }
 
     /**
@@ -93,7 +100,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleState(int state, String symbolicName, long timeoutInMillis) {
-        assertBundleState(null, state, symbolicName, null, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertBundleState(null, state, symbolicName, null, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -107,7 +114,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleState(String message, int stateMask, String symbolicName, long timeoutInMillis) {
-        assertBundleState(message, stateMask, symbolicName, null, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertBundleState(message, stateMask, symbolicName, null, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -135,10 +142,10 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleState(String message, int state, String symbolicName) {
-        Assert.assertNotNull("SymbolicName is null", symbolicName);
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), symbolicName);
-        Assert.assertNotNull(String.format("Unknown bundle with SymbolicName: %s", symbolicName), bundle);
-        Assert.assertEquals(message, state, bundle.getState());
+        assertNotNull("SymbolicName is null", symbolicName);
+        Bundle bundle = findBundle(getBundleContext(), symbolicName);
+        assertNotNull(format("Unknown bundle with SymbolicName: %s", symbolicName), bundle);
+        assertEquals(message, state, bundle.getState());
     }
 
     /**
@@ -154,10 +161,10 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleState(String message, int stateMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
-        Assert.assertNotNull("SymbolicName is null", symbolicName);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), symbolicName, version, stateMask, timeout, timeUnit);
-        Assert.assertNotNull(message, bundle);
+        assertNotNull("SymbolicName is null", symbolicName);
+        assertNotNull("TimeUnit is null", timeUnit);
+        Bundle bundle = findBundle(getBundleContext(), symbolicName, version, stateMask, timeout, timeUnit);
+        assertNotNull(message, bundle);
     }
 
     /**
@@ -213,10 +220,10 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleState(String message, int state, String symbolicName, Version version) {
-        Assert.assertNotNull("SymbolicName is null", symbolicName);
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), symbolicName, version);
-        Assert.assertNotNull(String.format("Unknown bundle with SymbolicName: %s and version: %s", symbolicName, version), bundle);
-        Assert.assertEquals(message, state, bundle.getState());
+        assertNotNull("SymbolicName is null", symbolicName);
+        Bundle bundle = findBundle(getBundleContext(), symbolicName, version);
+        assertNotNull(format("Unknown bundle with SymbolicName: %s and version: %s", symbolicName, version), bundle);
+        assertEquals(message, state, bundle.getState());
     }
 
     /**
@@ -239,8 +246,8 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleAvailable(String message, long bundleId) {
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
-        Assert.assertNotNull(message, bundle);
+        Bundle bundle = findBundle(getBundleContext(), bundleId);
+        assertNotNull(message, bundle);
     }
 
     /**
@@ -263,9 +270,9 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleAvailable(String message, String symbolicName) {
-        Assert.assertNotNull("SymbolicName is null", symbolicName);
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), symbolicName);
-        Assert.assertNotNull(message, bundle);
+        assertNotNull("SymbolicName is null", symbolicName);
+        Bundle bundle = findBundle(getBundleContext(), symbolicName);
+        assertNotNull(message, bundle);
     }
 
     /**
@@ -290,9 +297,9 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleAvailable(String message, String symbolicName, Version version) {
-        Assert.assertNotNull("SymbolicName is null", symbolicName);
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), symbolicName, version);
-        Assert.assertNotNull(message, bundle);
+        assertNotNull("SymbolicName is null", symbolicName);
+        Bundle bundle = findBundle(getBundleContext(), symbolicName, version);
+        assertNotNull(message, bundle);
     }
 
     /**
@@ -315,7 +322,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleUnavailable(String message, long bundleId) {
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
+        Bundle bundle = findBundle(getBundleContext(), bundleId);
         Assert.assertNull(message, bundle);
     }
 
@@ -339,8 +346,8 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleUnavailable(String message, String symbolicName) {
-        Assert.assertNotNull("SymbolicName is null", symbolicName);
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), symbolicName);
+        assertNotNull("SymbolicName is null", symbolicName);
+        Bundle bundle = findBundle(getBundleContext(), symbolicName);
         Assert.assertNull(message, bundle);
     }
 
@@ -366,8 +373,8 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleUnavailable(String message, String symbolicName, Version version) {
-        Assert.assertNotNull("SymbolicName is null", symbolicName);
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), symbolicName, version);
+        assertNotNull("SymbolicName is null", symbolicName);
+        Bundle bundle = findBundle(getBundleContext(), symbolicName, version);
         Assert.assertNull(message, bundle);
     }
 
@@ -391,12 +398,12 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertFragment(String message, long bundleId) {
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
-        Assert.assertNotNull(String.format("Unknown bundle with ID: %d", bundleId), bundle);
-        PackageAdmin packageAdmin = ServiceUtils.getService(getBundleContext(), PackageAdmin.class);
-        Assert.assertNotNull("PackageAdmin is unavailable", packageAdmin);
+        Bundle bundle = findBundle(getBundleContext(), bundleId);
+        assertNotNull(format("Unknown bundle with ID: %d", bundleId), bundle);
+        PackageAdmin packageAdmin = getService(getBundleContext(), PackageAdmin.class);
+        assertNotNull("PackageAdmin is unavailable", packageAdmin);
         int type = packageAdmin.getBundleType(bundle);
-        Assert.assertTrue(message, (type & PackageAdmin.BUNDLE_TYPE_FRAGMENT) != 0);
+        Assert.assertTrue(message, (type & BUNDLE_TYPE_FRAGMENT) != 0);
     }
 
     /**
@@ -419,13 +426,13 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertFragment(String message, String symbolicName) {
-        Assert.assertNotNull("SymbolicName is null", symbolicName);
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), symbolicName);
-        Assert.assertNotNull(String.format("Unknown bundle with SymbolicName: %s", symbolicName), bundle);
-        PackageAdmin packageAdmin = ServiceUtils.getService(getBundleContext(), PackageAdmin.class);
-        Assert.assertNotNull("PackageAdmin is unavailable", packageAdmin);
+        assertNotNull("SymbolicName is null", symbolicName);
+        Bundle bundle = findBundle(getBundleContext(), symbolicName);
+        assertNotNull(format("Unknown bundle with SymbolicName: %s", symbolicName), bundle);
+        PackageAdmin packageAdmin = getService(getBundleContext(), PackageAdmin.class);
+        assertNotNull("PackageAdmin is unavailable", packageAdmin);
         int type = packageAdmin.getBundleType(bundle);
-        Assert.assertTrue(message, (type & PackageAdmin.BUNDLE_TYPE_FRAGMENT) != 0);
+        Assert.assertTrue(message, (type & BUNDLE_TYPE_FRAGMENT) != 0);
     }
 
     /**
@@ -450,13 +457,13 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertFragment(String message, String symbolicName, Version version) {
-        Assert.assertNotNull("SymbolicName is null", symbolicName);
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), symbolicName, version);
-        Assert.assertNotNull(String.format("Unknown bundle with SymbolicName: %s and version: %s", symbolicName, version), bundle);
-        PackageAdmin packageAdmin = ServiceUtils.getService(getBundleContext(), PackageAdmin.class);
-        Assert.assertNotNull("PackageAdmin is unavailable", packageAdmin);
+        assertNotNull("SymbolicName is null", symbolicName);
+        Bundle bundle = findBundle(getBundleContext(), symbolicName, version);
+        assertNotNull(format("Unknown bundle with SymbolicName: %s and version: %s", symbolicName, version), bundle);
+        PackageAdmin packageAdmin = getService(getBundleContext(), PackageAdmin.class);
+        assertNotNull("PackageAdmin is unavailable", packageAdmin);
         int type = packageAdmin.getBundleType(bundle);
-        Assert.assertTrue(message, (type & PackageAdmin.BUNDLE_TYPE_FRAGMENT) != 0);
+        Assert.assertTrue(message, (type & BUNDLE_TYPE_FRAGMENT) != 0);
     }
 
     /**
@@ -479,12 +486,12 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertNotFragment(String message, long bundleId) {
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
-        Assert.assertNotNull(String.format("Unknown bundle with ID: %d", bundleId), bundle);
-        PackageAdmin packageAdmin = ServiceUtils.getService(getBundleContext(), PackageAdmin.class);
-        Assert.assertNotNull("PackageAdmin is unavailable", packageAdmin);
+        Bundle bundle = findBundle(getBundleContext(), bundleId);
+        assertNotNull(format("Unknown bundle with ID: %d", bundleId), bundle);
+        PackageAdmin packageAdmin = getService(getBundleContext(), PackageAdmin.class);
+        assertNotNull("PackageAdmin is unavailable", packageAdmin);
         int type = packageAdmin.getBundleType(bundle);
-        Assert.assertTrue(message, (type & PackageAdmin.BUNDLE_TYPE_FRAGMENT) != 0);
+        Assert.assertTrue(message, (type & BUNDLE_TYPE_FRAGMENT) != 0);
     }
 
     /**
@@ -507,13 +514,13 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertNotFragment(String message, String symbolicName) {
-        Assert.assertNotNull("SymbolicName is null", symbolicName);
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), symbolicName);
-        Assert.assertNotNull(String.format("Unknown bundle with SymbolicName: %s", symbolicName), bundle);
-        PackageAdmin packageAdmin = ServiceUtils.getService(getBundleContext(), PackageAdmin.class);
-        Assert.assertNotNull("PackageAdmin is unavailable", packageAdmin);
+        assertNotNull("SymbolicName is null", symbolicName);
+        Bundle bundle = findBundle(getBundleContext(), symbolicName);
+        assertNotNull(format("Unknown bundle with SymbolicName: %s", symbolicName), bundle);
+        PackageAdmin packageAdmin = getService(getBundleContext(), PackageAdmin.class);
+        assertNotNull("PackageAdmin is unavailable", packageAdmin);
         int type = packageAdmin.getBundleType(bundle);
-        Assert.assertTrue(message, (type & PackageAdmin.BUNDLE_TYPE_FRAGMENT) != 0);
+        Assert.assertTrue(message, (type & BUNDLE_TYPE_FRAGMENT) != 0);
     }
 
     /**
@@ -538,13 +545,13 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertNotFragment(String message, String symbolicName, Version version) {
-        Assert.assertNotNull("SymbolicName is null", symbolicName);
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), symbolicName, version);
-        Assert.assertNotNull(String.format("Unknown bundle with SymbolicName: %s and version: %s", symbolicName, version), bundle);
-        PackageAdmin packageAdmin = ServiceUtils.getService(getBundleContext(), PackageAdmin.class);
-        Assert.assertNotNull("PackageAdmin is unavailable", packageAdmin);
+        assertNotNull("SymbolicName is null", symbolicName);
+        Bundle bundle = findBundle(getBundleContext(), symbolicName, version);
+        assertNotNull(format("Unknown bundle with SymbolicName: %s and version: %s", symbolicName, version), bundle);
+        PackageAdmin packageAdmin = getService(getBundleContext(), PackageAdmin.class);
+        assertNotNull("PackageAdmin is unavailable", packageAdmin);
         int type = packageAdmin.getBundleType(bundle);
-        Assert.assertTrue(message, (type & PackageAdmin.BUNDLE_TYPE_FRAGMENT) != 0);
+        Assert.assertTrue(message, (type & BUNDLE_TYPE_FRAGMENT) != 0);
     }
 
     /**
@@ -571,7 +578,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertBundleEvent(String message, int eventTypeMask, int bundleId, long timeoutInMillis) {
-        assertBundleEvent(message, eventTypeMask, bundleId, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertBundleEvent(message, eventTypeMask, bundleId, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -600,11 +607,11 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertBundleEvent(String message, int eventTypeMask, int bundleId, long timeout, TimeUnit timeUnit) {
-        Bundle bundle = BundleUtils.findBundle(getBundleContext(), bundleId);
-        Assert.assertNotNull(String.format("Unknown bundle with ID: %d", bundleId), bundle);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
-        BundleEvent event = BundleUtils.waitForBundleEvent(getBundleContext(), bundleId, eventTypeMask, timeout, timeUnit);
-        Assert.assertNotNull(message, event);
+        Bundle bundle = findBundle(getBundleContext(), bundleId);
+        assertNotNull(format("Unknown bundle with ID: %d", bundleId), bundle);
+        assertNotNull("TimeUnit is null", timeUnit);
+        BundleEvent event = waitForBundleEvent(getBundleContext(), bundleId, eventTypeMask, timeout, timeUnit);
+        assertNotNull(message, event);
     }
 
     /**
@@ -631,7 +638,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, long timeoutInMillis) {
-        assertBundleEvent(message, eventTypeMask, symbolicName, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertBundleEvent(message, eventTypeMask, symbolicName, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -660,10 +667,10 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, long timeout, TimeUnit timeUnit) {
-        Assert.assertNotNull("SymbolicName is null", symbolicName);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
-        BundleEvent event = BundleUtils.waitForBundleEvent(getBundleContext(), symbolicName, eventTypeMask, timeout, timeUnit);
-        Assert.assertNotNull(message, event);
+        assertNotNull("SymbolicName is null", symbolicName);
+        assertNotNull("TimeUnit is null", timeUnit);
+        BundleEvent event = waitForBundleEvent(getBundleContext(), symbolicName, eventTypeMask, timeout, timeUnit);
+        assertNotNull(message, event);
     }
 
     /**
@@ -692,7 +699,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeoutInMillis) {
-        assertBundleEvent(message, eventTypeMask, symbolicName, version, timeoutInMillis, TimeUnit.MILLISECONDS);
+        assertBundleEvent(message, eventTypeMask, symbolicName, version, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -723,9 +730,9 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertBundleEvent(String message, int eventTypeMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
-        Assert.assertNotNull("SymbolicName is null", symbolicName);
-        Assert.assertNotNull("TimeUnit is null", timeUnit);
-        BundleEvent event = BundleUtils.waitForBundleEvent(getBundleContext(), symbolicName, version, eventTypeMask, timeout, timeUnit);
-        Assert.assertNotNull(message, event);
+        assertNotNull("SymbolicName is null", symbolicName);
+        assertNotNull("TimeUnit is null", timeUnit);
+        BundleEvent event = waitForBundleEvent(getBundleContext(), symbolicName, version, eventTypeMask, timeout, timeUnit);
+        assertNotNull(message, event);
     }
 }

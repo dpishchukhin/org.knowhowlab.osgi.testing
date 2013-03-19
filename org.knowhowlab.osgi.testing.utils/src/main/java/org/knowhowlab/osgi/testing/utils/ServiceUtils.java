@@ -23,6 +23,10 @@ import org.osgi.util.tracker.ServiceTrackerCustomizer;
 import java.util.Dictionary;
 import java.util.concurrent.*;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.knowhowlab.osgi.testing.utils.FilterUtils.create;
+import static org.osgi.framework.FrameworkUtil.createFilter;
+
 /**
  * OSGi Services utilities class
  *
@@ -73,7 +77,7 @@ public class ServiceUtils {
      * @since 1.0
      */
     public static ServiceReference getServiceReference(BundleContext bc, Filter filter, long timeoutInMillis) {
-        return getServiceReference(bc, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return getServiceReference(bc, filter, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -135,7 +139,7 @@ public class ServiceUtils {
      * @since 1.0
      */
     public static ServiceReference getServiceReference(BundleContext bc, String className, long timeoutInMillis) {
-        return getServiceReference(bc, className, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return getServiceReference(bc, className, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -197,7 +201,7 @@ public class ServiceUtils {
      * @since 1.0
      */
     public static ServiceReference getServiceReference(BundleContext bc, Class clazz, long timeoutInMillis) {
-        return getServiceReference(bc, clazz, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return getServiceReference(bc, clazz, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -248,7 +252,7 @@ public class ServiceUtils {
      * @since 1.0
      */
     public static Object getService(BundleContext bc, Filter filter, long timeoutInMillis) {
-        return getService(bc, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return getService(bc, filter, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -307,7 +311,7 @@ public class ServiceUtils {
      * @since 1.0
      */
     public static Object getService(BundleContext bc, String className, long timeoutInMillis) {
-        return getService(bc, className, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return getService(bc, className, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -367,7 +371,7 @@ public class ServiceUtils {
      * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, long timeoutInMillis) {
-        return getService(bc, clazz, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return getService(bc, clazz, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -409,7 +413,7 @@ public class ServiceUtils {
      * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, String filter) throws InvalidSyntaxException {
-        return getService(bc, clazz, FrameworkUtil.createFilter(filter));
+        return getService(bc, clazz, createFilter(filter));
     }
 
     /**
@@ -427,7 +431,7 @@ public class ServiceUtils {
      * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, String filter, long timeoutInMillis) throws InvalidSyntaxException {
-        return getService(bc, clazz, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return getService(bc, clazz, filter, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -447,7 +451,7 @@ public class ServiceUtils {
      * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, String filter, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
-        return getService(bc, clazz, FrameworkUtil.createFilter(filter), timeout, timeUnit);
+        return getService(bc, clazz, createFilter(filter), timeout, timeUnit);
     }
 
     /**
@@ -463,7 +467,7 @@ public class ServiceUtils {
      * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, Filter filter) throws InvalidSyntaxException {
-        ServiceTracker tracker = new ServiceTracker(bc, FilterUtils.create(clazz, filter), null);
+        ServiceTracker tracker = new ServiceTracker(bc, create(clazz, filter), null);
         tracker.open();
         try {
             //noinspection unchecked
@@ -488,7 +492,7 @@ public class ServiceUtils {
      * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, Filter filter, long timeoutInMillis) throws InvalidSyntaxException {
-        return getService(bc, clazz, filter, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return getService(bc, clazz, filter, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -508,7 +512,7 @@ public class ServiceUtils {
      * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, Filter filter, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
-        ServiceTracker tracker = new ServiceTracker(bc, FilterUtils.create(clazz, filter), null);
+        ServiceTracker tracker = new ServiceTracker(bc, create(clazz, filter), null);
         tracker.open();
         try {
             //noinspection unchecked
@@ -584,7 +588,7 @@ public class ServiceUtils {
      * @since 1.1
      */
     public static <T> Future<ServiceRegistration> registerServiceAsync(BundleContext bc, Class<T> clazz, T service, Dictionary properties, long delayInMillis) {
-        return registerServiceAsync(bc, clazz, service, properties, delayInMillis, TimeUnit.MILLISECONDS);
+        return registerServiceAsync(bc, clazz, service, properties, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -601,7 +605,7 @@ public class ServiceUtils {
      * @since 1.1
      */
     public static Future<ServiceRegistration> registerServiceAsync(BundleContext bc, String clazz, Object service, Dictionary properties, long delayInMillis) {
-        return registerServiceAsync(bc, clazz, service, properties, delayInMillis, TimeUnit.MILLISECONDS);
+        return registerServiceAsync(bc, clazz, service, properties, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -620,7 +624,7 @@ public class ServiceUtils {
      * @since 1.1
      */
     public static Future<ServiceRegistration> registerServiceAsync(BundleContext bc, String[] clazzes, Object service, Dictionary properties, long delayInMillis) {
-        return registerServiceAsync(bc, clazzes, service, properties, delayInMillis, TimeUnit.MILLISECONDS);
+        return registerServiceAsync(bc, clazzes, service, properties, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -719,7 +723,7 @@ public class ServiceUtils {
      * @since 1.1
      */
     public static Future<?> updateServiceAsync(ServiceRegistration registration, Dictionary properties, long delayInMillis) {
-        return updateServiceAsync(registration, properties, delayInMillis, TimeUnit.MILLISECONDS);
+        return updateServiceAsync(registration, properties, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -764,7 +768,7 @@ public class ServiceUtils {
      * @since 1.1
      */
     public static Future<?> unregisterServiceAsync(ServiceRegistration registration, long delayInMillis) {
-        return unregisterServiceAsync(registration, delayInMillis, TimeUnit.MILLISECONDS);
+        return unregisterServiceAsync(registration, delayInMillis, MILLISECONDS);
     }
 
     /**
@@ -797,7 +801,7 @@ public class ServiceUtils {
      * @since 1.1
      */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, long timeoutInMillis) throws InvalidSyntaxException {
-        return waitForServiceEvent(bc, filter, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForServiceEvent(bc, filter, eventTypeMask, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -812,7 +816,7 @@ public class ServiceUtils {
      * @since 1.1
      */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, long timeoutInMillis) throws InvalidSyntaxException {
-        return waitForServiceEvent(bc, className, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForServiceEvent(bc, className, eventTypeMask, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -827,7 +831,7 @@ public class ServiceUtils {
      * @since 1.1
      */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, long timeoutInMillis) throws InvalidSyntaxException {
-        return waitForServiceEvent(bc, clazz, eventTypeMask, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForServiceEvent(bc, clazz, eventTypeMask, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -891,7 +895,7 @@ public class ServiceUtils {
      * @since 1.1
      */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, boolean all, long timeoutInMillis) throws InvalidSyntaxException {
-        return waitForServiceEvent(bc, filter, eventTypeMask, all, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForServiceEvent(bc, filter, eventTypeMask, all, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -907,7 +911,7 @@ public class ServiceUtils {
      * @since 1.1
      */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, boolean all, long timeoutInMillis) throws InvalidSyntaxException {
-        return waitForServiceEvent(bc, className, eventTypeMask, all, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForServiceEvent(bc, className, eventTypeMask, all, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -923,7 +927,7 @@ public class ServiceUtils {
      * @since 1.1
      */
     public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, boolean all, long timeoutInMillis) throws InvalidSyntaxException {
-        return waitForServiceEvent(bc, clazz, eventTypeMask, all, timeoutInMillis, TimeUnit.MILLISECONDS);
+        return waitForServiceEvent(bc, clazz, eventTypeMask, all, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -942,7 +946,7 @@ public class ServiceUtils {
     public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, boolean all, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
         Filter filter = null;
         if (className != null) {
-            filter = FilterUtils.create(className);
+            filter = create(className);
         }
         return waitForServiceEvent(bc, filter, eventTypeMask, all, timeout, timeUnit);
     }
@@ -963,7 +967,7 @@ public class ServiceUtils {
     public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, boolean all, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
         Filter filter = null;
         if (clazz != null) {
-            filter = FilterUtils.create(clazz);
+            filter = create(clazz);
         }
         return waitForServiceEvent(bc, filter, eventTypeMask, all, timeout, timeUnit);
     }
@@ -1007,7 +1011,7 @@ public class ServiceUtils {
         if (timeoutInMillis < 0) {
             throw new IllegalArgumentException("timeout value is negative");
         }
-        if (latch.await(timeoutInMillis, TimeUnit.MILLISECONDS)) {
+        if (latch.await(timeoutInMillis, MILLISECONDS)) {
             return listener.getServiceEvent();
         } else {
             return null;
@@ -1032,7 +1036,7 @@ public class ServiceUtils {
         }
         ServiceReference reference = tracker.getServiceReference();
         if (reference == null) {
-            if (latch.await(timeoutInMillis, TimeUnit.MILLISECONDS)) {
+            if (latch.await(timeoutInMillis, MILLISECONDS)) {
                 return tracker.getServiceReference();
             } else {
                 return null;

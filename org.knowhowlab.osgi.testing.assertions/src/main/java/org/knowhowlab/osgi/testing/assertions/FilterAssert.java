@@ -16,9 +16,11 @@
 
 package org.knowhowlab.osgi.testing.assertions;
 
-import org.junit.Assert;
-import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.InvalidSyntaxException;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+import static org.osgi.framework.FrameworkUtil.createFilter;
 
 /**
  * A set of OSGi Filter specific assertion methods useful for writing tests.
@@ -58,11 +60,11 @@ public class FilterAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertFilterCorrect(String message, String filter) {
-        Assert.assertNotNull("Filter is null", filter);
+        assertNotNull("Filter is null", filter);
         try {
-            FrameworkUtil.createFilter(filter);
+            createFilter(filter);
         } catch (InvalidSyntaxException e) {
-            Assert.fail(message);
+            fail(message);
         }
     }
 
@@ -86,10 +88,10 @@ public class FilterAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertFilterIncorrect(String message, String filter) {
-        Assert.assertNotNull("Filter is null", filter);
+        assertNotNull("Filter is null", filter);
         try {
-            FrameworkUtil.createFilter(filter);
-            Assert.fail(message);
+            createFilter(filter);
+            fail(message);
         } catch (InvalidSyntaxException e) {
             // do nothing
         }
