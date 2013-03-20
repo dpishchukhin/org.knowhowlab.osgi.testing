@@ -184,6 +184,28 @@ public class FilterUtils {
     }
 
     /**
+     * Create AND filter for two or more filters. If <code>filters</code> length is 1 - return only 1 filter
+     *
+     * @param filters filters
+     * @return new AND filter
+     *
+     * @throws IllegalArgumentException If <code>filters</code> length is 1
+     * @throws InvalidSyntaxException If it is unable to create filter
+     * @throws NullPointerException   If <code>filters</code> are <code>null</code>
+     * @since 1.1
+     */
+    public static Filter and(String... filters) throws InvalidSyntaxException {
+        if (filters.length == 0) {
+            throw new IllegalArgumentException("Filters are empty");
+        }
+        Filter filter = createFilter(filters[0]);
+        for (int i = 1; i < filters.length; i++) {
+            filter = and(filter, filters[i]);
+        }
+        return filter;
+    }
+
+    /**
      * Create AND filter for two filters
      *
      * @param filter1 filter 1
@@ -214,6 +236,28 @@ public class FilterUtils {
     }
 
     /**
+     * Create AND filter for two or more filters. If <code>filters</code> length is 1 - return only 1 filter
+     *
+     * @param filters filters
+     * @return new AND filter
+     *
+     * @throws IllegalArgumentException If <code>filters</code> length is 1
+     * @throws InvalidSyntaxException If it is unable to create filter
+     * @throws NullPointerException   If <code>filters</code> are <code>null</code>
+     * @since 1.1
+     */
+    public static Filter and(Filter... filters) throws InvalidSyntaxException {
+        if (filters.length == 0) {
+            throw new IllegalArgumentException("Filters are empty");
+        }
+        Filter filter = filters[0];
+        for (int i = 1; i < filters.length; i++) {
+            filter = and(filter, filters[i]);
+        }
+        return filter;
+    }
+
+    /**
      * Create OR filter for two filters
      *
      * @param filter1 filter 1
@@ -226,6 +270,28 @@ public class FilterUtils {
      */
     public static Filter or(String filter1, String filter2) throws InvalidSyntaxException {
         return createFilter(format(OR_TEMPLATE, filter1, filter2));
+    }
+
+    /**
+     * Create OR filter for two or more filters. If <code>filters</code> length is 1 - return only 1 filter
+     *
+     * @param filters filters
+     * @return new OR filter
+     *
+     * @throws IllegalArgumentException If <code>filters</code> length is 1
+     * @throws InvalidSyntaxException If it is unable to create filter
+     * @throws NullPointerException   If <code>filters</code> are <code>null</code>
+     * @since 1.1
+     */
+    public static Filter or(String... filters) throws InvalidSyntaxException {
+        if (filters.length == 0) {
+            throw new IllegalArgumentException("Filters are empty");
+        }
+        Filter filter = createFilter(filters[0]);
+        for (int i = 1; i < filters.length; i++) {
+            filter = or(filter, filters[i]);
+        }
+        return filter;
     }
 
     /**
@@ -256,6 +322,28 @@ public class FilterUtils {
      */
     public static Filter or(Filter filter1, Filter filter2) throws InvalidSyntaxException {
         return createFilter(format(OR_TEMPLATE, filter1, filter2));
+    }
+
+    /**
+     * Create OR filter for two or more filters. If <code>filters</code> length is 1 - return only 1 filter
+     *
+     * @param filters filters
+     * @return new OR filter
+     *
+     * @throws IllegalArgumentException If <code>filters</code> length is 1
+     * @throws InvalidSyntaxException If it is unable to create filter
+     * @throws NullPointerException   If <code>filters</code> are <code>null</code>
+     * @since 1.1
+     */
+    public static Filter or(Filter... filters) throws InvalidSyntaxException {
+        if (filters.length == 0) {
+            throw new IllegalArgumentException("Filters are empty");
+        }
+        Filter filter = filters[0];
+        for (int i = 1; i < filters.length; i++) {
+            filter = or(filter, filters[i]);
+        }
+        return filter;
     }
 
     /**

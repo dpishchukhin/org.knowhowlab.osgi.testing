@@ -16,13 +16,20 @@
 
 package org.knowhowlab.osgi.testing.assertions.cmpn;
 
+import junit.framework.Assert;
 import org.knowhowlab.osgi.testing.assertions.OSGiAssert;
+import org.knowhowlab.osgi.testing.utils.cmpn.ConfigurationAdminUtils;
+import org.osgi.framework.Filter;
+import org.osgi.framework.InvalidSyntaxException;
+import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationEvent;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static junit.framework.Assert.assertNotNull;
+import static org.knowhowlab.osgi.testing.utils.cmpn.ConfigurationAdminUtils.createConfigurationFilter;
 import static org.knowhowlab.osgi.testing.utils.cmpn.ConfigurationAdminUtils.waitForConfigurationEvent;
 import static org.osgi.service.cm.ConfigurationEvent.CM_DELETED;
 import static org.osgi.service.cm.ConfigurationEvent.CM_UPDATED;
@@ -43,6 +50,40 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * Utility class. Only static methods are available.
      */
     private ConfigurationAdminAssert() {
+    }
+
+    public static void assertConfigurationAvailable(String pid, String factoryPid, String location) throws IOException, InvalidSyntaxException {
+        assertConfigurationAvailable(null, pid, factoryPid, location);
+    }
+
+    public static void assertConfigurationAvailable(String message, String pid, String factoryPid, String location) throws IOException, InvalidSyntaxException {
+        assertConfigurationAvailable(message, createConfigurationFilter(pid, factoryPid, location));
+    }
+
+    public static void assertConfigurationAvailable(Filter filter) throws IOException, InvalidSyntaxException {
+        assertConfigurationAvailable(null, filter);
+    }
+
+    public static void assertConfigurationAvailable(String message, Filter filter) throws IOException, InvalidSyntaxException {
+        Configuration[] configurations = ConfigurationAdminUtils.listConfigurations(getBundleContext(), filter);
+        Assert.assertNotNull(message, configurations);
+    }
+
+    public static void assertConfigurationUnavailable(String pid, String factoryPid, String location) throws IOException, InvalidSyntaxException {
+        assertConfigurationUnavailable(null, pid, factoryPid, location);
+    }
+
+    public static void assertConfigurationUnavailable(String message, String pid, String factoryPid, String location) throws IOException, InvalidSyntaxException {
+        assertConfigurationUnavailable(message, createConfigurationFilter(pid, factoryPid, location));
+    }
+
+    public static void assertConfigurationUnavailable(Filter filter) throws IOException, InvalidSyntaxException {
+        assertConfigurationUnavailable(null, filter);
+    }
+
+    public static void assertConfigurationUnavailable(String message, Filter filter) throws IOException, InvalidSyntaxException {
+        Configuration[] configurations = ConfigurationAdminUtils.listConfigurations(getBundleContext(), filter);
+        Assert.assertNull(message, configurations);
     }
 
     public static void assertConfigurationEvent(int eventTypeMask, long timeoutInMillis) {

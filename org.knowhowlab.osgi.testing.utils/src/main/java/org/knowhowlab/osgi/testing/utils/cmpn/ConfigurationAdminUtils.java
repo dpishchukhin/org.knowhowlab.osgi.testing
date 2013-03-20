@@ -32,6 +32,7 @@ import static org.knowhowlab.osgi.testing.utils.FilterUtils.eq;
 import static org.knowhowlab.osgi.testing.utils.ServiceUtils.getService;
 import static org.osgi.framework.Constants.SERVICE_PID;
 import static org.osgi.service.cm.ConfigurationAdmin.SERVICE_BUNDLELOCATION;
+import static org.osgi.service.cm.ConfigurationAdmin.SERVICE_FACTORYPID;
 import static org.osgi.service.cm.ConfigurationEvent.CM_DELETED;
 import static org.osgi.service.cm.ConfigurationEvent.CM_UPDATED;
 import static org.osgi.service.cm.ConfigurationPlugin.CM_RANKING;
@@ -51,6 +52,24 @@ public class ConfigurationAdminUtils {
      * Utility class. Only static methods are available.
      */
     private ConfigurationAdminUtils() {
+    }
+
+    // create filter
+    public static Filter createConfigurationFilter(String pid, String factoryPid, String location) throws InvalidSyntaxException {
+        if (pid == null && factoryPid == null && location == null) {
+            throw new NullPointerException("All filter properties are null");
+        }
+        List<Filter> filters = new ArrayList<Filter>(3);
+        if (pid !=  null) {
+            filters.add(eq(SERVICE_PID, pid));
+        }
+        if (factoryPid !=  null) {
+            filters.add(eq(SERVICE_FACTORYPID, factoryPid));
+        }
+        if (location !=  null) {
+            filters.add(eq(SERVICE_BUNDLELOCATION, location));
+        }
+        return and(filters.toArray(new Filter[filters.size()]));
     }
 
     // create config
@@ -220,12 +239,39 @@ public class ConfigurationAdminUtils {
     }
 
     // get config
-    public static Configuration[] listConfiguration(ConfigurationAdmin configurationAdmin, Filter filter) throws IOException, InvalidSyntaxException {
+    public static Configuration getConfiguration(ConfigurationAdmin configurationAdmin, String pid) throws IOException, InvalidSyntaxException {
+        Filter filter = createConfigurationFilter(pid, null, null);
+        Configuration[] configurations = listConfigurations(configurationAdmin, filter);
+        if (configurations != null && configurations.length == 1) {
+            return configurations[0];
+        }
+        return null;
+    }
+
+    public static Configuration getConfiguration(ConfigurationAdmin configurationAdmin, String pid, String location) throws IOException, InvalidSyntaxException {
+        Filter filter = createConfigurationFilter(pid, null, location);
+        Configuration[] configurations = listConfigurations(configurationAdmin, filter);
+        if (configurations != null && configurations.length == 1) {
+            return configurations[0];
+        }
+        return null;
+    }
+
+    public static Configuration getConfiguration(BundleContext bc, String pid) throws IOException, InvalidSyntaxException {
+        return getConfiguration(getService(bc, ConfigurationAdmin.class), pid);
+    }
+
+    public static Configuration getConfiguration(BundleContext bc, String pid, String location) throws IOException, InvalidSyntaxException {
+        return getConfiguration(getService(bc, ConfigurationAdmin.class), pid, location);
+    }
+
+    // list configs
+    public static Configuration[] listConfigurations(ConfigurationAdmin configurationAdmin, Filter filter) throws IOException, InvalidSyntaxException {
         return configurationAdmin.listConfigurations(filter.toString());
     }
 
-    public static Configuration[] listConfiguration(BundleContext bc, Filter filter) throws IOException, InvalidSyntaxException {
-        return listConfiguration(getService(bc, ConfigurationAdmin.class), filter);
+    public static Configuration[] listConfigurations(BundleContext bc, Filter filter) throws IOException, InvalidSyntaxException {
+        return listConfigurations(getService(bc, ConfigurationAdmin.class), filter);
     }
 
     // config events
@@ -311,9 +357,9 @@ public class ConfigurationAdminUtils {
         }
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<String>() {
             public String call() throws Exception {
-                Configuration[] configurations = listConfiguration(configurationAdmin, eq(SERVICE_PID, pid));
-                if (configurations != null && configurations.length == 1) {
-                    configurations[0].delete();
+                Configuration configuration = getConfiguration(configurationAdmin, pid);
+                if (configuration != null) {
+                    configuration.delete();
                 }
                 return pid;
             }
@@ -329,13 +375,9 @@ public class ConfigurationAdminUtils {
         }
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<String>() {
             public String call() throws Exception {
-                Filter filter = eq(SERVICE_PID, pid);
-                if (location != null) {
-                    filter = and(filter, eq(SERVICE_BUNDLELOCATION, location));
-                }
-                Configuration[] configurations = listConfiguration(configurationAdmin, filter);
-                if (configurations != null && configurations.length == 1) {
-                    configurations[0].delete();
+                Configuration configuration = getConfiguration(configurationAdmin, pid, location);
+                if (configuration != null) {
+                    configuration.delete();
                 }
                 return pid;
             }
@@ -348,7 +390,7 @@ public class ConfigurationAdminUtils {
         }
         return Executors.newSingleThreadScheduledExecutor().schedule(new Callable<String[]>() {
             public String[] call() throws Exception {
-                Configuration[] configurations = listConfiguration(configurationAdmin, filter);
+                Configuration[] configurations = listConfigurations(configurationAdmin, filter);
                 String[] result = null;
                 if (configurations != null) {
                     List<String> deletedPids = new ArrayList<String>();
