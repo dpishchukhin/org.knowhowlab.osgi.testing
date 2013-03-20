@@ -26,9 +26,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import static org.knowhowlab.osgi.testing.utils.cmpn.ConfigurationAdminUtils.createConfigurationFilter;
 import static org.knowhowlab.osgi.testing.utils.cmpn.ConfigurationAdminUtils.waitForConfigurationEvent;
 import static org.osgi.service.cm.ConfigurationEvent.CM_DELETED;
@@ -52,18 +50,52 @@ public class ConfigurationAdminAssert extends OSGiAssert {
     private ConfigurationAdminAssert() {
     }
 
+    /**
+     * Asserts that Configuration with PID, FactoryPID and bundle location is available. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param pid        PID
+     * @param factoryPid FactoryPID
+     * @param location   bundle location
+     * @since 1.0
+     */
     public static void assertConfigurationAvailable(String pid, String factoryPid, String location) {
         assertConfigurationAvailable(null, pid, factoryPid, location);
     }
 
+    /**
+     * Asserts that Configuration with PID, FactoryPID and bundle location is available. If it not as expected
+     * {@link AssertionError} with the given message
+     *
+     * @param message    message
+     * @param pid        PID
+     * @param factoryPid FactoryPID
+     * @param location   bundle location
+     * @since 1.0
+     */
     public static void assertConfigurationAvailable(String message, String pid, String factoryPid, String location) {
         assertConfigurationAvailable(message, createConfigurationFilter(pid, factoryPid, location));
     }
 
+    /**
+     * Asserts that Configuration by filter is available. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param filter filter
+     * @since 1.0
+     */
     public static void assertConfigurationAvailable(Filter filter) {
         assertConfigurationAvailable(null, filter);
     }
 
+    /**
+     * Asserts that Configuration by filter is available. If it not as expected
+     * {@link AssertionError} with the given message
+     *
+     * @param message message
+     * @param filter  filter
+     * @since 1.0
+     */
     public static void assertConfigurationAvailable(String message, Filter filter) {
         try {
             Configuration[] configurations = ConfigurationAdminUtils.listConfigurations(getBundleContext(), filter);
@@ -73,18 +105,52 @@ public class ConfigurationAdminAssert extends OSGiAssert {
         }
     }
 
+    /**
+     * Asserts that Configuration with PID, FactoryPID and bundle location is unavailable. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param pid        PID
+     * @param factoryPid FactoryPID
+     * @param location   bundle location
+     * @since 1.0
+     */
     public static void assertConfigurationUnavailable(String pid, String factoryPid, String location) {
         assertConfigurationUnavailable(null, pid, factoryPid, location);
     }
 
+    /**
+     * Asserts that Configuration with PID, FactoryPID and bundle location is unavailable. If it not as expected
+     * {@link AssertionError} with the given message
+     *
+     * @param message    message
+     * @param pid        PID
+     * @param factoryPid FactoryPID
+     * @param location   bundle location
+     * @since 1.0
+     */
     public static void assertConfigurationUnavailable(String message, String pid, String factoryPid, String location) {
         assertConfigurationUnavailable(message, createConfigurationFilter(pid, factoryPid, location));
     }
 
+    /**
+     * Asserts that Configuration by filter is unavailable. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param filter filter
+     * @since 1.0
+     */
     public static void assertConfigurationUnavailable(Filter filter) {
         assertConfigurationUnavailable(null, filter);
     }
 
+    /**
+     * Asserts that Configuration by filter is available. If it not as expected
+     * {@link AssertionError} with the given message
+     *
+     * @param message message
+     * @param filter  filter
+     * @since 1.0
+     */
     public static void assertConfigurationUnavailable(String message, Filter filter) {
         try {
             Configuration[] configurations = ConfigurationAdminUtils.listConfigurations(getBundleContext(), filter);
@@ -94,67 +160,239 @@ public class ConfigurationAdminAssert extends OSGiAssert {
         }
     }
 
+    /**
+     * Asserts that ConfigurationEvent with event type will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
     public static void assertConfigurationEvent(int eventTypeMask, long timeoutInMillis) {
         assertConfigurationEvent(null, eventTypeMask, timeoutInMillis);
     }
 
+    /**
+     * Asserts that ConfigurationEvent with event filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param pid             PID
+     * @param factoryPid      FactoryPID
+     * @param location        bundle location
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
     public static void assertConfigurationEvent(int eventTypeMask, String pid, String factoryPid, String location, long timeoutInMillis) {
         assertConfigurationEvent(null, eventTypeMask, pid, factoryPid, location, timeoutInMillis);
     }
 
+    /**
+     * Asserts that UPDATE ConfigurationEvent with event filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param pid             PID
+     * @param factoryPid      FactoryPID
+     * @param location        bundle location
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
     public static void assertConfigurationUpdated(String pid, String factoryPid, String location, long timeoutInMillis) {
         assertConfigurationUpdated(null, pid, factoryPid, location, timeoutInMillis);
     }
 
+    /**
+     * Asserts that DELETE ConfigurationEvent with event filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param pid             PID
+     * @param factoryPid      FactoryPID
+     * @param location        bundle location
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
     public static void assertConfigurationDeleted(String pid, String factoryPid, String location, long timeoutInMillis) {
         assertConfigurationDeleted(null, pid, factoryPid, location, timeoutInMillis);
     }
 
+    /**
+     * Asserts that ConfigurationEvent with event type will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
     public static void assertConfigurationEvent(String message, int eventTypeMask, long timeoutInMillis) {
         assertConfigurationEvent(message, eventTypeMask, timeoutInMillis, MILLISECONDS);
     }
 
+    /**
+     * Asserts that ConfigurationEvent with event filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param eventTypeMask   ServiceEvent type mask
+     * @param pid             PID
+     * @param factoryPid      FactoryPID
+     * @param location        bundle location
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
     public static void assertConfigurationEvent(String message, int eventTypeMask, String pid, String factoryPid, String location, long timeoutInMillis) {
         assertConfigurationEvent(message, eventTypeMask, pid, factoryPid, location, timeoutInMillis, MILLISECONDS);
     }
 
+    /**
+     * Asserts that UPDATE ConfigurationEvent with event filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param pid             PID
+     * @param factoryPid      FactoryPID
+     * @param location        bundle location
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
     public static void assertConfigurationUpdated(String message, String pid, String factoryPid, String location, long timeoutInMillis) {
         assertConfigurationUpdated(message, pid, factoryPid, location, timeoutInMillis, MILLISECONDS);
     }
 
+    /**
+     * Asserts that DELETE ConfigurationEvent with event filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message         message
+     * @param pid             PID
+     * @param factoryPid      FactoryPID
+     * @param location        bundle location
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @since 1.0
+     */
     public static void assertConfigurationDeleted(String message, String pid, String factoryPid, String location, long timeoutInMillis) {
         assertConfigurationDeleted(message, pid, factoryPid, location, timeoutInMillis, MILLISECONDS);
     }
 
+    /**
+     * Asserts that ConfigurationEvent with event type will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param eventTypeMask ServiceEvent type mask
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.0
+     */
     public static void assertConfigurationEvent(int eventTypeMask, long timeout, TimeUnit timeUnit) {
         assertConfigurationEvent(null, eventTypeMask, null, null, null, timeout, timeUnit);
     }
 
+    /**
+     * Asserts that ConfigurationEvent with event filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param eventTypeMask ServiceEvent type mask
+     * @param pid           PID
+     * @param factoryPid    FactoryPID
+     * @param location      bundle location
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.0
+     */
     public static void assertConfigurationEvent(int eventTypeMask, String pid, String factoryPid, String location, long timeout, TimeUnit timeUnit) {
         assertConfigurationEvent(null, eventTypeMask, pid, factoryPid, location, timeout, timeUnit);
     }
 
+    /**
+     * Asserts that UPDATE ConfigurationEvent with event filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param pid        PID
+     * @param factoryPid FactoryPID
+     * @param location   bundle location
+     * @param timeout    time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit   time unit for the time interval
+     * @since 1.0
+     */
     public static void assertConfigurationUpdated(String pid, String factoryPid, String location, long timeout, TimeUnit timeUnit) {
         assertConfigurationUpdated(null, pid, factoryPid, location, timeout, timeUnit);
     }
 
+    /**
+     * Asserts that DELETE ConfigurationEvent with event filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param pid        PID
+     * @param factoryPid FactoryPID
+     * @param location   bundle location
+     * @param timeout    time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit   time unit for the time interval
+     * @since 1.0
+     */
     public static void assertConfigurationDeleted(String pid, String factoryPid, String location, long timeout, TimeUnit timeUnit) {
         assertConfigurationDeleted(null, pid, factoryPid, location, timeout, timeUnit);
     }
 
+    /**
+     * Asserts that ConfigurationEvent with event type will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message       message
+     * @param eventTypeMask ServiceEvent type mask
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.0
+     */
     public static void assertConfigurationEvent(String message, int eventTypeMask, long timeout, TimeUnit timeUnit) {
         assertConfigurationEvent(message, eventTypeMask, null, null, null, timeout, timeUnit);
     }
 
+    /**
+     * Asserts that ConfigurationEvent with event filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message       message
+     * @param eventTypeMask ServiceEvent type mask
+     * @param pid           PID
+     * @param factoryPid    FactoryPID
+     * @param location      bundle location
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @since 1.0
+     */
     public static void assertConfigurationEvent(String message, int eventTypeMask, String pid, String factoryPid, String location, long timeout, TimeUnit timeUnit) {
         ConfigurationEvent event = waitForConfigurationEvent(getBundleContext(), eventTypeMask, pid, factoryPid, location, timeout, timeUnit);
         assertNotNull(message, event);
     }
 
+    /**
+     * Asserts that UPDATE ConfigurationEvent with event filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message    message
+     * @param pid        PID
+     * @param factoryPid FactoryPID
+     * @param location   bundle location
+     * @param timeout    time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit   time unit for the time interval
+     * @since 1.0
+     */
     public static void assertConfigurationUpdated(String message, String pid, String factoryPid, String location, long timeout, TimeUnit timeUnit) {
         assertConfigurationEvent(message, CM_UPDATED, pid, factoryPid, location, timeout, timeUnit);
     }
 
+    /**
+     * Asserts that DELETE ConfigurationEvent with event filter will be fired within given timeoutInMillis. If it not as expected
+     * {@link AssertionError} is thrown with the given message
+     *
+     * @param message    message
+     * @param pid        PID
+     * @param factoryPid FactoryPID
+     * @param location   bundle location
+     * @param timeout    time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit   time unit for the time interval
+     * @since 1.0
+     */
     public static void assertConfigurationDeleted(String message, String pid, String factoryPid, String location, long timeout, TimeUnit timeUnit) {
         assertConfigurationEvent(message, CM_DELETED, pid, factoryPid, location, timeout, timeUnit);
     }
