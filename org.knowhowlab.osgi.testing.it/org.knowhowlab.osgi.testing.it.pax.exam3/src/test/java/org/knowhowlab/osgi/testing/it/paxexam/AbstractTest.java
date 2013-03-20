@@ -16,7 +16,9 @@
 
 package org.knowhowlab.osgi.testing.it.paxexam;
 
+import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.knowhowlab.osgi.testing.assertions.OSGiAssert;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
@@ -40,6 +42,11 @@ public abstract class AbstractTest {
      */
     @Inject
     protected BundleContext bc;
+
+    @Before
+    public void init() {
+        OSGiAssert.setDefaultBundleContext(bc);
+    }
 
     /**
      * Runner config

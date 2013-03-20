@@ -3,7 +3,7 @@ package org.knowhowlab.osgi.testing.it.paxexam;
 import org.junit.Test;
 import org.knowhowlab.osgi.testing.utils.FilterUtils;
 import org.ops4j.pax.exam.Option;
-import org.ops4j.pax.exam.junit.Configuration;
+import org.ops4j.pax.exam.Configuration;
 import org.osgi.framework.InvalidSyntaxException;
 
 import java.util.HashMap;

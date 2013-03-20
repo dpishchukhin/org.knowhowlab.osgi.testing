@@ -349,13 +349,21 @@ public class ServiceUtils {
      * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz) {
+        ServiceReference serviceReference = null;
+
         ServiceTracker tracker = new ServiceTracker(bc, clazz.getName(), null);
         tracker.open();
         try {
-            //noinspection unchecked
-            return (T) tracker.getService();
+            serviceReference = tracker.getServiceReference();
         } finally {
             tracker.close();
+        }
+
+        if (serviceReference != null) {
+            //noinspection unchecked
+            return (T) bc.getService(serviceReference);
+        } else {
+            return null;
         }
     }
 
@@ -388,15 +396,25 @@ public class ServiceUtils {
      * @since 1.0
      */
     public static <T> T getService(BundleContext bc, Class<T> clazz, long timeout, TimeUnit timeUnit) {
+        ServiceReference serviceReference = null;
+
         ServiceTracker tracker = new ServiceTracker(bc, clazz.getName(), null);
         tracker.open();
         try {
             //noinspection unchecked
-            return (T) tracker.waitForService(timeUnit.toMillis(timeout));
+            tracker.waitForService(timeUnit.toMillis(timeout));
+            serviceReference = tracker.getServiceReference();
         } catch (InterruptedException e) {
             return null;
         } finally {
             tracker.close();
+        }
+
+        if (serviceReference != null) {
+            //noinspection unchecked
+            return (T) bc.getService(serviceReference);
+        } else {
+            return null;
         }
     }
 
