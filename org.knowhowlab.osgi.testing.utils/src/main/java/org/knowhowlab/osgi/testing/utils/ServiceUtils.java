@@ -461,13 +461,17 @@ public class ServiceUtils {
      * @param clazz  Class
      * @param filter filter
      * @return service instance instance or <code>null</code>
+     * @throws IllegalArgumentException If <code>filter</code> is invalid
      * @throws NullPointerException   If <code>bc</code> or <code>clazz</code> are <code>null</code>
-     * @throws InvalidSyntaxException If <code>filter</code> contains an
-     *                                invalid filter string that cannot be parsed
      * @since 1.0
      */
-    public static <T> T getService(BundleContext bc, Class<T> clazz, Filter filter) throws InvalidSyntaxException {
-        ServiceTracker tracker = new ServiceTracker(bc, create(clazz, filter), null);
+    public static <T> T getService(BundleContext bc, Class<T> clazz, Filter filter) {
+        ServiceTracker tracker;
+        try {
+            tracker = new ServiceTracker(bc, create(clazz, filter), null);
+        } catch (InvalidSyntaxException e) {
+            throw new IllegalArgumentException("Unable to create filter", e);
+        }
         tracker.open();
         try {
             //noinspection unchecked
@@ -487,11 +491,9 @@ public class ServiceUtils {
      * @return service instance or <code>null</code>
      * @throws IllegalArgumentException If the value of timeoutInMillis is negative
      * @throws NullPointerException     If <code>bc</code> or <code>clazz</code> are <code>null</code>
-     * @throws InvalidSyntaxException   If <code>filter</code> contains an
-     *                                  invalid filter string that cannot be parsed
      * @since 1.0
      */
-    public static <T> T getService(BundleContext bc, Class<T> clazz, Filter filter, long timeoutInMillis) throws InvalidSyntaxException {
+    public static <T> T getService(BundleContext bc, Class<T> clazz, Filter filter, long timeoutInMillis) {
         return getService(bc, clazz, filter, timeoutInMillis, MILLISECONDS);
     }
 
@@ -504,15 +506,18 @@ public class ServiceUtils {
      * @param timeout  time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit time unit for the time interval
      * @return service instance or <code>null</code>
-     * @throws IllegalArgumentException If the value of timeout is negative
+     * @throws IllegalArgumentException If the value of <code>timeout</code> is negative or <code>filter</code> is invalid
      * @throws NullPointerException     If <code>bc</code>, <code>clazz</code> or
      *                                  <code>timeUnit</code> are <code>null</code>
-     * @throws InvalidSyntaxException   If <code>filter</code> contains an
-     *                                  invalid filter string that cannot be parsed
      * @since 1.0
      */
-    public static <T> T getService(BundleContext bc, Class<T> clazz, Filter filter, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
-        ServiceTracker tracker = new ServiceTracker(bc, create(clazz, filter), null);
+    public static <T> T getService(BundleContext bc, Class<T> clazz, Filter filter, long timeout, TimeUnit timeUnit) {
+        ServiceTracker tracker;
+        try {
+            tracker = new ServiceTracker(bc, create(clazz, filter), null);
+        } catch (InvalidSyntaxException e) {
+            throw new IllegalArgumentException("Unable to create filter", e);
+        }
         tracker.open();
         try {
             //noinspection unchecked
@@ -800,7 +805,7 @@ public class ServiceUtils {
      * @throws NullPointerException If <code>bc</code> is <code>null</code>
      * @since 1.1
      */
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, long timeoutInMillis) throws InvalidSyntaxException {
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, long timeoutInMillis) {
         return waitForServiceEvent(bc, filter, eventTypeMask, timeoutInMillis, MILLISECONDS);
     }
 
@@ -815,7 +820,7 @@ public class ServiceUtils {
      * @throws NullPointerException If <code>bc</code> is <code>null</code>
      * @since 1.1
      */
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, long timeoutInMillis) throws InvalidSyntaxException {
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, long timeoutInMillis) {
         return waitForServiceEvent(bc, className, eventTypeMask, timeoutInMillis, MILLISECONDS);
     }
 
@@ -830,7 +835,7 @@ public class ServiceUtils {
      * @throws NullPointerException If <code>bc</code> is <code>null</code>
      * @since 1.1
      */
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, long timeoutInMillis) throws InvalidSyntaxException {
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, long timeoutInMillis) {
         return waitForServiceEvent(bc, clazz, eventTypeMask, timeoutInMillis, MILLISECONDS);
     }
 
@@ -846,7 +851,7 @@ public class ServiceUtils {
      * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
      * @since 1.1
      */
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, long timeout, TimeUnit timeUnit) {
         return waitForServiceEvent(bc, className, eventTypeMask, false, timeout, timeUnit);
     }
 
@@ -862,7 +867,7 @@ public class ServiceUtils {
      * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
      * @since 1.1
      */
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, long timeout, TimeUnit timeUnit) {
         return waitForServiceEvent(bc, clazz, eventTypeMask, false, timeout, timeUnit);
     }
 
@@ -878,7 +883,7 @@ public class ServiceUtils {
      * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
      * @since 1.1
      */
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, long timeout, TimeUnit timeUnit) {
         return waitForServiceEvent(bc, filter, eventTypeMask, false, timeout, timeUnit);
     }
 
@@ -894,7 +899,7 @@ public class ServiceUtils {
      * @throws NullPointerException If <code>bc</code> is <code>null</code>
      * @since 1.1
      */
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, boolean all, long timeoutInMillis) throws InvalidSyntaxException {
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, boolean all, long timeoutInMillis) {
         return waitForServiceEvent(bc, filter, eventTypeMask, all, timeoutInMillis, MILLISECONDS);
     }
 
@@ -910,7 +915,7 @@ public class ServiceUtils {
      * @throws NullPointerException If <code>bc</code> is <code>null</code>
      * @since 1.1
      */
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, boolean all, long timeoutInMillis) throws InvalidSyntaxException {
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, boolean all, long timeoutInMillis) {
         return waitForServiceEvent(bc, className, eventTypeMask, all, timeoutInMillis, MILLISECONDS);
     }
 
@@ -926,7 +931,7 @@ public class ServiceUtils {
      * @throws NullPointerException If <code>bc</code> is <code>null</code>
      * @since 1.1
      */
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, boolean all, long timeoutInMillis) throws InvalidSyntaxException {
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, boolean all, long timeoutInMillis) {
         return waitForServiceEvent(bc, clazz, eventTypeMask, all, timeoutInMillis, MILLISECONDS);
     }
 
@@ -940,13 +945,18 @@ public class ServiceUtils {
      * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit      time unit for the time interval
      * @return ServiceEvent or <code>null</code>
+     * @throws IllegalArgumentException If <code>clazz</code> is invalid to create filter
      * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
      * @since 1.1
      */
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, boolean all, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, String className, int eventTypeMask, boolean all, long timeout, TimeUnit timeUnit) {
         Filter filter = null;
         if (className != null) {
-            filter = create(className);
+            try {
+                filter = create(className);
+            } catch (InvalidSyntaxException e) {
+                throw new IllegalArgumentException("Unable to create filter", e);
+            }
         }
         return waitForServiceEvent(bc, filter, eventTypeMask, all, timeout, timeUnit);
     }
@@ -961,13 +971,18 @@ public class ServiceUtils {
      * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit      time unit for the time interval
      * @return ServiceEvent or <code>null</code>
+     * @throws IllegalArgumentException If <code>clazz</code> is invalid to create filter
      * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
      * @since 1.1
      */
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, boolean all, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Class clazz, int eventTypeMask, boolean all, long timeout, TimeUnit timeUnit) {
         Filter filter = null;
         if (clazz != null) {
-            filter = create(clazz);
+            try {
+                filter = create(clazz);
+            } catch (InvalidSyntaxException e) {
+                throw new IllegalArgumentException("Unable to create filter", e);
+            }
         }
         return waitForServiceEvent(bc, filter, eventTypeMask, all, timeout, timeUnit);
     }
@@ -982,10 +997,11 @@ public class ServiceUtils {
      * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
      * @param timeUnit      time unit for the time interval
      * @return ServiceEvent or <code>null</code>
+     * @throws IllegalArgumentException If <code>filter</code> is invalid
      * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
      * @since 1.1
      */
-    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, boolean all, long timeout, TimeUnit timeUnit) throws InvalidSyntaxException {
+    public static ServiceEvent waitForServiceEvent(BundleContext bc, Filter filter, int eventTypeMask, boolean all, long timeout, TimeUnit timeUnit) {
         CountDownLatch latch = new CountDownLatch(1);
 
         long timeoutInMillis = timeUnit.toMillis(timeout);
@@ -995,7 +1011,11 @@ public class ServiceUtils {
         } else {
             listener = new ServiceListenerImpl(eventTypeMask, latch);
         }
-        bc.addServiceListener(listener, filter != null ? filter.toString() : null);
+        try {
+            bc.addServiceListener(listener, filter != null ? filter.toString() : null);
+        } catch (InvalidSyntaxException e) {
+            throw new IllegalArgumentException("Unable to use filter", e);
+        }
 
         try {
             return waitForServiceEvent(listener, timeoutInMillis, latch);

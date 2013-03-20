@@ -18,7 +18,6 @@ package org.knowhowlab.osgi.testing.assertions;
 
 import org.junit.Assert;
 import org.osgi.framework.Filter;
-import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceEvent;
 
 import java.util.concurrent.TimeUnit;
@@ -653,12 +652,8 @@ public class ServiceAssert extends OSGiAssert {
     public static void assertServiceEvent(String message, int eventTypeMask, Filter filter, boolean all, long timeout, TimeUnit timeUnit) {
         assertNotNull("Filter is null", filter);
         assertNotNull("TimeUnit is null", timeUnit);
-        try {
-            ServiceEvent event = waitForServiceEvent(getBundleContext(), filter, eventTypeMask, all, timeout, timeUnit);
-            assertNotNull(message, event);
-        } catch (InvalidSyntaxException e) {
-            Assert.fail("Invalid filter: " + filter);
-        }
+        ServiceEvent event = waitForServiceEvent(getBundleContext(), filter, eventTypeMask, all, timeout, timeUnit);
+        assertNotNull(message, event);
     }
 
     /**
@@ -776,12 +771,8 @@ public class ServiceAssert extends OSGiAssert {
     public static void assertServiceEvent(String message, int eventTypeMask, String className, boolean all, long timeout, TimeUnit timeUnit) {
         assertNotNull("Class name is null", className);
         assertNotNull("TimeUnit is null", timeUnit);
-        try {
-            ServiceEvent event = waitForServiceEvent(getBundleContext(), className, eventTypeMask, all, timeout, timeUnit);
-            assertNotNull(message, event);
-        } catch (InvalidSyntaxException e) {
-            Assert.fail(e.getMessage());
-        }
+        ServiceEvent event = waitForServiceEvent(getBundleContext(), className, eventTypeMask, all, timeout, timeUnit);
+        assertNotNull(message, event);
     }
 
     /**
@@ -899,11 +890,7 @@ public class ServiceAssert extends OSGiAssert {
     public static void assertServiceEvent(String message, int eventTypeMask, Class clazz, boolean all, long timeout, TimeUnit timeUnit) {
         assertNotNull("Class is null", clazz);
         assertNotNull("TimeUnit is null", timeUnit);
-        try {
-            ServiceEvent event = waitForServiceEvent(getBundleContext(), clazz, eventTypeMask, all, timeout, timeUnit);
-            assertNotNull(message, event);
-        } catch (InvalidSyntaxException e) {
-            Assert.fail(e.getMessage());
-        }
+        ServiceEvent event = waitForServiceEvent(getBundleContext(), clazz, eventTypeMask, all, timeout, timeUnit);
+        assertNotNull(message, event);
     }
 }

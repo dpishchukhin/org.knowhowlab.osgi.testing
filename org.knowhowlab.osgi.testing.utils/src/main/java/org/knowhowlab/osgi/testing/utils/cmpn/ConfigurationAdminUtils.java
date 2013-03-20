@@ -55,21 +55,33 @@ public class ConfigurationAdminUtils {
     }
 
     // create filter
-    public static Filter createConfigurationFilter(String pid, String factoryPid, String location) throws InvalidSyntaxException {
+
+    /**
+     * @param pid
+     * @param factoryPid
+     * @param location
+     * @return
+     * @throws IllegalArgumentException If <code>pid</code> or <code>factoryPid</code> or <code>location</code> are invalid to create filter
+     */
+    public static Filter createConfigurationFilter(String pid, String factoryPid, String location) {
         if (pid == null && factoryPid == null && location == null) {
             throw new NullPointerException("All filter properties are null");
         }
         List<Filter> filters = new ArrayList<Filter>(3);
-        if (pid !=  null) {
-            filters.add(eq(SERVICE_PID, pid));
+        try {
+            if (pid != null) {
+                filters.add(eq(SERVICE_PID, pid));
+            }
+            if (factoryPid != null) {
+                filters.add(eq(SERVICE_FACTORYPID, factoryPid));
+            }
+            if (location != null) {
+                filters.add(eq(SERVICE_BUNDLELOCATION, location));
+            }
+            return and(filters.toArray(new Filter[filters.size()]));
+        } catch (InvalidSyntaxException e) {
+            throw new IllegalArgumentException("Unable to create filter", e);
         }
-        if (factoryPid !=  null) {
-            filters.add(eq(SERVICE_FACTORYPID, factoryPid));
-        }
-        if (location !=  null) {
-            filters.add(eq(SERVICE_BUNDLELOCATION, location));
-        }
-        return and(filters.toArray(new Filter[filters.size()]));
     }
 
     // create config
@@ -239,7 +251,7 @@ public class ConfigurationAdminUtils {
     }
 
     // get config
-    public static Configuration getConfiguration(ConfigurationAdmin configurationAdmin, String pid) throws IOException, InvalidSyntaxException {
+    public static Configuration getConfiguration(ConfigurationAdmin configurationAdmin, String pid) throws IOException {
         Filter filter = createConfigurationFilter(pid, null, null);
         Configuration[] configurations = listConfigurations(configurationAdmin, filter);
         if (configurations != null && configurations.length == 1) {
@@ -248,7 +260,7 @@ public class ConfigurationAdminUtils {
         return null;
     }
 
-    public static Configuration getConfiguration(ConfigurationAdmin configurationAdmin, String pid, String location) throws IOException, InvalidSyntaxException {
+    public static Configuration getConfiguration(ConfigurationAdmin configurationAdmin, String pid, String location) throws IOException {
         Filter filter = createConfigurationFilter(pid, null, location);
         Configuration[] configurations = listConfigurations(configurationAdmin, filter);
         if (configurations != null && configurations.length == 1) {
@@ -257,20 +269,32 @@ public class ConfigurationAdminUtils {
         return null;
     }
 
-    public static Configuration getConfiguration(BundleContext bc, String pid) throws IOException, InvalidSyntaxException {
+    public static Configuration getConfiguration(BundleContext bc, String pid) throws IOException {
         return getConfiguration(getService(bc, ConfigurationAdmin.class), pid);
     }
 
-    public static Configuration getConfiguration(BundleContext bc, String pid, String location) throws IOException, InvalidSyntaxException {
+    public static Configuration getConfiguration(BundleContext bc, String pid, String location) throws IOException {
         return getConfiguration(getService(bc, ConfigurationAdmin.class), pid, location);
     }
 
     // list configs
-    public static Configuration[] listConfigurations(ConfigurationAdmin configurationAdmin, Filter filter) throws IOException, InvalidSyntaxException {
-        return configurationAdmin.listConfigurations(filter.toString());
+
+    /**
+     * @param configurationAdmin
+     * @param filter
+     * @return
+     * @throws IllegalArgumentException If <code>filter</code> is invalid
+     * @throws IOException
+     */
+    public static Configuration[] listConfigurations(ConfigurationAdmin configurationAdmin, Filter filter) throws IOException {
+        try {
+            return configurationAdmin.listConfigurations(filter.toString());
+        } catch (InvalidSyntaxException e) {
+            throw new IllegalArgumentException("Unable to use filter", e);
+        }
     }
 
-    public static Configuration[] listConfigurations(BundleContext bc, Filter filter) throws IOException, InvalidSyntaxException {
+    public static Configuration[] listConfigurations(BundleContext bc, Filter filter) throws IOException {
         return listConfigurations(getService(bc, ConfigurationAdmin.class), filter);
     }
 

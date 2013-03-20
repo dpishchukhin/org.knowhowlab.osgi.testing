@@ -16,11 +16,9 @@
 
 package org.knowhowlab.osgi.testing.assertions.cmpn;
 
-import junit.framework.Assert;
 import org.knowhowlab.osgi.testing.assertions.OSGiAssert;
 import org.knowhowlab.osgi.testing.utils.cmpn.ConfigurationAdminUtils;
 import org.osgi.framework.Filter;
-import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationEvent;
 
@@ -28,7 +26,9 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import static org.knowhowlab.osgi.testing.utils.cmpn.ConfigurationAdminUtils.createConfigurationFilter;
 import static org.knowhowlab.osgi.testing.utils.cmpn.ConfigurationAdminUtils.waitForConfigurationEvent;
 import static org.osgi.service.cm.ConfigurationEvent.CM_DELETED;
@@ -52,38 +52,46 @@ public class ConfigurationAdminAssert extends OSGiAssert {
     private ConfigurationAdminAssert() {
     }
 
-    public static void assertConfigurationAvailable(String pid, String factoryPid, String location) throws IOException, InvalidSyntaxException {
+    public static void assertConfigurationAvailable(String pid, String factoryPid, String location) {
         assertConfigurationAvailable(null, pid, factoryPid, location);
     }
 
-    public static void assertConfigurationAvailable(String message, String pid, String factoryPid, String location) throws IOException, InvalidSyntaxException {
+    public static void assertConfigurationAvailable(String message, String pid, String factoryPid, String location) {
         assertConfigurationAvailable(message, createConfigurationFilter(pid, factoryPid, location));
     }
 
-    public static void assertConfigurationAvailable(Filter filter) throws IOException, InvalidSyntaxException {
+    public static void assertConfigurationAvailable(Filter filter) {
         assertConfigurationAvailable(null, filter);
     }
 
-    public static void assertConfigurationAvailable(String message, Filter filter) throws IOException, InvalidSyntaxException {
-        Configuration[] configurations = ConfigurationAdminUtils.listConfigurations(getBundleContext(), filter);
-        Assert.assertNotNull(message, configurations);
+    public static void assertConfigurationAvailable(String message, Filter filter) {
+        try {
+            Configuration[] configurations = ConfigurationAdminUtils.listConfigurations(getBundleContext(), filter);
+            assertNotNull(message, configurations);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
     }
 
-    public static void assertConfigurationUnavailable(String pid, String factoryPid, String location) throws IOException, InvalidSyntaxException {
+    public static void assertConfigurationUnavailable(String pid, String factoryPid, String location) {
         assertConfigurationUnavailable(null, pid, factoryPid, location);
     }
 
-    public static void assertConfigurationUnavailable(String message, String pid, String factoryPid, String location) throws IOException, InvalidSyntaxException {
+    public static void assertConfigurationUnavailable(String message, String pid, String factoryPid, String location) {
         assertConfigurationUnavailable(message, createConfigurationFilter(pid, factoryPid, location));
     }
 
-    public static void assertConfigurationUnavailable(Filter filter) throws IOException, InvalidSyntaxException {
+    public static void assertConfigurationUnavailable(Filter filter) {
         assertConfigurationUnavailable(null, filter);
     }
 
-    public static void assertConfigurationUnavailable(String message, Filter filter) throws IOException, InvalidSyntaxException {
-        Configuration[] configurations = ConfigurationAdminUtils.listConfigurations(getBundleContext(), filter);
-        Assert.assertNull(message, configurations);
+    public static void assertConfigurationUnavailable(String message, Filter filter) {
+        try {
+            Configuration[] configurations = ConfigurationAdminUtils.listConfigurations(getBundleContext(), filter);
+            assertNull(message, configurations);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
     }
 
     public static void assertConfigurationEvent(int eventTypeMask, long timeoutInMillis) {
