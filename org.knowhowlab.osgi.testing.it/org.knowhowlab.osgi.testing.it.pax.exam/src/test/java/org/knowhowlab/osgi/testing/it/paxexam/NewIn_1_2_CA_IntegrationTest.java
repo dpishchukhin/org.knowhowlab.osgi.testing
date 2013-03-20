@@ -21,8 +21,6 @@ import static org.ops4j.pax.exam.OptionUtils.combine;
  * @author dpishchukhin
  */
 public class NewIn_1_2_CA_IntegrationTest extends AbstractTest {
-    private static final String KNOWHOWLAB_TOPICS_TEST = "knowhowlab/topics/test";
-
     /**
      * Install test bundle, ConfigurationAdmin and EventAdmin
      *

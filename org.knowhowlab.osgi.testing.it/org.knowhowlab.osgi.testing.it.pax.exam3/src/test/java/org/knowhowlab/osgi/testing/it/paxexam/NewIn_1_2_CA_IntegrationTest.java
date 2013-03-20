@@ -13,7 +13,6 @@ import static org.knowhowlab.osgi.testing.assertions.cmpn.ConfigurationAdminAsse
 import static org.knowhowlab.osgi.testing.utils.cmpn.ConfigurationAdminUtils.deleteConfiguration;
 import static org.knowhowlab.osgi.testing.utils.cmpn.ConfigurationAdminUtils.supplyConfiguration;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
-import static org.ops4j.pax.exam.CoreOptions.vmOptions;
 import static org.ops4j.pax.exam.OptionUtils.combine;
 
 /**

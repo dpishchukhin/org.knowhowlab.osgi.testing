@@ -10,7 +10,83 @@ OSGi specific assertions and utility classes that help to write OSGi integration
 
 [http://groups.google.com/group/knowhowlab-osgi-testing](http://groups.google.com/group/knowhowlab-osgi-testing)
 
+## Usage
+
+### Add Maven dependencies:
+    <dependency>
+        <groupId>org.knowhowlab.osgi</groupId>
+        <artifactId>org.knowhowlab.osgi.testing.utils</artifactId>
+        <version>1.1.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.knowhowlab.osgi</groupId>
+        <artifactId>org.knowhowlab.osgi.testing.assertions</artifactId>
+        <version>1.1.0</version>
+    </dependency>
+
+### Add dependency in PaxExam tests
+    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.utils").version("1.1.0"),
+    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.assertions").version("1.1.0")
+
 ## Changes
+
+### 1.2.0 (20 Mar 2013)
+
+- Added EventAdmin utils and assertions
+- Added ConfigurationAdmin utils and assertions
+- Added PaxExam 3.0.x integration tests
+- bug fixes and improvements
+
+#### Samples
+
+    @Test
+    public void test_Post_Event() {
+        postEvent(getBundleContext(), KNOWHOWLAB_TOPICS_TEST, 200);
+
+        assertEvent(KNOWHOWLAB_TOPICS_TEST, 500, TimeUnit.MILLISECONDS);
+    }
+
+    @Test
+    public void test_Post_Event_With_Filters() throws InvalidSyntaxException {
+        Map<String, String> props = new HashMap<String, String>();
+        props.put("prop_key", "val123");
+
+        postEvent(getBundleContext(), KNOWHOWLAB_TOPICS_TEST, props, 200);
+        assertEvent(KNOWHOWLAB_TOPICS_TEST, FilterUtils.eq("prop_key", "val123"), 500, TimeUnit.MILLISECONDS);
+
+        postEvent(getBundleContext(), KNOWHOWLAB_TOPICS_TEST, props, 200);
+        try {
+            assertEvent(KNOWHOWLAB_TOPICS_TEST, FilterUtils.eq("prop_key", "val555"), 500, TimeUnit.MILLISECONDS);
+        } catch (AssertionError e) {
+        }
+    }
+
+    @Test
+    public void test_Service_Event() throws InvalidSyntaxException {
+        // start bundle in 2 sec
+        startBundleAsync(getBundleContext(), "org.knowhowlab.osgi.testing.it.test.bundle", 200);
+
+        assertEvent("org/osgi/framework/ServiceEvent/REGISTERED", FilterUtils.eq("service.objectClass", "org.knowhowlab.osgi.testing.it.testbundle.service.Echo"), 1, TimeUnit.SECONDS);
+    }
+
+    @Test
+    public void test_Configuration_manipulations() {
+        assertConfigurationUnavailable("test.pid", null, null);
+
+        Map<String, String> config = new HashMap<String, String>();
+        config.put("test.key", "test.value");
+        supplyConfiguration(getBundleContext(), "test.pid", null, config, 0);
+
+        assertConfigurationUpdated("test.pid", null, null, 500, TimeUnit.MILLISECONDS);
+
+        assertConfigurationAvailable("test.pid", null, null);
+
+        deleteConfiguration(getBundleContext(), "test.pid", null, 0);
+
+        assertConfigurationDeleted("test.pid", null, null, 500, TimeUnit.MILLISECONDS);
+
+        assertConfigurationUnavailable("test.pid", null, null);
+    }
 
 ### 1.1.0 (15 Dec 2012)
 
@@ -48,24 +124,6 @@ OSGi specific assertions and utility classes that help to write OSGi integration
     // start level changed within 5 sec
     assertFrameworkEvent(FrameworkEvent.STARTLEVEL_CHANGED, 0, 5, TimeUnit.SECONDS);
 
-
-## Usage
-
-### Add Maven dependencies:
-    <dependency>
-        <groupId>org.knowhowlab.osgi</groupId>
-        <artifactId>org.knowhowlab.osgi.testing.utils</artifactId>
-        <version>1.1.0</version>
-    </dependency>
-    <dependency>
-        <groupId>org.knowhowlab.osgi</groupId>
-        <artifactId>org.knowhowlab.osgi.testing.assertions</artifactId>
-        <version>1.1.0</version>
-    </dependency>
-
-### Add dependency in PaxExam tests
-    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.utils").version("1.1.0"),
-    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.assertions").version("1.1.0")
 
 ## There is a comparison of the same test with and without OSGiLab testing assertions and utils.
 
