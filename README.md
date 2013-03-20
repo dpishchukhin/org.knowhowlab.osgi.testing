@@ -66,7 +66,8 @@ OSGi specific assertions and utility classes that help to write OSGi integration
         // start bundle in 2 sec
         startBundleAsync(getBundleContext(), "org.knowhowlab.osgi.testing.it.test.bundle", 200);
 
-        assertEvent("org/osgi/framework/ServiceEvent/REGISTERED", FilterUtils.eq("service.objectClass", "org.knowhowlab.osgi.testing.it.testbundle.service.Echo"), 1, TimeUnit.SECONDS);
+        assertEvent("org/osgi/framework/ServiceEvent/REGISTERED", FilterUtils.eq("service.objectClass", 
+             "org.knowhowlab.osgi.testing.it.testbundle.service.Echo"), 1, TimeUnit.SECONDS);
     }
 
     @Test
