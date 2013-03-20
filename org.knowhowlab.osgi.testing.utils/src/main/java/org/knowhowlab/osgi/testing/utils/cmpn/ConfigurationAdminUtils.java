@@ -33,8 +33,6 @@ import static org.knowhowlab.osgi.testing.utils.ServiceUtils.getService;
 import static org.osgi.framework.Constants.SERVICE_PID;
 import static org.osgi.service.cm.ConfigurationAdmin.SERVICE_BUNDLELOCATION;
 import static org.osgi.service.cm.ConfigurationAdmin.SERVICE_FACTORYPID;
-import static org.osgi.service.cm.ConfigurationEvent.CM_DELETED;
-import static org.osgi.service.cm.ConfigurationEvent.CM_UPDATED;
 import static org.osgi.service.cm.ConfigurationPlugin.CM_RANKING;
 import static org.osgi.service.cm.ConfigurationPlugin.CM_TARGET;
 
@@ -45,6 +43,9 @@ import static org.osgi.service.cm.ConfigurationPlugin.CM_TARGET;
  * @version 1.0
  * @see org.osgi.framework.Bundle
  * @see org.osgi.service.cm.ConfigurationAdmin
+ * @see org.osgi.service.cm.ConfigurationEvent
+ * @see org.osgi.service.cm.ConfigurationListener
+ * @see org.osgi.service.cm.ConfigurationPlugin
  * @see org.osgi.service.cm.Configuration
  */
 public class ConfigurationAdminUtils {
@@ -54,14 +55,16 @@ public class ConfigurationAdminUtils {
     private ConfigurationAdminUtils() {
     }
 
-    // create filter
-
     /**
-     * @param pid
-     * @param factoryPid
-     * @param location
-     * @return
+     * Create ConfigurationEvent specific AND-filter
+     *
+     * @param pid        configuration PID (optional)
+     * @param factoryPid configuration FactoryPID (optional)
+     * @param location   bundle location (optional)
+     * @return filter
      * @throws IllegalArgumentException If <code>pid</code> or <code>factoryPid</code> or <code>location</code> are invalid to create filter
+     * @throws NullPointerException     If <code>pid</code>, <code>factoryPid</code> and <code>location</code> are <code>null</code>
+     * @since 1.0
      */
     public static Filter createConfigurationFilter(String pid, String factoryPid, String location) {
         if (pid == null && factoryPid == null && location == null) {
@@ -84,39 +87,142 @@ public class ConfigurationAdminUtils {
         }
     }
 
-    // create config
+    /**
+     * Supply Configuration with delayInMillis
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param pid                PID
+     * @param properties         configuration properties
+     * @param delayInMillis      time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(ConfigurationAdmin configurationAdmin, String pid, Dictionary properties, long delayInMillis) {
         return supplyConfiguration(configurationAdmin, pid, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply Configuration with delayInMillis
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param pid                PID
+     * @param properties         configuration properties
+     * @param delayInMillis      time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(ConfigurationAdmin configurationAdmin, String pid, Map properties, long delayInMillis) {
         return supplyConfiguration(configurationAdmin, pid, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply Configuration with delayInMillis
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param pid                PID
+     * @param location           bundle location
+     * @param properties         configuration properties
+     * @param delayInMillis      time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(ConfigurationAdmin configurationAdmin, String pid, String location, Dictionary properties, long delayInMillis) {
         return supplyConfiguration(configurationAdmin, pid, location, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply Configuration with delayInMillis
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param pid                PID
+     * @param location           bundle location
+     * @param properties         configuration properties
+     * @param delayInMillis      time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(ConfigurationAdmin configurationAdmin, String pid, String location, Map properties, long delayInMillis) {
         return supplyConfiguration(configurationAdmin, pid, location, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply Configuration with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param pid           PID
+     * @param properties    configuration properties
+     * @param delayInMillis time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(BundleContext bc, String pid, Dictionary properties, long delayInMillis) {
         return supplyConfiguration(bc, pid, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply Configuration with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param pid           PID
+     * @param properties    configuration properties
+     * @param delayInMillis time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(BundleContext bc, String pid, Map properties, long delayInMillis) {
         return supplyConfiguration(bc, pid, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply Configuration with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param pid           PID
+     * @param location      bundle location
+     * @param properties    configuration properties
+     * @param delayInMillis time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(BundleContext bc, String pid, String location, Dictionary properties, long delayInMillis) {
         return supplyConfiguration(bc, pid, location, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply Configuration with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param pid           PID
+     * @param location      bundle location
+     * @param properties    configuration properties
+     * @param delayInMillis time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(BundleContext bc, String pid, String location, Map properties, long delayInMillis) {
         return supplyConfiguration(bc, pid, location, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply Configuration with delay
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param pid                PID
+     * @param properties         configuration properties
+     * @param delay              time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit           time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(final ConfigurationAdmin configurationAdmin, final String pid, final Dictionary properties, long delay, TimeUnit timeUnit) {
         if (configurationAdmin == null) {
             throw new NullPointerException("ConfigurationAdmin is null");
@@ -130,10 +236,35 @@ public class ConfigurationAdminUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * Supply Configuration with delay
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param pid                PID
+     * @param properties         configuration properties
+     * @param delay              time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit           time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(ConfigurationAdmin configurationAdmin, String pid, Map properties, long delay, TimeUnit timeUnit) {
         return supplyConfiguration(configurationAdmin, pid, toDictionary(properties), delay, timeUnit);
     }
 
+    /**
+     * Supply Configuration with delay
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param pid                PID
+     * @param location           bundle location
+     * @param properties         configuration properties
+     * @param delay              time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit           time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(final ConfigurationAdmin configurationAdmin, final String pid, final String location, final Dictionary properties, long delay, TimeUnit timeUnit) {
         if (configurationAdmin == null) {
             throw new NullPointerException("ConfigurationAdmin is null");
@@ -147,59 +278,225 @@ public class ConfigurationAdminUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * Supply Configuration with delay
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param pid                PID
+     * @param location           bundle location
+     * @param properties         configuration properties
+     * @param delay              time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit           time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(ConfigurationAdmin configurationAdmin, String pid, String location, Map properties, long delay, TimeUnit timeUnit) {
         return supplyConfiguration(configurationAdmin, pid, location, toDictionary(properties), delay, timeUnit);
     }
 
+    /**
+     * Supply Configuration with delay
+     *
+     * @param bc         BundleContext
+     * @param pid        PID
+     * @param properties configuration properties
+     * @param delay      time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(BundleContext bc, String pid, Dictionary properties, long delay, TimeUnit timeUnit) {
         return supplyConfiguration(getService(bc, ConfigurationAdmin.class), pid, properties, delay, timeUnit);
     }
 
+    /**
+     * Supply Configuration with delay
+     *
+     * @param bc         BundleContext
+     * @param pid        PID
+     * @param properties configuration properties
+     * @param delay      time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(BundleContext bc, String pid, Map properties, long delay, TimeUnit timeUnit) {
         return supplyConfiguration(getService(bc, ConfigurationAdmin.class), pid, properties, delay, timeUnit);
     }
 
+    /**
+     * Supply Configuration with delay
+     *
+     * @param bc         BundleContext
+     * @param pid        PID
+     * @param location   bundle location
+     * @param properties configuration properties
+     * @param delay      time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(BundleContext bc, String pid, String location, Dictionary properties, long delay, TimeUnit timeUnit) {
         return supplyConfiguration(getService(bc, ConfigurationAdmin.class), pid, location, properties, delay, timeUnit);
     }
 
+    /**
+     * Supply Configuration with delay
+     *
+     * @param bc         BundleContext
+     * @param pid        PID
+     * @param location   bundle location
+     * @param properties configuration properties
+     * @param delay      time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyConfiguration(BundleContext bc, String pid, String location, Map properties, long delay, TimeUnit timeUnit) {
         return supplyConfiguration(getService(bc, ConfigurationAdmin.class), pid, location, properties, delay, timeUnit);
     }
 
-    // create config for factory
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param factoryPid         FactoryPID
+     * @param properties         configuration properties
+     * @param delayInMillis      time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(ConfigurationAdmin configurationAdmin, String factoryPid, Dictionary properties, long delayInMillis) {
         return supplyFactoryConfiguration(configurationAdmin, factoryPid, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param factoryPid         FactoryPID
+     * @param properties         configuration properties
+     * @param delayInMillis      time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(ConfigurationAdmin configurationAdmin, String factoryPid, Map properties, long delayInMillis) {
         return supplyFactoryConfiguration(configurationAdmin, factoryPid, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param factoryPid         FactoryPID
+     * @param location           bundle location
+     * @param properties         configuration properties
+     * @param delayInMillis      time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(ConfigurationAdmin configurationAdmin, String factoryPid, String location, Dictionary properties, long delayInMillis) {
         return supplyFactoryConfiguration(configurationAdmin, factoryPid, location, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param factoryPid         FactoryPID
+     * @param location           bundle location
+     * @param properties         configuration properties
+     * @param delayInMillis      time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(ConfigurationAdmin configurationAdmin, String factoryPid, String location, Map properties, long delayInMillis) {
         return supplyFactoryConfiguration(configurationAdmin, factoryPid, location, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param factoryPid    FactoryPID
+     * @param properties    configuration properties
+     * @param delayInMillis time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(BundleContext bc, String factoryPid, Dictionary properties, long delayInMillis) {
         return supplyFactoryConfiguration(bc, factoryPid, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param factoryPid    FactoryPID
+     * @param properties    configuration properties
+     * @param delayInMillis time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(BundleContext bc, String factoryPid, Map properties, long delayInMillis) {
         return supplyFactoryConfiguration(bc, factoryPid, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param factoryPid    FactoryPID
+     * @param location      bundle location
+     * @param properties    configuration properties
+     * @param delayInMillis time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(BundleContext bc, String factoryPid, String location, Dictionary properties, long delayInMillis) {
         return supplyFactoryConfiguration(bc, factoryPid, location, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param bc            BundleContext
+     * @param factoryPid    FactoryPID
+     * @param location      bundle location
+     * @param properties    configuration properties
+     * @param delayInMillis time interval in millis to wait before supply action. If zero, the method will not wait.
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(BundleContext bc, String factoryPid, String location, Map properties, long delayInMillis) {
         return supplyFactoryConfiguration(bc, factoryPid, location, properties, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param factoryPid         FactoryPID
+     * @param properties         configuration properties
+     * @param delay              time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit           time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(final ConfigurationAdmin configurationAdmin, final String factoryPid, final Dictionary properties, long delay, TimeUnit timeUnit) {
         if (configurationAdmin == null) {
             throw new NullPointerException("ConfigurationAdmin is null");
@@ -213,10 +510,35 @@ public class ConfigurationAdminUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param factoryPid         FactoryPID
+     * @param properties         configuration properties
+     * @param delay              time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit           time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(ConfigurationAdmin configurationAdmin, String factoryPid, Map properties, long delay, TimeUnit timeUnit) {
         return supplyFactoryConfiguration(configurationAdmin, factoryPid, toDictionary(properties), delay, timeUnit);
     }
 
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param factoryPid         FactoryPID
+     * @param location           bundle location
+     * @param properties         configuration properties
+     * @param delay              time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit           time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(final ConfigurationAdmin configurationAdmin, final String factoryPid, final String location, final Dictionary properties, long delay, TimeUnit timeUnit) {
         if (configurationAdmin == null) {
             throw new NullPointerException("ConfigurationAdmin is null");
@@ -230,27 +552,100 @@ public class ConfigurationAdminUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param factoryPid         FactoryPID
+     * @param location           bundle location
+     * @param properties         configuration properties
+     * @param delay              time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit           time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(ConfigurationAdmin configurationAdmin, String factoryPid, String location, Map properties, long delay, TimeUnit timeUnit) {
         return supplyFactoryConfiguration(configurationAdmin, factoryPid, location, toDictionary(properties), delay, timeUnit);
     }
 
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param bc         BundleContext
+     * @param factoryPid FactoryPID
+     * @param properties configuration properties
+     * @param delay      time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(BundleContext bc, String factoryPid, Dictionary properties, long delay, TimeUnit timeUnit) {
         return supplyFactoryConfiguration(getService(bc, ConfigurationAdmin.class), factoryPid, properties, delay, timeUnit);
     }
 
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param bc         BundleContext
+     * @param factoryPid FactoryPID
+     * @param properties configuration properties
+     * @param delay      time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(BundleContext bc, String factoryPid, Map properties, long delay, TimeUnit timeUnit) {
         return supplyFactoryConfiguration(getService(bc, ConfigurationAdmin.class), factoryPid, properties, delay, timeUnit);
     }
 
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param bc         BundleContext
+     * @param factoryPid FactoryPID
+     * @param location   bundle location
+     * @param properties configuration properties
+     * @param delay      time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(BundleContext bc, String factoryPid, String location, Dictionary properties, long delay, TimeUnit timeUnit) {
         return supplyFactoryConfiguration(getService(bc, ConfigurationAdmin.class), factoryPid, location, properties, delay, timeUnit);
     }
 
+    /**
+     * Supply FactoryConfiguration with delayInMillis
+     *
+     * @param bc         BundleContext
+     * @param factoryPid FactoryPID
+     * @param location   bundle location
+     * @param properties configuration properties
+     * @param delay      time interval to wait before supply action. If zero, the method will not wait.
+     * @param timeUnit   time unit for the time interval
+     * @return configuration object
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<Configuration> supplyFactoryConfiguration(BundleContext bc, String factoryPid, String location, Map properties, long delay, TimeUnit timeUnit) {
         return supplyFactoryConfiguration(getService(bc, ConfigurationAdmin.class), factoryPid, location, properties, delay, timeUnit);
     }
 
-    // get config
+    /**
+     * Get configuration by PID
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param pid                PID
+     * @return configuration or <code>null</code>
+     * @throws IOException          if access to persistent storage fails
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @see ConfigurationAdmin#listConfigurations(String)
+     * @since 1.0
+     */
     public static Configuration getConfiguration(ConfigurationAdmin configurationAdmin, String pid) throws IOException {
         Filter filter = createConfigurationFilter(pid, null, null);
         Configuration[] configurations = listConfigurations(configurationAdmin, filter);
@@ -260,6 +655,18 @@ public class ConfigurationAdminUtils {
         return null;
     }
 
+    /**
+     * Get configuration by PID and bundle location
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param pid                PID
+     * @param location           bundle location
+     * @return configuration or <code>null</code>
+     * @throws IOException          if access to persistent storage fails
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @see ConfigurationAdmin#listConfigurations(String)
+     * @since 1.0
+     */
     public static Configuration getConfiguration(ConfigurationAdmin configurationAdmin, String pid, String location) throws IOException {
         Filter filter = createConfigurationFilter(pid, null, location);
         Configuration[] configurations = listConfigurations(configurationAdmin, filter);
@@ -269,22 +676,48 @@ public class ConfigurationAdminUtils {
         return null;
     }
 
+    /**
+     * Get configuration by PID
+     *
+     * @param bc  BundleContext
+     * @param pid PID
+     * @return configuration or <code>null</code>
+     * @throws IOException          if access to persistent storage fails
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @see ConfigurationAdmin#listConfigurations(String)
+     * @since 1.0
+     */
     public static Configuration getConfiguration(BundleContext bc, String pid) throws IOException {
         return getConfiguration(getService(bc, ConfigurationAdmin.class), pid);
     }
 
+    /**
+     * Get configuration by PID and bundle location
+     *
+     * @param bc       BundleContext
+     * @param pid      PID
+     * @param location bundle location
+     * @return configuration or <code>null</code>
+     * @throws IOException          if access to persistent storage fails
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @see ConfigurationAdmin#listConfigurations(String)
+     * @since 1.0
+     */
     public static Configuration getConfiguration(BundleContext bc, String pid, String location) throws IOException {
         return getConfiguration(getService(bc, ConfigurationAdmin.class), pid, location);
     }
 
-    // list configs
-
     /**
-     * @param configurationAdmin
-     * @param filter
-     * @return
+     * List configurations by filter
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param filter             filter
+     * @return All matching Configuration objects, or <code>null</code> if there aren't any
      * @throws IllegalArgumentException If <code>filter</code> is invalid
-     * @throws IOException
+     * @throws IOException              if access to persistent storage fails
+     * @throws NullPointerException     If <code>configurationAdmin</code> is <code>null</code>
+     * @see ConfigurationAdmin#listConfigurations(String)
+     * @since 1.0
      */
     public static Configuration[] listConfigurations(ConfigurationAdmin configurationAdmin, Filter filter) throws IOException {
         try {
@@ -294,31 +727,82 @@ public class ConfigurationAdminUtils {
         }
     }
 
+    /**
+     * List configurations by filter
+     *
+     * @param bc     BundleContext
+     * @param filter filter
+     * @return All matching Configuration objects, or <code>null</code> if there aren't any
+     * @throws IllegalArgumentException If <code>filter</code> is invalid
+     * @throws IOException              if access to persistent storage fails
+     * @throws NullPointerException     If <code>configurationAdmin</code> is <code>null</code>
+     * @see ConfigurationAdmin#listConfigurations(String)
+     * @since 1.0
+     */
     public static Configuration[] listConfigurations(BundleContext bc, Filter filter) throws IOException {
         return listConfigurations(getService(bc, ConfigurationAdmin.class), filter);
     }
 
-    // config events
-    public static ConfigurationEvent waitForConfigurationEvent(BundleContext bc, long timeoutInMillis) {
-        return waitForConfigurationEvent(bc, timeoutInMillis, MILLISECONDS);
-    }
-
+    /**
+     * Wait for ConfigurationEvent
+     *
+     * @param bc              BundleContext
+     * @param eventTypeMask   ConfigurationEvent type mask
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return ConfigurationEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static ConfigurationEvent waitForConfigurationEvent(BundleContext bc, int eventTypeMask, long timeoutInMillis) {
         return waitForConfigurationEvent(bc, eventTypeMask, timeoutInMillis, MILLISECONDS);
     }
 
+    /**
+     * Wait for ConfigurationEvent
+     *
+     * @param bc              BundleContext
+     * @param eventTypeMask   ConfigurationEvent type mask
+     * @param pid             PID
+     * @param factoryPid      FactoryPID
+     * @param location        bundle location
+     * @param timeoutInMillis time interval in millis to wait. If zero, the method will wait indefinitely.
+     * @return ConfigurationEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static ConfigurationEvent waitForConfigurationEvent(BundleContext bc, int eventTypeMask, String pid, String factoryPid, String location, long timeoutInMillis) {
         return waitForConfigurationEvent(bc, eventTypeMask, pid, factoryPid, location, timeoutInMillis, MILLISECONDS);
     }
 
-    public static ConfigurationEvent waitForConfigurationEvent(BundleContext bc, long timeout, TimeUnit timeUnit) {
-        return waitForConfigurationEvent(bc, CM_DELETED | CM_UPDATED, timeout, timeUnit);
-    }
-
+    /**
+     * Wait for ConfigurationEvent
+     *
+     * @param bc            BundleContext
+     * @param eventTypeMask ConfigurationEvent type mask
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @return ConfigurationEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
+     */
     public static ConfigurationEvent waitForConfigurationEvent(BundleContext bc, int eventTypeMask, long timeout, TimeUnit timeUnit) {
         return waitForConfigurationEvent(bc, eventTypeMask, null, null, null, timeout, timeUnit);
     }
 
+    /**
+     * Wait for ConfigurationEvent
+     *
+     * @param bc            BundleContext
+     * @param eventTypeMask ConfigurationEvent type mask
+     * @param pid           PID
+     * @param factoryPid    FactoryPID
+     * @param location      bundle location
+     * @param timeout       time interval to wait. If zero, the method will wait indefinitely.
+     * @param timeUnit      time unit for the time interval
+     * @return ConfigurationEvent or <code>null</code>
+     * @throws NullPointerException If <code>bc</code> or <code>timeUnit</code> are <code>null</code>
+     * @since 1.0
+     */
     public static ConfigurationEvent waitForConfigurationEvent(BundleContext bc, int eventTypeMask, String pid, String factoryPid, String location, long timeout, TimeUnit timeUnit) {
         CountDownLatch latch = new CountDownLatch(1);
 
@@ -348,30 +832,104 @@ public class ConfigurationAdminUtils {
     }
 
     // delete config
+
+    /**
+     * Delete Configuration with delay
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param pid                PID
+     * @param delayInMillis      time interval in millis to wait before delete action. If zero, the method will not wait.
+     * @return deleted Configuration PID or <code>null</code> if Configuration is not found
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<String> deleteConfiguration(ConfigurationAdmin configurationAdmin, String pid, long delayInMillis) {
         return deleteConfiguration(configurationAdmin, pid, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Delete Configuration with delay
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param pid                PID
+     * @param location           bundle location
+     * @param delayInMillis      time interval in millis to wait before delete action. If zero, the method will not wait.
+     * @return deleted Configuration PID or <code>null</code> if Configuration is not found
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<String> deleteConfiguration(ConfigurationAdmin configurationAdmin, String pid, String location, long delayInMillis) {
         return deleteConfiguration(configurationAdmin, pid, location, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Delete Configurations with delay
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param filter             Configurations filter
+     * @param delayInMillis      time interval in millis to wait before delete action. If zero, the method will not wait.
+     * @return array of deleted Configuration PIDs or <code>null</code> if any Configuration are not found
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<String[]> deleteConfigurations(ConfigurationAdmin configurationAdmin, Filter filter, long delayInMillis) {
         return deleteConfigurations(configurationAdmin, filter, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Delete Configuration with delay
+     *
+     * @param bc            BundleContext
+     * @param pid           PID
+     * @param delayInMillis time interval in millis to wait before delete action. If zero, the method will not wait.
+     * @return deleted Configuration PID or <code>null</code> if Configuration is not found
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<String> deleteConfiguration(BundleContext bc, String pid, long delayInMillis) {
         return deleteConfiguration(bc, pid, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Delete Configuration with delay
+     *
+     * @param bc            BundleContext
+     * @param pid           PID
+     * @param location      bundle location
+     * @param delayInMillis time interval in millis to wait before delete action. If zero, the method will not wait.
+     * @return deleted Configuration PID or <code>null</code> if Configuration is not found
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<String> deleteConfiguration(BundleContext bc, String pid, String location, long delayInMillis) {
         return deleteConfiguration(bc, pid, location, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Delete Configurations with delay
+     *
+     * @param bc            BundleContext
+     * @param filter        Configurations filter
+     * @param delayInMillis time interval in millis to wait before delete action. If zero, the method will not wait.
+     * @return array of deleted Configuration PIDs or <code>null</code> if any Configuration are not found
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<String[]> deleteConfigurations(BundleContext bc, Filter filter, long delayInMillis) {
         return deleteConfigurations(bc, filter, delayInMillis, MILLISECONDS);
     }
 
+    /**
+     * Delete Configuration with delay
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param pid                PID
+     * @param delay              time interval to wait before delete action. If zero, the method will not wait.
+     * @param timeUnit           time unit for the time interval
+     * @return deleted Configuration PID or <code>null</code> if Configuration is not found
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<String> deleteConfiguration(final ConfigurationAdmin configurationAdmin, final String pid, long delay, TimeUnit timeUnit) {
         if (configurationAdmin == null) {
             throw new NullPointerException("ConfigurationAdmin is null");
@@ -390,6 +948,18 @@ public class ConfigurationAdminUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * Delete Configuration with delay
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param pid                PID
+     * @param location           bundle location
+     * @param delay              time interval to wait before delete action. If zero, the method will not wait.
+     * @param timeUnit           time unit for the time interval
+     * @return deleted Configuration PID or <code>null</code> if Configuration is not found
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<String> deleteConfiguration(final ConfigurationAdmin configurationAdmin, final String pid, final String location, long delay, TimeUnit timeUnit) {
         if (configurationAdmin == null) {
             throw new NullPointerException("ConfigurationAdmin is null");
@@ -408,6 +978,17 @@ public class ConfigurationAdminUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * Delete Configurations with delay
+     *
+     * @param configurationAdmin ConfigurationAdmin service
+     * @param filter             Configurations filter
+     * @param delay              time interval to wait before delete action. If zero, the method will not wait.
+     * @param timeUnit           time unit for the time interval
+     * @return array of deleted Configuration PIDs or <code>null</code> if any Configuration are not found
+     * @throws NullPointerException If <code>configurationAdmin</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<String[]> deleteConfigurations(final ConfigurationAdmin configurationAdmin, final Filter filter, long delay, TimeUnit timeUnit) {
         if (configurationAdmin == null) {
             throw new NullPointerException("ConfigurationAdmin is null");
@@ -434,23 +1015,76 @@ public class ConfigurationAdminUtils {
         }, delay, timeUnit);
     }
 
+    /**
+     * Delete Configuration with delay
+     *
+     * @param bc       BundleContext
+     * @param pid      PID
+     * @param delay    time interval to wait before delete action. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return deleted Configuration PID or <code>null</code> if Configuration is not found
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<String> deleteConfiguration(BundleContext bc, String pid, long delay, TimeUnit timeUnit) {
         return deleteConfiguration(getService(bc, ConfigurationAdmin.class), pid, delay, timeUnit);
     }
 
+    /**
+     * Delete Configuration with delay
+     *
+     * @param bc       BundleContext
+     * @param pid      PID
+     * @param location bundle location
+     * @param delay    time interval to wait before delete action. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return deleted Configuration PID or <code>null</code> if Configuration is not found
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<String> deleteConfiguration(BundleContext bc, String pid, String location, long delay, TimeUnit timeUnit) {
         return deleteConfiguration(getService(bc, ConfigurationAdmin.class), pid, location, delay, timeUnit);
     }
 
+    /**
+     * Delete Configurations with delay
+     *
+     * @param bc       BundleContext
+     * @param filter   Configurations filter
+     * @param delay    time interval to wait before delete action. If zero, the method will not wait.
+     * @param timeUnit time unit for the time interval
+     * @return array of deleted Configuration PIDs or <code>null</code> if any Configuration are not found
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static Future<String[]> deleteConfigurations(BundleContext bc, Filter filter, long delay, TimeUnit timeUnit) {
         return deleteConfigurations(getService(bc, ConfigurationAdmin.class), filter, delay, timeUnit);
     }
 
-    // config plugins
+    /**
+     * Register ConfigurationPlugin
+     *
+     * @param bc     BundleContext
+     * @param plugin ConfigurationPlugin instance
+     * @return service registration
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static ServiceRegistration applyConfigurationPlugin(BundleContext bc, ConfigurationPlugin plugin) {
         return applyConfigurationPlugin(bc, 0, null, plugin);
     }
 
+    /**
+     * Register ConfigurationPlugin
+     *
+     * @param bc      BundleContext
+     * @param ranking ranking of the plugin
+     * @param targets the plugin targets
+     * @param plugin  ConfigurationPlugin instance
+     * @return service registration
+     * @throws NullPointerException If <code>bc</code> is <code>null</code>
+     * @since 1.0
+     */
     public static ServiceRegistration applyConfigurationPlugin(BundleContext bc, int ranking, String[] targets, ConfigurationPlugin plugin) {
         Dictionary<String, Object> props = new Hashtable<String, Object>();
         props.put(CM_RANKING, ranking);
