@@ -41,21 +41,28 @@ OSGi specific assertions and utility classes that help to write OSGi integration
 
     @Test
     public void test_Post_Event() {
+        // post event in 200ms
         postEvent(getBundleContext(), KNOWHOWLAB_TOPICS_TEST, 200);
 
+        // wait for event in defined topic
         assertEvent(KNOWHOWLAB_TOPICS_TEST, 500, TimeUnit.MILLISECONDS);
     }
 
     @Test
     public void test_Post_Event_With_Filters() throws InvalidSyntaxException {
+        // create event properties
         Map<String, String> props = new HashMap<String, String>();
         props.put("prop_key", "val123");
-
+    
+        // post event in 200 ms
         postEvent(getBundleContext(), KNOWHOWLAB_TOPICS_TEST, props, 200);
+        // wait for event using filter
         assertEvent(KNOWHOWLAB_TOPICS_TEST, FilterUtils.eq("prop_key", "val123"), 500, TimeUnit.MILLISECONDS);
 
+        // post event in 200ms
         postEvent(getBundleContext(), KNOWHOWLAB_TOPICS_TEST, props, 200);
         try {
+            // event will not be caught because filter does not match
             assertEvent(KNOWHOWLAB_TOPICS_TEST, FilterUtils.eq("prop_key", "val555"), 500, TimeUnit.MILLISECONDS);
         } catch (AssertionError e) {
         }
@@ -63,29 +70,38 @@ OSGi specific assertions and utility classes that help to write OSGi integration
 
     @Test
     public void test_Service_Event() throws InvalidSyntaxException {
-        // start bundle in 2 sec
+        // start bundle in 200 mc
         startBundleAsync(getBundleContext(), "org.knowhowlab.osgi.testing.it.test.bundle", 200);
 
+        // wait for service registration event
         assertEvent("org/osgi/framework/ServiceEvent/REGISTERED", FilterUtils.eq("service.objectClass", 
              "org.knowhowlab.osgi.testing.it.testbundle.service.Echo"), 1, TimeUnit.SECONDS);
     }
 
     @Test
     public void test_Configuration_manipulations() {
+        // check that configuration is available
         assertConfigurationUnavailable("test.pid", null, null);
 
+        // create configuration properties 
         Map<String, String> config = new HashMap<String, String>();
         config.put("test.key", "test.value");
+        // supply configuration 
         supplyConfiguration(getBundleContext(), "test.pid", null, config, 0);
-
+        
+        // wait for configuration update event
         assertConfigurationUpdated("test.pid", null, null, 500, TimeUnit.MILLISECONDS);
 
+        // check that configuration is available
         assertConfigurationAvailable("test.pid", null, null);
 
+        // delete configuration
         deleteConfiguration(getBundleContext(), "test.pid", null, 0);
 
+        // wait for configuration delete event
         assertConfigurationDeleted("test.pid", null, null, 500, TimeUnit.MILLISECONDS);
 
+        // check that configuration was deleted and not available any more
         assertConfigurationUnavailable("test.pid", null, null);
     }
 
