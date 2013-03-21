@@ -222,3 +222,13 @@ OSGi specific assertions and utility classes that help to write OSGi integration
 
 
 As you can see with OSGi assertions and utils you can concentrate on your functionality testing without any low-level OSGi API calls.
+
+## Roadmap for utils and assertions
+
+- WireAdmin
+- Preferences
+- UserAdmin
+- MonitorAdmin
+- Metatype
+- Declarative Services
+- Enterprise API
