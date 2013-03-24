@@ -35,7 +35,6 @@ import static org.knowhowlab.osgi.testing.utils.FrameworkUtils.waitForFrameworkE
  * {@link OSGiAssert#setDefaultBundleContext(org.osgi.framework.BundleContext)}
  *
  * @author dmytro.pishchukhin
- * @version 1.1
  * @see java.lang.AssertionError
  * @see org.knowhowlab.osgi.testing.assertions.OSGiAssert
  */

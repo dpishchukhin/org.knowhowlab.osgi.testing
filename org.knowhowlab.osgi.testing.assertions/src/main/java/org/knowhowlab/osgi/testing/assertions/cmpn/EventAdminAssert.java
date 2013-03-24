@@ -33,7 +33,6 @@ import static org.knowhowlab.osgi.testing.utils.cmpn.EventAdminUtils.waitForEven
  * {@link OSGiAssert#setDefaultBundleContext(org.osgi.framework.BundleContext)}
  *
  * @author dmytro.pishchukhin
- * @version 1.0
  * @see java.lang.AssertionError
  * @see org.knowhowlab.osgi.testing.assertions.OSGiAssert
  */

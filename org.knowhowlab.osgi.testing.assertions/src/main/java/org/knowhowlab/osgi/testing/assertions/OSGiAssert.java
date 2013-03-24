@@ -25,7 +25,6 @@ import static org.osgi.framework.FrameworkUtil.getBundle;
  * Abstract OSGi Asset class with BundleContext Handling
  *
  * @author dpishchukhin
- * @version 1.1
  * @see java.lang.AssertionError
  * @see org.osgi.framework.BundleContext
  */

@@ -20,7 +20,6 @@ package org.knowhowlab.osgi.testing.utils.cmpn;
  * OSGi WireAdmin utilities class
  *
  * @author dpishchukhin
- * @version 1.0
  * @see org.osgi.service.wireadmin.Wire
  * @see org.osgi.service.wireadmin.WireAdmin
  * @see org.osgi.service.wireadmin.WireAdminEvent

@@ -31,7 +31,6 @@ import static org.osgi.framework.FrameworkUtil.createFilter;
  * OSGi Services utilities class
  *
  * @author dmytro.pishchukhin
- * @version 1.1
  * @see org.osgi.framework.BundleContext
  * @see org.osgi.util.tracker.ServiceTracker
  * @see org.osgi.util.tracker.ServiceTrackerCustomizer

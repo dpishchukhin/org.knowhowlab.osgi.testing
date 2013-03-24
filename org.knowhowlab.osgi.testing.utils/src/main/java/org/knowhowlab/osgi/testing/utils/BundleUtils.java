@@ -31,7 +31,6 @@ import static org.knowhowlab.osgi.testing.utils.ServiceUtils.getService;
  * OSGi Bundles utilities class
  *
  * @author dpishchukhin
- * @version 1.1
  * @see org.osgi.framework.Bundle
  * @see org.osgi.service.packageadmin.PackageAdmin
  * @see org.osgi.framework.BundleContext

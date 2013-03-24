@@ -72,7 +72,7 @@
                             org.osgi.service.event;resolution:=optional,
                             org.osgi.service.cm;resolution:=optional,
                             org.osgi.service.wireadmin;resolution:=optional,
-                            org.osgi.service.prefs;resolution:=optional
+                            org.osgi.service.prefs;resolution:=optional,
                             org.junit*,
                             org.knowhowlab.osgi.testing.utils*
                         </Import-Package>

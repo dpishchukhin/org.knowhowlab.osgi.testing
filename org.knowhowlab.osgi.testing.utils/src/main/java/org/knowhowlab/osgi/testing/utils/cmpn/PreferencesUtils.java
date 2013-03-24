@@ -20,7 +20,6 @@ package org.knowhowlab.osgi.testing.utils.cmpn;
  * OSGi Preferences utilities class
  *
  * @author dpishchukhin
- * @version 1.0
  * @see org.osgi.service.prefs.Preferences
  * @see org.osgi.service.prefs.PreferencesService
  */

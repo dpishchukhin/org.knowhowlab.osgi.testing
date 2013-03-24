@@ -40,7 +40,6 @@ import static org.osgi.service.cm.ConfigurationPlugin.CM_TARGET;
  * OSGi ConfigurationAdmin utilities class
  *
  * @author dpishchukhin
- * @version 1.0
  * @see org.osgi.framework.Bundle
  * @see org.osgi.service.cm.ConfigurationAdmin
  * @see org.osgi.service.cm.ConfigurationEvent

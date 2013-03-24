@@ -27,7 +27,6 @@ import static org.knowhowlab.osgi.testing.utils.BundleUtils.findBundle;
 /**
  * OSGi Framework utilities class
  *
- * @version 1.1
  * @see org.osgi.framework.BundleContext
  * @see org.osgi.framework.FrameworkListener
  * @see org.osgi.framework.FrameworkEvent

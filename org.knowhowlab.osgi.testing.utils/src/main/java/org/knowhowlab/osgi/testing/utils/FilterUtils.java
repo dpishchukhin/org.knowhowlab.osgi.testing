@@ -28,7 +28,6 @@ import static org.osgi.framework.FrameworkUtil.createFilter;
  * OSGi Filter utilities class
  *
  * @author dmytro.pishchukhin
- * @version 1.1
  * @see org.osgi.framework.Filter
  * @see org.osgi.framework.FrameworkUtil#createFilter(String)
  * @see org.osgi.framework.BundleContext#createFilter(String)
@@ -192,7 +191,7 @@ public class FilterUtils {
      * @throws IllegalArgumentException If <code>filters</code> length is 1
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>filters</code> are <code>null</code>
-     * @since 1.1
+     * @since 1.2
      */
     public static Filter and(String... filters) throws InvalidSyntaxException {
         if (filters.length == 0) {
@@ -244,7 +243,7 @@ public class FilterUtils {
      * @throws IllegalArgumentException If <code>filters</code> length is 1
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>filters</code> are <code>null</code>
-     * @since 1.1
+     * @since 1.2
      */
     public static Filter and(Filter... filters) throws InvalidSyntaxException {
         if (filters.length == 0) {
@@ -281,7 +280,7 @@ public class FilterUtils {
      * @throws IllegalArgumentException If <code>filters</code> length is 1
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>filters</code> are <code>null</code>
-     * @since 1.1
+     * @since 1.2
      */
     public static Filter or(String... filters) throws InvalidSyntaxException {
         if (filters.length == 0) {
@@ -333,7 +332,7 @@ public class FilterUtils {
      * @throws IllegalArgumentException If <code>filters</code> length is 1
      * @throws InvalidSyntaxException If it is unable to create filter
      * @throws NullPointerException   If <code>filters</code> are <code>null</code>
-     * @since 1.1
+     * @since 1.2
      */
     public static Filter or(Filter... filters) throws InvalidSyntaxException {
         if (filters.length == 0) {

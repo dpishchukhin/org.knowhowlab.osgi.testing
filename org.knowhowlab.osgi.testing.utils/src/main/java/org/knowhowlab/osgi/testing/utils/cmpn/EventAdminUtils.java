@@ -37,7 +37,6 @@ import static org.osgi.service.event.EventConstants.EVENT_TOPIC;
  * OSGi EventAdmin utilities class
  *
  * @author dpishchukhin
- * @version 1.0
  * @see org.osgi.framework.Bundle
  * @see org.osgi.service.event.EventAdmin
  * @see org.osgi.service.event.Event

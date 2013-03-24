@@ -36,7 +36,7 @@ public class NewIn_1_2_CA_IntegrationTest extends AbstractTest {
 
     @Test
     public void test_Configuration_availability() {
-        assertConfigurationUnavailable("test.pid", null, null);
+        assertConfigurationUnavailable("test.pid", (String) null, null);
 
         Map<String, String> config = new HashMap<String, String>();
         config.put("test.key", "test.value");
@@ -44,12 +44,12 @@ public class NewIn_1_2_CA_IntegrationTest extends AbstractTest {
 
         assertConfigurationUpdated("test.pid", null, null, 500, TimeUnit.MILLISECONDS);
 
-        assertConfigurationAvailable("test.pid", null, null);
+        assertConfigurationAvailable("test.pid", (String) null, null);
     }
 
     @Test
     public void test_Configuration_manipulations() {
-        assertConfigurationUnavailable("test.pid", null, null);
+        assertConfigurationUnavailable("test.pid", (String) null, null);
 
         Map<String, String> config = new HashMap<String, String>();
         config.put("test.key", "test.value");
@@ -57,12 +57,12 @@ public class NewIn_1_2_CA_IntegrationTest extends AbstractTest {
 
         assertConfigurationUpdated("test.pid", null, null, 500, TimeUnit.MILLISECONDS);
 
-        assertConfigurationAvailable("test.pid", null, null);
+        assertConfigurationAvailable("test.pid", (String) null, null);
 
         deleteConfiguration(getBundleContext(), "test.pid", null, 0);
 
         assertConfigurationDeleted("test.pid", null, null, 500, TimeUnit.MILLISECONDS);
 
-        assertConfigurationUnavailable("test.pid", null, null);
+        assertConfigurationUnavailable("test.pid", (String)null, null);
     }
 }

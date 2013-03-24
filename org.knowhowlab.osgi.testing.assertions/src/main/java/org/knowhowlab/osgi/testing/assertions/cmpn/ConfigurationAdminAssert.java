@@ -18,6 +18,7 @@ package org.knowhowlab.osgi.testing.assertions.cmpn;
 
 import org.knowhowlab.osgi.testing.assertions.OSGiAssert;
 import org.knowhowlab.osgi.testing.utils.cmpn.ConfigurationAdminUtils;
+import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;
 import org.osgi.service.cm.Configuration;
 import org.osgi.service.cm.ConfigurationEvent;
@@ -39,7 +40,6 @@ import static org.osgi.service.cm.ConfigurationEvent.CM_UPDATED;
  * {@link OSGiAssert#setDefaultBundleContext(org.osgi.framework.BundleContext)}
  *
  * @author dmytro.pishchukhin
- * @version 1.0
  * @see java.lang.AssertionError
  * @see org.knowhowlab.osgi.testing.assertions.OSGiAssert
  */
@@ -71,7 +71,6 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @param pid        PID
      * @param factoryPid FactoryPID
      * @param location   bundle location
-     * @since 1.0
      */
     public static void assertConfigurationAvailable(String message, String pid, String factoryPid, String location) {
         assertConfigurationAvailable(message, createConfigurationFilter(pid, factoryPid, location));
@@ -85,7 +84,7 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationAvailable(Filter filter) {
-        assertConfigurationAvailable(null, filter);
+        assertConfigurationAvailable((String)null, filter);
     }
 
     /**
@@ -140,7 +139,7 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationUnavailable(Filter filter) {
-        assertConfigurationUnavailable(null, filter);
+        assertConfigurationUnavailable((String)null, filter);
     }
 
     /**
@@ -154,6 +153,120 @@ public class ConfigurationAdminAssert extends OSGiAssert {
     public static void assertConfigurationUnavailable(String message, Filter filter) {
         try {
             Configuration[] configurations = ConfigurationAdminUtils.listConfigurations(getBundleContext(), filter);
+            assertNull(message, configurations);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    /**
+     * Asserts that Configuration with PID, FactoryPID is available for specific Bundle. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param bc      BundleContext
+     * @param pid        PID
+     * @param factoryPid FactoryPID
+     * @since 1.1
+     */
+    public static void assertConfigurationAvailable(BundleContext bc, String pid, String factoryPid) {
+        assertConfigurationAvailable(null, bc, pid, factoryPid);
+    }
+
+    /**
+     * Asserts that Configuration with PID, FactoryPID is available for specific Bundle. If it not as expected
+     * {@link AssertionError} with the given message
+     *
+     * @param message    message
+     * @param bc      BundleContext
+     * @param pid        PID
+     * @param factoryPid FactoryPID
+     * @since 1.1
+     */
+    public static void assertConfigurationAvailable(String message, BundleContext bc, String pid, String factoryPid) {
+        assertConfigurationAvailable(message, bc, createConfigurationFilter(pid, factoryPid, bc.getBundle().getLocation()));
+    }
+
+    /**
+     * Asserts that Configuration by filter is available for specific Bundle. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param bc      BundleContext
+     * @param filter filter
+     * @since 1.1
+     */
+    public static void assertConfigurationAvailable(BundleContext bc, Filter filter) {
+        assertConfigurationAvailable(null, bc, filter);
+    }
+
+    /**
+     * Asserts that Configuration by filter is available for specific Bundle. If it not as expected
+     * {@link AssertionError} with the given message
+     *
+     * @param message message
+     * @param bc      BundleContext
+     * @param filter  filter
+     * @since 1.1
+     */
+    public static void assertConfigurationAvailable(String message, BundleContext bc, Filter filter) {
+        try {
+            Configuration[] configurations = ConfigurationAdminUtils.listConfigurations(bc, filter);
+            assertNotNull(message, configurations);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    /**
+     * Asserts that Configuration with PID, FactoryPID is unavailable for specific Bundle. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param bc      BundleContext
+     * @param pid        PID
+     * @param factoryPid FactoryPID
+     * @since 1.1
+     */
+    public static void assertConfigurationUnavailable(BundleContext bc, String pid, String factoryPid) {
+        assertConfigurationUnavailable(null, bc, pid, factoryPid);
+    }
+
+    /**
+     * Asserts that Configuration with PID, FactoryPID is unavailable for specific Bundle. If it not as expected
+     * {@link AssertionError} with the given message
+     *
+     * @param message    message
+     * @param bc      BundleContext
+     * @param pid        PID
+     * @param factoryPid FactoryPID
+     * @since 1.1
+     */
+    public static void assertConfigurationUnavailable(String message, BundleContext bc, String pid, String factoryPid) {
+        assertConfigurationUnavailable(message, bc, createConfigurationFilter(pid, factoryPid, bc.getBundle().getLocation()));
+    }
+
+    /**
+     * Asserts that Configuration by filter is unavailable for specific Bundle. If it not as expected
+     * {@link AssertionError} without a message is thrown
+     *
+     * @param bc      BundleContext
+     * @param filter filter
+     * @since 1.1
+     */
+    public static void assertConfigurationUnavailable(BundleContext bc, Filter filter) {
+        assertConfigurationUnavailable(null, bc, filter);
+    }
+
+    /**
+     * Asserts that Configuration by filter is unavailable for specific Bundle. If it not as expected
+     * {@link AssertionError} with the given message
+     *
+     * @param bc      BundleContext
+     * @param message message
+     * @param filter  filter
+     * @since 1.1
+     */
+    public static void assertConfigurationUnavailable(String message, BundleContext bc, Filter filter) {
+        try {
+            Configuration[] configurations = ConfigurationAdminUtils.listConfigurations(bc, filter);
             assertNull(message, configurations);
         } catch (IOException e) {
             fail(e.getMessage());
