@@ -26,6 +26,7 @@ import org.osgi.service.cm.ConfigurationEvent;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.junit.Assert.*;
 import static org.knowhowlab.osgi.testing.utils.cmpn.ConfigurationAdminUtils.createConfigurationFilter;
@@ -60,7 +61,8 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationAvailable(String pid, String factoryPid, String location) {
-        assertConfigurationAvailable(null, pid, factoryPid, location);
+        assertConfigurationAvailable(format("Configuration is unavailable for PID: %s, FactoryPID: %s, Location: %s", pid, factoryPid, location),
+                pid, factoryPid, location);
     }
 
     /**
@@ -84,7 +86,7 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationAvailable(Filter filter) {
-        assertConfigurationAvailable((String)null, filter);
+        assertConfigurationAvailable(format("Configuration is unavailable for Filter: %s", filter), filter);
     }
 
     /**
@@ -114,7 +116,8 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationUnavailable(String pid, String factoryPid, String location) {
-        assertConfigurationUnavailable(null, pid, factoryPid, location);
+        assertConfigurationUnavailable(format("Configuration is available for PID: %s, FactoryPID: %s, Location: %s", pid, factoryPid, location),
+                pid, factoryPid, location);
     }
 
     /**
@@ -139,7 +142,7 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationUnavailable(Filter filter) {
-        assertConfigurationUnavailable((String)null, filter);
+        assertConfigurationUnavailable(format("Configuration is unavailable for Filter: %s", filter), filter);
     }
 
     /**
@@ -163,13 +166,14 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * Asserts that Configuration with PID, FactoryPID is available for specific Bundle. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param bc      BundleContext
+     * @param bc         BundleContext
      * @param pid        PID
      * @param factoryPid FactoryPID
      * @since 1.1
      */
     public static void assertConfigurationAvailable(BundleContext bc, String pid, String factoryPid) {
-        assertConfigurationAvailable(null, bc, pid, factoryPid);
+        assertNotNull("BundleContext is null", bc);
+        assertConfigurationAvailable(format("Configuration is unavailable for BundleId: %s, PID: %s, FactoryPID: %s", bc.getBundle().getBundleId(), pid, factoryPid), bc, pid, factoryPid);
     }
 
     /**
@@ -177,7 +181,7 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * {@link AssertionError} with the given message
      *
      * @param message    message
-     * @param bc      BundleContext
+     * @param bc         BundleContext
      * @param pid        PID
      * @param factoryPid FactoryPID
      * @since 1.1
@@ -190,12 +194,13 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * Asserts that Configuration by filter is available for specific Bundle. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param bc      BundleContext
+     * @param bc     BundleContext
      * @param filter filter
      * @since 1.1
      */
     public static void assertConfigurationAvailable(BundleContext bc, Filter filter) {
-        assertConfigurationAvailable(null, bc, filter);
+        assertNotNull("BundleContext is null", bc);
+        assertConfigurationAvailable(format("Configuration is unavailable for BundleId: %s, Filter: %s", bc.getBundle().getBundleId(), filter), bc, filter);
     }
 
     /**
@@ -208,6 +213,7 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertConfigurationAvailable(String message, BundleContext bc, Filter filter) {
+        assertNotNull("BundleContext is null", bc);
         try {
             Configuration[] configurations = ConfigurationAdminUtils.listConfigurations(bc, filter);
             assertNotNull(message, configurations);
@@ -220,13 +226,14 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * Asserts that Configuration with PID, FactoryPID is unavailable for specific Bundle. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param bc      BundleContext
+     * @param bc         BundleContext
      * @param pid        PID
      * @param factoryPid FactoryPID
      * @since 1.1
      */
     public static void assertConfigurationUnavailable(BundleContext bc, String pid, String factoryPid) {
-        assertConfigurationUnavailable(null, bc, pid, factoryPid);
+        assertNotNull("BundleContext is null", bc);
+        assertConfigurationUnavailable(format("Configuration is available for BundleId: %s, PID: %s, FactoryPID: %s", bc.getBundle().getBundleId(), pid, factoryPid), bc, pid, factoryPid);
     }
 
     /**
@@ -234,7 +241,7 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * {@link AssertionError} with the given message
      *
      * @param message    message
-     * @param bc      BundleContext
+     * @param bc         BundleContext
      * @param pid        PID
      * @param factoryPid FactoryPID
      * @since 1.1
@@ -247,12 +254,13 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * Asserts that Configuration by filter is unavailable for specific Bundle. If it not as expected
      * {@link AssertionError} without a message is thrown
      *
-     * @param bc      BundleContext
+     * @param bc     BundleContext
      * @param filter filter
      * @since 1.1
      */
     public static void assertConfigurationUnavailable(BundleContext bc, Filter filter) {
-        assertConfigurationUnavailable(null, bc, filter);
+        assertNotNull("BundleContext is null", bc);
+        assertConfigurationUnavailable(format("Configuration is unavailable for BundleId: %s, Filter: %s", bc.getBundle().getBundleId(), filter), bc, filter);
     }
 
     /**
@@ -265,6 +273,7 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertConfigurationUnavailable(String message, BundleContext bc, Filter filter) {
+        assertNotNull("BundleContext is null", bc);
         try {
             Configuration[] configurations = ConfigurationAdminUtils.listConfigurations(bc, filter);
             assertNull(message, configurations);
@@ -282,7 +291,7 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationEvent(int eventTypeMask, long timeoutInMillis) {
-        assertConfigurationEvent(null, eventTypeMask, timeoutInMillis);
+        assertConfigurationEvent(format("ConfigurationEvent is unavailable: %s within timeout: %sms", eventTypeMask, timeoutInMillis), eventTypeMask, timeoutInMillis);
     }
 
     /**
@@ -297,7 +306,8 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationEvent(int eventTypeMask, String pid, String factoryPid, String location, long timeoutInMillis) {
-        assertConfigurationEvent(null, eventTypeMask, pid, factoryPid, location, timeoutInMillis);
+        assertConfigurationEvent(format("ConfigurationEvent is unavailable: %s for PID: %s, FactoryPID: %s, Location: %s within timeout: %sms",
+                eventTypeMask, pid, factoryPid, location, timeoutInMillis), eventTypeMask, pid, factoryPid, location, timeoutInMillis);
     }
 
     /**
@@ -311,7 +321,8 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationUpdated(String pid, String factoryPid, String location, long timeoutInMillis) {
-        assertConfigurationUpdated(null, pid, factoryPid, location, timeoutInMillis);
+        assertConfigurationUpdated(format("ConfigurationEvent is unavailable: CM_UPDATED for PID: %s, FactoryPID: %s, Location: %s within timeout: %sms",
+                pid, factoryPid, location, timeoutInMillis), pid, factoryPid, location, timeoutInMillis);
     }
 
     /**
@@ -325,7 +336,8 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationDeleted(String pid, String factoryPid, String location, long timeoutInMillis) {
-        assertConfigurationDeleted(null, pid, factoryPid, location, timeoutInMillis);
+        assertConfigurationDeleted(format("ConfigurationEvent is unavailable: CM_DELETED for PID: %s, FactoryPID: %s, Location: %s within timeout: %sms",
+                pid, factoryPid, location, timeoutInMillis), pid, factoryPid, location, timeoutInMillis);
     }
 
     /**
@@ -397,7 +409,9 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationEvent(int eventTypeMask, long timeout, TimeUnit timeUnit) {
-        assertConfigurationEvent(null, eventTypeMask, null, null, null, timeout, timeUnit);
+        assertNotNull("TimeUnit is null", timeUnit);
+        assertConfigurationEvent(format("ConfigurationEvent is unavailable: %s within timeout: %s%s", eventTypeMask, timeout, timeUnit),
+                eventTypeMask, null, null, null, timeout, timeUnit);
     }
 
     /**
@@ -413,7 +427,9 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationEvent(int eventTypeMask, String pid, String factoryPid, String location, long timeout, TimeUnit timeUnit) {
-        assertConfigurationEvent(null, eventTypeMask, pid, factoryPid, location, timeout, timeUnit);
+        assertNotNull("TimeUnit is null", timeUnit);
+        assertConfigurationEvent(format("ConfigurationEvent is unavailable: %s for PID: %s, FactoryPID: %s, Location: %s within timeout: %s%s",
+                eventTypeMask, pid, factoryPid, location, timeout, timeUnit), eventTypeMask, pid, factoryPid, location, timeout, timeUnit);
     }
 
     /**
@@ -428,7 +444,9 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationUpdated(String pid, String factoryPid, String location, long timeout, TimeUnit timeUnit) {
-        assertConfigurationUpdated(null, pid, factoryPid, location, timeout, timeUnit);
+        assertNotNull("TimeUnit is null", timeUnit);
+        assertConfigurationUpdated(format("ConfigurationEvent is unavailable: CM_UPDATED for PID: %s, FactoryPID: %s, Location: %s within timeout: %s%s",
+                pid, factoryPid, location, timeout, timeUnit), pid, factoryPid, location, timeout, timeUnit);
     }
 
     /**
@@ -443,7 +461,9 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationDeleted(String pid, String factoryPid, String location, long timeout, TimeUnit timeUnit) {
-        assertConfigurationDeleted(null, pid, factoryPid, location, timeout, timeUnit);
+        assertNotNull("TimeUnit is null", timeUnit);
+        assertConfigurationDeleted(format("ConfigurationEvent is unavailable: CM_DELETED for PID: %s, FactoryPID: %s, Location: %s within timeout: %s%s",
+                pid, factoryPid, location, timeout, timeUnit), pid, factoryPid, location, timeout, timeUnit);
     }
 
     /**
@@ -457,6 +477,7 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationEvent(String message, int eventTypeMask, long timeout, TimeUnit timeUnit) {
+        assertNotNull("TimeUnit is null", timeUnit);
         assertConfigurationEvent(message, eventTypeMask, null, null, null, timeout, timeUnit);
     }
 
@@ -474,6 +495,7 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationEvent(String message, int eventTypeMask, String pid, String factoryPid, String location, long timeout, TimeUnit timeUnit) {
+        assertNotNull("TimeUnit is null", timeUnit);
         ConfigurationEvent event = waitForConfigurationEvent(getBundleContext(), eventTypeMask, pid, factoryPid, location, timeout, timeUnit);
         assertNotNull(message, event);
     }
@@ -491,6 +513,7 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationUpdated(String message, String pid, String factoryPid, String location, long timeout, TimeUnit timeUnit) {
+        assertNotNull("TimeUnit is null", timeUnit);
         assertConfigurationEvent(message, CM_UPDATED, pid, factoryPid, location, timeout, timeUnit);
     }
 
@@ -507,6 +530,7 @@ public class ConfigurationAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertConfigurationDeleted(String message, String pid, String factoryPid, String location, long timeout, TimeUnit timeUnit) {
+        assertNotNull("TimeUnit is null", timeUnit);
         assertConfigurationEvent(message, CM_DELETED, pid, factoryPid, location, timeout, timeUnit);
     }
 

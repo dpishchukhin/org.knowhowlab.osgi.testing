@@ -22,6 +22,7 @@ import org.osgi.framework.ServiceEvent;
 
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.junit.Assert.assertNotNull;
 import static org.knowhowlab.osgi.testing.utils.ServiceUtils.getService;
@@ -52,7 +53,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(Class clazz) {
-        assertServiceAvailable(null, clazz);
+        assertServiceAvailable(format("Service is unavailable: %s", clazz.getName()), clazz);
     }
 
     /**
@@ -79,7 +80,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(Class clazz, long timeoutInMillis) {
-        assertServiceAvailable(null, clazz, timeoutInMillis);
+        assertServiceAvailable(format("Service is unavailable: %s within timeout: %sms", clazz.getName(), timeoutInMillis), clazz, timeoutInMillis);
     }
 
     /**
@@ -105,7 +106,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(Class clazz, long timeout, TimeUnit timeUnit) {
-        assertServiceAvailable(null, clazz, timeout, timeUnit);
+        assertServiceAvailable(format("Service is unavailable: %s within timeout: %s%s", clazz.getName(), timeout, timeUnit), clazz, timeout, timeUnit);
     }
 
     /**
@@ -134,7 +135,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(String className) {
-        assertServiceAvailable(null, className);
+        assertServiceAvailable(format("Service is unavailable: %s", className), className);
     }
 
     /**
@@ -161,7 +162,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(String className, long timeoutInMillis) {
-        assertServiceAvailable(null, className, timeoutInMillis);
+        assertServiceAvailable(format("Service is unavailable: %s within timeout: %sms", className, timeoutInMillis), className, timeoutInMillis);
     }
 
     /**
@@ -187,7 +188,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(String className, long timeout, TimeUnit timeUnit) {
-        assertServiceAvailable(null, className, timeout, timeUnit);
+        assertServiceAvailable(format("Service is unavailable: %s within timeout: %s%s", className, timeout, timeUnit), className, timeout, timeUnit);
     }
 
     /**
@@ -216,7 +217,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(Filter filter) {
-        assertServiceAvailable(null, filter);
+        assertServiceAvailable(format("Service is unavailable: %s", filter), filter);
     }
 
     /**
@@ -243,7 +244,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(Filter filter, long timeoutInMillis) {
-        assertServiceAvailable(null, filter, timeoutInMillis);
+        assertServiceAvailable(format("Service is unavailable: %s within timeout: %sms", filter, timeoutInMillis), filter, timeoutInMillis);
     }
 
     /**
@@ -269,7 +270,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceAvailable(Filter filter, long timeout, TimeUnit timeUnit) {
-        assertServiceAvailable(null, filter, timeout, timeUnit);
+        assertServiceAvailable(format("Service is unavailable: %s within timeout: %s%s", filter, timeout, timeUnit), filter, timeout, timeUnit);
     }
 
     /**
@@ -298,7 +299,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(Class clazz) {
-        assertServiceUnavailable(null, clazz);
+        assertServiceUnavailable(format("Service is available: %s", clazz.getName()), clazz);
     }
 
     /**
@@ -325,7 +326,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(Class clazz, long timeoutInMillis) {
-        assertServiceUnavailable(null, clazz, timeoutInMillis);
+        assertServiceUnavailable(format("Service is available: %s within timeout: %sms", clazz.getName(), timeoutInMillis), clazz, timeoutInMillis);
     }
 
     /**
@@ -351,7 +352,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(Class clazz, long timeout, TimeUnit timeUnit) {
-        assertServiceUnavailable(null, clazz, timeout, timeUnit);
+        assertServiceUnavailable(format("Service is available: %s within timeout: %s%s", clazz.getName(), timeout, timeUnit), clazz, timeout, timeUnit);
     }
 
     /**
@@ -380,7 +381,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(String className) {
-        assertServiceUnavailable(null, className);
+        assertServiceUnavailable(format("Service is available: %s", className), className);
     }
 
     /**
@@ -407,7 +408,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(String className, long timeoutInMillis) {
-        assertServiceUnavailable(null, className, timeoutInMillis);
+        assertServiceUnavailable(format("Service is available: %s within timeout: %sms", className, timeoutInMillis), className, timeoutInMillis);
     }
 
     /**
@@ -433,7 +434,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(String className, long timeout, TimeUnit timeUnit) {
-        assertServiceUnavailable(null, className, timeout, timeUnit);
+        assertServiceUnavailable(format("Service is available: %s within timeout: %s%s", className, timeout, timeUnit), className, timeout, timeUnit);
     }
 
     /**
@@ -462,7 +463,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(Filter filter) {
-        assertServiceUnavailable(null, filter);
+        assertServiceUnavailable(format("Service is available: %s", filter), filter);
     }
 
     /**
@@ -489,7 +490,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(Filter filter, long timeoutInMillis) {
-        assertServiceUnavailable(null, filter, timeoutInMillis);
+        assertServiceUnavailable(format("Service is available: %s within timeout: %sms", filter, timeoutInMillis), filter, timeoutInMillis);
     }
 
     /**
@@ -515,7 +516,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertServiceUnavailable(Filter filter, long timeout, TimeUnit timeUnit) {
-        assertServiceUnavailable(null, filter, timeout, timeUnit);
+        assertServiceUnavailable(format("Service is available: %s within timeout: %s%s", filter, timeout, timeUnit), filter, timeout, timeUnit);
     }
 
     /**
@@ -546,7 +547,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, Filter filter, long timeoutInMillis) {
-        assertServiceEvent(null, eventTypeMask, filter, timeoutInMillis);
+        assertServiceEvent(format("ServiceEvent is unavailable: %s - %s within timeout: %sms", eventTypeMask, filter, timeoutInMillis), eventTypeMask, filter, timeoutInMillis);
     }
 
     /**
@@ -574,7 +575,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, Filter filter, long timeout, TimeUnit timeUnit) {
-        assertServiceEvent(null, eventTypeMask, filter, timeout, timeUnit);
+        assertServiceEvent(format("ServiceEvent is unavailable: %s - %s within timeout: %s%s", eventTypeMask, filter, timeout, timeUnit), eventTypeMask, filter, timeout, timeUnit);
     }
 
     /**
@@ -603,7 +604,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, Filter filter, boolean all, long timeoutInMillis) {
-        assertServiceEvent(null, eventTypeMask, filter, all, timeoutInMillis);
+        assertServiceEvent(format("ServiceEvent is unavailable: %s - %s; all=%s within timeout: %sms", eventTypeMask, filter, all, timeoutInMillis), eventTypeMask, filter, all, timeoutInMillis);
     }
 
     /**
@@ -633,7 +634,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, Filter filter, boolean all, long timeout, TimeUnit timeUnit) {
-        assertServiceEvent(null, eventTypeMask, filter, all, timeout, timeUnit);
+        assertServiceEvent(format("ServiceEvent is unavailable: %s - %s; all=%s within timeout: %s%s", eventTypeMask, filter, all, timeout, timeUnit), eventTypeMask, filter, all, timeout, timeUnit);
     }
 
     /**
@@ -665,7 +666,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, String className, long timeoutInMillis) {
-        assertServiceEvent(null, eventTypeMask, className, timeoutInMillis);
+        assertServiceEvent(format("ServiceEvent is unavailable: %s - %s within timeout: %sms", eventTypeMask, className, timeoutInMillis), eventTypeMask, className, timeoutInMillis);
     }
 
     /**
@@ -693,7 +694,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, String className, long timeout, TimeUnit timeUnit) {
-        assertServiceEvent(null, eventTypeMask, className, timeout, timeUnit);
+        assertServiceEvent(format("ServiceEvent is unavailable: %s - %s within timeout: %s%s", eventTypeMask, className, timeout, timeUnit), eventTypeMask, className, timeout, timeUnit);
     }
 
     /**
@@ -722,7 +723,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, String className, boolean all, long timeoutInMillis) {
-        assertServiceEvent(null, eventTypeMask, className, all, timeoutInMillis);
+        assertServiceEvent(format("ServiceEvent is unavailable: %s - %s; all=%s within timeout: %sms", eventTypeMask, className, all, timeoutInMillis), eventTypeMask, className, all, timeoutInMillis);
     }
 
     /**
@@ -752,7 +753,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, String className, boolean all, long timeout, TimeUnit timeUnit) {
-        assertServiceEvent(null, eventTypeMask, className, all, timeout, timeUnit);
+        assertServiceEvent(format("ServiceEvent is unavailable: %s - %s; all=%s within timeout: %s%s", eventTypeMask, className, all, timeout, timeUnit), eventTypeMask, className, all, timeout, timeUnit);
     }
 
     /**
@@ -784,7 +785,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, Class clazz, long timeoutInMillis) {
-        assertServiceEvent(null, eventTypeMask, clazz, timeoutInMillis);
+        assertServiceEvent(format("ServiceEvent is unavailable: %s - %s within timeout: %sms", eventTypeMask, clazz.getName(), timeoutInMillis), eventTypeMask, clazz, timeoutInMillis);
     }
 
     /**
@@ -812,7 +813,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, Class clazz, long timeout, TimeUnit timeUnit) {
-        assertServiceEvent(null, eventTypeMask, clazz, timeout, timeUnit);
+        assertServiceEvent(format("ServiceEvent is unavailable: %s - %s within timeout: %s%s", eventTypeMask, clazz.getName(), timeout, timeUnit), eventTypeMask, clazz, timeout, timeUnit);
     }
 
     /**
@@ -841,7 +842,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, Class clazz, boolean all, long timeoutInMillis) {
-        assertServiceEvent(null, eventTypeMask, clazz, all, timeoutInMillis);
+        assertServiceEvent(format("ServiceEvent is unavailable: %s - %s; all=%s within timeout: %sms", eventTypeMask, clazz.getName(), all, timeoutInMillis), eventTypeMask, clazz, all, timeoutInMillis);
     }
 
     /**
@@ -871,7 +872,7 @@ public class ServiceAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertServiceEvent(int eventTypeMask, Class clazz, boolean all, long timeout, TimeUnit timeUnit) {
-        assertServiceEvent(null, eventTypeMask, clazz, all, timeout, timeUnit);
+        assertServiceEvent(format("ServiceEvent is unavailable: %s - %s; all=%s within timeout: %s%s", eventTypeMask, clazz.getName(), all, timeout, timeUnit), eventTypeMask, clazz, all, timeout, timeUnit);
     }
 
     /**

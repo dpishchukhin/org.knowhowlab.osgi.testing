@@ -20,8 +20,10 @@ import org.knowhowlab.osgi.testing.assertions.OSGiAssert;
 import org.osgi.framework.Filter;
 import org.osgi.service.event.Event;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.junit.Assert.assertNotNull;
 import static org.knowhowlab.osgi.testing.utils.cmpn.EventAdminUtils.waitForEvent;
@@ -52,7 +54,7 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String topic, long timeoutInMillis) {
-        assertEvent(null, topic, timeoutInMillis);
+        assertEvent(format("Event is unavailable: topic: %s within timeout: %sms", topic, timeoutInMillis), topic, timeoutInMillis);
     }
 
     /**
@@ -78,7 +80,8 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String topic, Filter filter, long timeoutInMillis) {
-        assertEvent(null, topic, filter, timeoutInMillis);
+        assertEvent(format("Event is unavailable: topic: %s, filter: %s within timeout: %sms", topic, filter, timeoutInMillis),
+                topic, filter, timeoutInMillis);
     }
 
     /**
@@ -104,7 +107,7 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String[] topics, long timeoutInMillis) {
-        assertEvent(null, topics, timeoutInMillis);
+        assertEvent(format("Event is unavailable: topics: %s within timeout: %sms", Arrays.toString(topics), timeoutInMillis), topics, timeoutInMillis);
     }
 
     /**
@@ -130,7 +133,8 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String[] topics, Filter filter, long timeoutInMillis) {
-        assertEvent(null, topics, filter, timeoutInMillis);
+        assertEvent(format("Event is unavailable: topics: %s, filter: %s within timeout: %sms", Arrays.toString(topics), filter, timeoutInMillis),
+                topics, filter, timeoutInMillis);
     }
 
     /**
@@ -157,7 +161,7 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String topic, long timeout, TimeUnit timeUnit) {
-        assertEvent(null, topic, timeout, timeUnit);
+        assertEvent(format("Event is unavailable: topic: %s within timeout: %s%s", topic, timeout, timeUnit), topic, timeout, timeUnit);
     }
 
     /**
@@ -185,7 +189,8 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String topic, Filter filter, long timeout, TimeUnit timeUnit) {
-        assertEvent(null, topic, filter, timeout, timeUnit);
+        assertEvent(format("Event is unavailable: topic: %s, filter: %s within timeout: %s%s", topic, filter, timeout, timeUnit),
+                topic, filter, timeout, timeUnit);
     }
 
     /**
@@ -200,6 +205,7 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String message, String topic, Filter filter, long timeout, TimeUnit timeUnit) {
+        assertNotNull("TimeUnit is null", timeUnit);
         Event event = waitForEvent(getBundleContext(), topic, filter, timeout, timeUnit);
         assertNotNull(message, event);
     }
@@ -214,7 +220,7 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String[] topics, long timeout, TimeUnit timeUnit) {
-        assertEvent(null, topics, timeout, timeUnit);
+        assertEvent(format("Event is unavailable: topics: %s within timeout: %s%s", Arrays.toString(topics), timeout, timeUnit), topics, timeout, timeUnit);
     }
 
     /**
@@ -242,7 +248,8 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String[] topics, Filter filter, long timeout, TimeUnit timeUnit) {
-        assertEvent(null, topics, filter, timeout, timeUnit);
+        assertEvent(format("Event is unavailable: topics: %s, filter: %s within timeout: %s%s", Arrays.toString(topics), filter, timeout, timeUnit),
+                topics, filter, timeout, timeUnit);
     }
 
     /**
@@ -257,6 +264,7 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String message, String[] topics, Filter filter, long timeout, TimeUnit timeUnit) {
+        assertNotNull("TimeUnit is null", timeUnit);
         Event event = waitForEvent(getBundleContext(), topics, filter, timeout, timeUnit);
         assertNotNull(message, event);
     }

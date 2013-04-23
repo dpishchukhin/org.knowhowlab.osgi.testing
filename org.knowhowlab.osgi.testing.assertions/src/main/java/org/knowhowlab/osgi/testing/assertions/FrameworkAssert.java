@@ -55,7 +55,7 @@ public class FrameworkAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertFrameworkEvent(int eventTypeMask, int bundleId, long timeoutInMillis) {
-        assertFrameworkEvent(null, eventTypeMask, bundleId, timeoutInMillis);
+        assertFrameworkEvent(format("FrameworkEvent is unavailable: %s for bundle: %s within timeout: %sms", eventTypeMask, bundleId, timeoutInMillis), eventTypeMask, bundleId, timeoutInMillis);
     }
 
     /**
@@ -83,7 +83,7 @@ public class FrameworkAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertFrameworkEvent(int eventTypeMask, int bundleId, long timeout, TimeUnit timeUnit) {
-        assertFrameworkEvent(null, eventTypeMask, bundleId, timeout, timeUnit);
+        assertFrameworkEvent(format("FrameworkEvent is unavailable: %s for bundle: %s within timeout: %s%s", eventTypeMask, bundleId, timeout, timeUnit), eventTypeMask, bundleId, timeout, timeUnit);
     }
 
     /**
@@ -115,7 +115,7 @@ public class FrameworkAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, long timeoutInMillis) {
-        assertFrameworkEvent(null, eventTypeMask, symbolicName, timeoutInMillis, MILLISECONDS);
+        assertFrameworkEvent(format("FrameworkEvent is unavailable: %s for bundle: %s within timeout: %sms", eventTypeMask, symbolicName, timeoutInMillis), eventTypeMask, symbolicName, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -143,7 +143,7 @@ public class FrameworkAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, long timeout, TimeUnit timeUnit) {
-        assertFrameworkEvent(null, eventTypeMask, symbolicName, timeout, timeUnit);
+        assertFrameworkEvent(format("FrameworkEvent is unavailable: %s for bundle: %s within timeout: %s%s", eventTypeMask, symbolicName, timeout, timeUnit), eventTypeMask, symbolicName, timeout, timeUnit);
     }
 
     /**
@@ -175,7 +175,7 @@ public class FrameworkAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, Version version, long timeoutInMillis) {
-        assertFrameworkEvent(eventTypeMask, symbolicName, version, timeoutInMillis, MILLISECONDS);
+        assertFrameworkEvent(format("FrameworkEvent is unavailable: %s for bundle: %s[%s] within timeout: %sms", eventTypeMask, symbolicName, version, timeoutInMillis), eventTypeMask, symbolicName, version, timeoutInMillis);
     }
 
     /**
@@ -205,7 +205,7 @@ public class FrameworkAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertFrameworkEvent(int eventTypeMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
-        assertFrameworkEvent(null, eventTypeMask, symbolicName, version, timeout, timeUnit);
+        assertFrameworkEvent(format("FrameworkEvent is unavailable: %s for bundle: %s[%s] within timeout: %s%s", eventTypeMask, symbolicName, version, timeout, timeUnit), eventTypeMask, symbolicName, version, timeout, timeUnit);
     }
 
     /**

@@ -59,7 +59,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleState(int state, long bundleId) {
-        assertBundleState(null, state, bundleId);
+        assertBundleState(format("Invalid state of bundle: %s", bundleId), state, bundleId);
     }
 
     /**
@@ -86,7 +86,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleState(int state, String symbolicName) {
-        assertBundleState(null, state, symbolicName);
+        assertBundleState(format("Invalid state of bundle: %s", symbolicName), state, symbolicName);
     }
 
     /**
@@ -99,7 +99,8 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleState(int state, String symbolicName, long timeoutInMillis) {
-        assertBundleState(null, state, symbolicName, null, timeoutInMillis, MILLISECONDS);
+        assertBundleState(format("Invalid state %s of bundle: %s within timeout: %sms", state, symbolicName, timeoutInMillis),
+                state, symbolicName, null, timeoutInMillis, MILLISECONDS);
     }
 
     /**
@@ -176,7 +177,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleState(int state, String symbolicName, Version version) {
-        assertBundleState(null, state, symbolicName, version);
+        assertBundleState(format("Invalid state of bundle: %s[%s]", symbolicName, version), state, symbolicName, version);
     }
 
     /**
@@ -191,7 +192,8 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleState(int stateMask, String symbolicName, Version version, long timeout, TimeUnit timeUnit) {
-        assertBundleState(null, stateMask, symbolicName, version, timeout, timeUnit);
+        assertBundleState(format("Invalid state %s of bundle: %s[%s] within timeout: %s%s", stateMask, symbolicName, version, timeout, timeUnit),
+                stateMask, symbolicName, version, timeout, timeUnit);
     }
 
     /**
@@ -205,7 +207,8 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleState(int stateMask, String symbolicName, long timeout, TimeUnit timeUnit) {
-        assertBundleState(null, stateMask, symbolicName, null, timeout, timeUnit);
+        assertBundleState(format("Invalid state %s of bundle: %s within timeout: %s%s", stateMask, symbolicName, timeout, timeUnit),
+                stateMask, symbolicName, null, timeout, timeUnit);
     }
 
     /**
@@ -233,7 +236,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleAvailable(long bundleId) {
-        assertBundleAvailable(null, bundleId);
+        assertBundleAvailable(format("Bundle: %s is unavailable", bundleId), bundleId);
     }
 
     /**
@@ -257,7 +260,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleAvailable(String symbolicName) {
-        assertBundleAvailable(null, symbolicName);
+        assertBundleAvailable(format("Bundle: %s is unavailable", symbolicName), symbolicName);
     }
 
     /**
@@ -283,7 +286,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleAvailable(String symbolicName, Version version) {
-        assertBundleAvailable(null, symbolicName, version);
+        assertBundleAvailable(format("Bundle: %s[%s] is unavailable", symbolicName, version), symbolicName, version);
     }
 
     /**
@@ -309,7 +312,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleUnavailable(long bundleId) {
-        assertBundleUnavailable(null, bundleId);
+        assertBundleUnavailable(format("Bundle: %s is available", bundleId), bundleId);
     }
 
     /**
@@ -333,7 +336,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleUnavailable(String symbolicName) {
-        assertBundleUnavailable(null, symbolicName);
+        assertBundleUnavailable(format("Bundle: %s is available", symbolicName), symbolicName);
     }
 
     /**
@@ -359,7 +362,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertBundleUnavailable(String symbolicName, Version version) {
-        assertBundleUnavailable(null, symbolicName, version);
+        assertBundleUnavailable(format("Bundle: %s[%s] is available", symbolicName, version), symbolicName, version);
     }
 
     /**
@@ -385,7 +388,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertFragment(long bundleId) {
-        assertFragment(null, bundleId);
+        assertFragment(format("Bundle: %s is not a fragment", bundleId), bundleId);
     }
 
     /**
@@ -413,7 +416,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertFragment(String symbolicName) {
-        assertFragment(null, symbolicName);
+        assertFragment(format("Bundle: %s is not a fragment", symbolicName), symbolicName);
     }
 
     /**
@@ -443,7 +446,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertFragment(String symbolicName, Version version) {
-        assertFragment(null, symbolicName, version);
+        assertFragment(format("Bundle: %s[%s] is not a fragment", symbolicName, version), symbolicName, version);
     }
 
     /**
@@ -473,7 +476,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertNotFragment(long bundleId) {
-        assertNotFragment(null, bundleId);
+        assertNotFragment(format("Bundle: %s is a fragment", bundleId), bundleId);
     }
 
     /**
@@ -501,7 +504,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertNotFragment(String symbolicName) {
-        assertNotFragment(null, symbolicName);
+        assertNotFragment(format("Bundle: %s is a fragment", symbolicName), symbolicName);
     }
 
     /**
@@ -531,7 +534,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertNotFragment(String symbolicName, Version version) {
-        assertNotFragment(null, symbolicName, version);
+        assertNotFragment(format("Bundle: %s[%s] is a fragment", symbolicName, version), symbolicName, version);
     }
 
     /**
@@ -563,7 +566,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertBundleEvent(int eventTypeMask, int bundleId, long timeoutInMillis) {
-        assertBundleEvent(null, eventTypeMask, bundleId, timeoutInMillis);
+        assertBundleEvent(format("BundleEvent is unavailable: %s - %s within timeout: %sms", eventTypeMask, bundleId, timeoutInMillis), eventTypeMask, bundleId, timeoutInMillis);
     }
 
     /**
@@ -591,7 +594,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertBundleEvent(int eventTypeMask, int bundleId, long timeout, TimeUnit timeUnit) {
-        assertBundleEvent(null, eventTypeMask, bundleId, timeout, timeUnit);
+        assertBundleEvent(format("BundleEvent is unavailable: %s - %s within timeout: %s%s", eventTypeMask, bundleId, timeout, timeUnit), eventTypeMask, bundleId, timeout, timeUnit);
     }
 
     /**
@@ -623,7 +626,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertBundleEvent(int eventTypeMask, String symbolicName, long timeoutInMillis) {
-        assertBundleEvent(null, eventTypeMask, symbolicName, timeoutInMillis);
+        assertBundleEvent(format("BundleEvent is unavailable: %s - %s within timeout: %sms", eventTypeMask, symbolicName, timeoutInMillis), eventTypeMask, symbolicName, timeoutInMillis);
     }
 
     /**
@@ -651,7 +654,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertBundleEvent(int eventTypeMask, String symbolicName, long timeout, TimeUnit timeUnit) {
-        assertBundleEvent(null, eventTypeMask, symbolicName, timeout, timeUnit);
+        assertBundleEvent(format("BundleEvent is unavailable: %s - %s within timeout: %s%s", eventTypeMask, symbolicName, timeout, timeUnit), eventTypeMask, symbolicName, timeout, timeUnit);
     }
 
     /**
@@ -683,7 +686,8 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertBundleEvent(int eventTypeMask, String symbolicName, Version version, long timeoutInMillis) {
-        assertBundleEvent(null, eventTypeMask, symbolicName, version, timeoutInMillis);
+        assertBundleEvent(format("BundleEvent is unavailable: %s - %s[%s] within timeout: %sms", eventTypeMask, symbolicName, version, timeoutInMillis),
+                eventTypeMask, symbolicName, version, timeoutInMillis);
     }
 
     /**
@@ -713,7 +717,7 @@ public class BundleAssert extends OSGiAssert {
      * @since 1.1
      */
     public static void assertBundleEvent(int eventTypeMask, String symbolicName, long timeout, Version version, TimeUnit timeUnit) {
-        assertBundleEvent(null, eventTypeMask, symbolicName, version, timeout, timeUnit);
+        assertBundleEvent(format("BundleEvent is unavailable: %s - %s[%s] within timeout: %s%s", eventTypeMask, symbolicName, version, timeout, timeUnit), eventTypeMask, symbolicName, version, timeout, timeUnit);
     }
 
     /**
