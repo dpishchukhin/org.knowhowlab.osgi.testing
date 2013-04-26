@@ -32,4 +32,10 @@ public class WireAdminUtils {
      */
     private WireAdminUtils() {
     }
+
+    // wires create
+    // wire find
+    // wire delete
+    // wire update
+    // wire events
 }
