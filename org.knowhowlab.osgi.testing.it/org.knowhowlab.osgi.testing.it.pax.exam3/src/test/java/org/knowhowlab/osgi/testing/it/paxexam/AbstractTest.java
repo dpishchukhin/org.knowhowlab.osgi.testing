@@ -28,6 +28,7 @@ import org.osgi.framework.BundleContext;
 import javax.inject.Inject;
 
 import static org.ops4j.pax.exam.CoreOptions.*;
+import static org.ops4j.pax.exam.OptionUtils.combine;
 
 /**
  * Abstract test with all initializations
@@ -53,8 +54,8 @@ public abstract class AbstractTest {
      *
      * @return config
      */
-    protected static Option[] baseConfiguration() {
-        return options(
+    protected static Option[] baseConfiguration(Option... extraOptions) {
+        Option[] options = options(
                 junitBundles(),
                 // list of bundles that should be installed
                 mavenBundle("org.osgi", "org.osgi.compendium", "4.2.0"),
@@ -63,5 +64,9 @@ public abstract class AbstractTest {
 
                 systemProperty("project.version").value(System.getProperty("project.version"))
         );
+        if (extraOptions != null) {
+            options = combine(options, extraOptions);
+        }
+        return options;
     }
 }
