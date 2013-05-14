@@ -10,7 +10,7 @@
 
     <groupId>org.knowhowlab.osgi</groupId>
     <artifactId>org.knowhowlab.osgi.testing</artifactId>
-    <version>1.2.2-SNAPSHOT</version>
+    <version>1.2.2</version>
 
     <packaging>pom</packaging>
     <name>KnowHowLab OSGi Testing</name>
