@@ -16,6 +16,8 @@
 
 package org.knowhowlab.osgi.testing.assertions.cmpn;
 
+import org.knowhowlab.osgi.testing.assertions.OSGiAssert;
+
 /**
  * A set of OSGi WireAdmin specific assertion methods useful for writing tests.
  * <p/>
@@ -26,10 +28,14 @@ package org.knowhowlab.osgi.testing.assertions.cmpn;
  * @see java.lang.AssertionError
  * @see org.knowhowlab.osgi.testing.assertions.OSGiAssert
  */
-public class WireAdminAssert {
+public class WireAdminAssert extends OSGiAssert {
     /**
      * Utility class. Only static methods are available.
      */
     private WireAdminAssert() {
     }
+
+    // wire available
+    // wire unavailable
+    // events
 }
