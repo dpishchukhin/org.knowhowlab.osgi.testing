@@ -1803,14 +1803,9 @@ public class BundleUtils {
 
         @Override
         protected Object isTrackedBundle(Bundle bundle, BundleEvent event) {
-            PackageAdmin packageAdmin = getService(bc, PackageAdmin.class);
-            if (packageAdmin != null) {
-                Bundle[] bundles = packageAdmin.getBundles(symbolicName, version != null ? version.toString() : null);
-                if (bundles != null && bundles.length > 0) {
-                    return bundles[0];
-                }
-            }
-            return null;
+            return this.symbolicName.equals(bundle.getSymbolicName())
+                    && ((this.version == null) || (this.version.equals(bundle.getVersion())))
+                    ? bundle : null;
         }
     }
 

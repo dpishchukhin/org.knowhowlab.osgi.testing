@@ -50,8 +50,8 @@
             <artifactId>org.osgi.compendium</artifactId>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
         </dependency>
     </dependencies>
 
@@ -65,7 +65,8 @@
                 <configuration>
                     <instructions>
                         <Export-Package>
-                            org.knowhowlab.osgi.testing.assertions*
+                            org.knowhowlab.osgi.testing.assertions*,
+                            org.hamcrest*;version="1.3"
                         </Export-Package>
                         <Import-Package>
                             org.osgi*,
@@ -73,9 +74,9 @@
                             org.osgi.service.cm;resolution:=optional,
                             org.osgi.service.wireadmin;resolution:=optional,
                             org.osgi.service.prefs;resolution:=optional,
-                            org.junit*,
                             org.knowhowlab.osgi.testing.utils*
                         </Import-Package>
+                        <Embed-Dependency>*;artifactId=hamcrest-core;inline=true</Embed-Dependency>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
                         <_removeheaders>

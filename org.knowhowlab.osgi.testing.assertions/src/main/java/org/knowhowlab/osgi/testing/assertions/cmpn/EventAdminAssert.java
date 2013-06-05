@@ -25,7 +25,8 @@ import java.util.concurrent.TimeUnit;
 
 import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static org.junit.Assert.assertNotNull;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.knowhowlab.osgi.testing.utils.cmpn.EventAdminUtils.waitForEvent;
 
 /**
@@ -205,9 +206,9 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String message, String topic, Filter filter, long timeout, TimeUnit timeUnit) {
-        assertNotNull("TimeUnit is null", timeUnit);
+        assertThat("TimeUnit is null", timeUnit, notNullValue());
         Event event = waitForEvent(getBundleContext(), topic, filter, timeout, timeUnit);
-        assertNotNull(message, event);
+        assertThat(message, event, notNullValue());
     }
 
     /**
@@ -264,8 +265,8 @@ public class EventAdminAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertEvent(String message, String[] topics, Filter filter, long timeout, TimeUnit timeUnit) {
-        assertNotNull("TimeUnit is null", timeUnit);
+        assertThat("TimeUnit is null", timeUnit, notNullValue());
         Event event = waitForEvent(getBundleContext(), topics, filter, timeout, timeUnit);
-        assertNotNull(message, event);
+        assertThat(message, event, notNullValue());
     }
 }

@@ -16,19 +16,28 @@ OSGi specific assertions and utility classes that help to write OSGi integration
     <dependency>
         <groupId>org.knowhowlab.osgi</groupId>
         <artifactId>org.knowhowlab.osgi.testing.utils</artifactId>
-        <version>1.2.0</version>
+        <version>1.2.2</version>
     </dependency>
     <dependency>
         <groupId>org.knowhowlab.osgi</groupId>
         <artifactId>org.knowhowlab.osgi.testing.assertions</artifactId>
-        <version>1.2.0</version>
+        <version>1.2.2</version>
     </dependency>
 
 ### Add dependency in PaxExam tests
-    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.utils").version("1.2.0"),
-    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.assertions").version("1.2.0")
+    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.utils").version("1.2.2"),
+    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.assertions").version("1.2.2")
 
 ## Changes
+
+### 1.2.2 (14 May 2013)
+
+- bug fixes in BundleUtils
+
+### 1.2.1 (27 Apr 2013)
+
+- Added default messages to assertions
+- bug fixes and improvements
 
 ### 1.2.0 (20 Mar 2013)
 

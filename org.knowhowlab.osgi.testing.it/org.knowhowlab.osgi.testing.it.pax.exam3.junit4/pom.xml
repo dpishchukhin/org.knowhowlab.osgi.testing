@@ -8,10 +8,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.knowhowlab.osgi</groupId>
-    <artifactId>org.knowhowlab.osgi.testing.it.pax.exam3</artifactId>
+    <artifactId>org.knowhowlab.osgi.testing.it.pax.exam3.junit4</artifactId>
 
-    <name>KnowHowLab OSGi Testing - Integration Tests: Pax Exam 3.x</name>
-    <description>KnowHowLab OSGi Testing - Integration Test: Pax Exam 3.x</description>
+    <name>KnowHowLab OSGi Testing - Integration Tests: Pax Exam 3.x - JUnit 4.x</name>
+    <description>KnowHowLab OSGi Testing - Integration Test: Pax Exam 3.x - JUnit 4.x</description>
     <url>http://knowhowlab.org</url>
 
     <developers>

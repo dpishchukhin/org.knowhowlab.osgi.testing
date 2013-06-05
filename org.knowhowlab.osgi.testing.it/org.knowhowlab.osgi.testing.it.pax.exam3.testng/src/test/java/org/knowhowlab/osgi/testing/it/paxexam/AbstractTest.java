@@ -16,12 +16,14 @@
 
 package org.knowhowlab.osgi.testing.it.paxexam;
 
-import org.junit.Before;
-import org.junit.runner.RunWith;
 import org.knowhowlab.osgi.testing.assertions.OSGiAssert;
 import org.ops4j.pax.exam.Option;
-import org.ops4j.pax.exam.junit.JUnit4TestRunner;
+import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
+import org.ops4j.pax.exam.spi.reactors.PerMethod;
+import org.ops4j.pax.exam.testng.listener.PaxExam;
 import org.osgi.framework.BundleContext;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Listeners;
 
 import javax.inject.Inject;
 
@@ -33,7 +35,8 @@ import static org.ops4j.pax.exam.OptionUtils.combine;
  *
  * @author dmytro.pishchukhin
  */
-@RunWith(JUnit4TestRunner.class)
+@Listeners(PaxExam.class)
+@ExamReactorStrategy(PerMethod.class)
 public abstract class AbstractTest {
     /**
      * Injected BundleContext
@@ -41,7 +44,7 @@ public abstract class AbstractTest {
     @Inject
     protected BundleContext bc;
 
-    @Before
+    @BeforeTest
     public void init() {
         OSGiAssert.setDefaultBundleContext(bc);
     }
@@ -53,15 +56,11 @@ public abstract class AbstractTest {
      */
     protected static Option[] baseConfiguration(Option... extraOptions) {
         Option[] options = options(
-                workingDirectory("target/paxexam/"),
-                junitBundles(),
-                cleanCaches(false),
-                // list of frameworks to test
-                allFrameworks(),
+                mavenBundle("org.testng", "testng", "6.3.1"),
                 // list of bundles that should be installed
-                mavenBundle().groupId("org.osgi").artifactId("org.osgi.compendium").version("4.2.0"),
-                mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.utils").version(System.getProperty("project.version")),
-                mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.assertions").version(System.getProperty("project.version")),
+                mavenBundle("org.osgi", "org.osgi.compendium", "4.2.0"),
+                mavenBundle("org.knowhowlab.osgi", "org.knowhowlab.osgi.testing.utils", System.getProperty("project.version")),
+                mavenBundle("org.knowhowlab.osgi", "org.knowhowlab.osgi.testing.assertions", System.getProperty("project.version")),
 
                 systemProperty("project.version").value(System.getProperty("project.version"))
         );
