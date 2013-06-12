@@ -50,6 +50,10 @@
             <artifactId>org.osgi.compendium</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.scr</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
         </dependency>
@@ -75,6 +79,7 @@
                             org.osgi.service.wireadmin;resolution:=optional,
                             org.osgi.service.prefs;resolution:=optional,
                             org.osgi.service.monitor;resolution:=optional,
+                            org.apache.felix.scr;resolution:=optional,
                             org.knowhowlab.osgi.testing.utils*
                         </Import-Package>
                         <Embed-Dependency>*;artifactId=hamcrest-core;inline=true</Embed-Dependency>
