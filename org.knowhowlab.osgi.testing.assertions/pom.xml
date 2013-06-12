@@ -74,6 +74,7 @@
                             org.osgi.service.cm;resolution:=optional,
                             org.osgi.service.wireadmin;resolution:=optional,
                             org.osgi.service.prefs;resolution:=optional,
+                            org.osgi.service.monitor;resolution:=optional,
                             org.knowhowlab.osgi.testing.utils*
                         </Import-Package>
                         <Embed-Dependency>*;artifactId=hamcrest-core;inline=true</Embed-Dependency>
