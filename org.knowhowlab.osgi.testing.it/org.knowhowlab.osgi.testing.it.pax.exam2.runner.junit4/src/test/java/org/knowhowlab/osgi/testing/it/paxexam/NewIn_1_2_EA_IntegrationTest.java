@@ -62,9 +62,9 @@ public class NewIn_1_2_EA_IntegrationTest extends AbstractTest {
 
     @Test
     public void test_Service_Event() throws InvalidSyntaxException {
-        // start bundle in 2 sec
-        startBundleAsync(getBundleContext(), "org.knowhowlab.osgi.testing.it.test.bundle", 200);
+        // start bundle in 1 sec
+        startBundleAsync(getBundleContext(), "org.knowhowlab.osgi.testing.it.test.bundle", 1000);
 
-        assertEvent("org/osgi/framework/ServiceEvent/REGISTERED", FilterUtils.eq("service.objectClass", "org.knowhowlab.osgi.testing.it.testbundle.service.Echo"), 1, TimeUnit.SECONDS);
+        assertEvent("org/osgi/framework/ServiceEvent/REGISTERED", FilterUtils.eq("service.objectClass", "org.knowhowlab.osgi.testing.it.testbundle.service.Echo"), 2, TimeUnit.SECONDS);
     }
 }

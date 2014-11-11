@@ -84,13 +84,13 @@
         <dependency>
             <groupId>org.ops4j.pax.exam</groupId>
             <artifactId>pax-exam-container-forked</artifactId>
-            <version>3.0.3</version>
+            <version>3.5.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.ops4j.pax.exam</groupId>
             <artifactId>pax-exam-testng</artifactId>
-            <version>3.0.3</version>
+            <version>3.5.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -102,7 +102,7 @@
         <dependency>
             <groupId>org.ops4j.pax.exam</groupId>
             <artifactId>pax-exam-link-mvn</artifactId>
-            <version>3.0.3</version>
+            <version>3.5.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
