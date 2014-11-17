@@ -38,8 +38,19 @@
         <module>org.knowhowlab.osgi.testing.it.pax.exam2.runner.junit4</module>
         <module>org.knowhowlab.osgi.testing.it.pax.exam3.junit4</module>
         <module>org.knowhowlab.osgi.testing.it.pax.exam3.testng</module>
-        <module>org.knowhowlab.osgi.testing.it.pax.exam4.junit4</module>
-        <module>org.knowhowlab.osgi.testing.it.pax.exam4.testng</module>
         <module>org.knowhowlab.osgi.testing.it.test.bundle</module>
     </modules>
+
+    <profiles>
+        <profile>
+            <id>java7</id>
+            <activation>
+                <jdk>1.7</jdk>
+            </activation>
+            <modules>
+                <module>org.knowhowlab.osgi.testing.it.pax.exam4.junit4</module>
+                <module>org.knowhowlab.osgi.testing.it.pax.exam4.testng</module>
+            </modules>
+        </profile>
+    </profiles>
 </project>
