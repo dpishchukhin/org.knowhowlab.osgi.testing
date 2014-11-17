@@ -55,6 +55,7 @@
     <modules>
         <module>org.knowhowlab.osgi.testing.utils</module>
         <module>org.knowhowlab.osgi.testing.assertions</module>
+        <module>org.knowhowlab.osgi.testing.all</module>
         <module>org.knowhowlab.osgi.testing.it</module>
     </modules>
 

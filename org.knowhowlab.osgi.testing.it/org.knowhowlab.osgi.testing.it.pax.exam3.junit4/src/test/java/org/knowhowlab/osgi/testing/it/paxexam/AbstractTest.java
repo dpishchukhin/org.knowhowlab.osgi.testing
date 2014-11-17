@@ -59,8 +59,7 @@ public abstract class AbstractTest {
                 junitBundles(),
                 // list of bundles that should be installed
                 mavenBundle("org.osgi", "org.osgi.compendium", "4.2.0"),
-                mavenBundle("org.knowhowlab.osgi", "org.knowhowlab.osgi.testing.utils", System.getProperty("project.version")),
-                mavenBundle("org.knowhowlab.osgi", "org.knowhowlab.osgi.testing.assertions", System.getProperty("project.version")),
+                mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.all").version(System.getProperty("project.version")),
 
                 systemProperty("project.version").value(System.getProperty("project.version"))
         );

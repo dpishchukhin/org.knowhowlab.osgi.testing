@@ -60,9 +60,8 @@ public abstract class AbstractTest {
                 allFrameworks(),
                 // list of bundles that should be installed
                 mavenBundle().groupId("org.osgi").artifactId("org.osgi.compendium").version("4.2.0"),
-                mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.utils").version(System.getProperty("project.version")),
-                mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.assertions").version(System.getProperty("project.version")),
-
+                mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.all").version(System.getProperty("project.version")),
+                
                 systemProperty("project.version").value(System.getProperty("project.version"))
         );
         if (extraOptions != null) {
