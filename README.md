@@ -2,6 +2,8 @@
 
 OSGi specific assertions and utility classes that help to write OSGi integration/system tests.
 
+[![Build Status](https://travis-ci.org/dpishchukhin/org.knowhowlab.osgi.testing.svg?branch=1.3.x)](https://travis-ci.org/dpishchukhin/org.knowhowlab.osgi.testing)
+
 ### Blog with more samples and tutorials
 
 [http://knowhowlab.org](http://knowhowlab.org)
