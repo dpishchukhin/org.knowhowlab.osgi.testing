@@ -45,16 +45,16 @@ public class BundlesIntegrationTest extends AbstractTest {
         assertBundleState(Bundle.ACTIVE, 1);
         // assert bundle with id=100 is not installed into OSGi framework
         assertBundleUnavailable(100);
-        // assert bundle with symbolic name "org.knowhowlab.osgi.testing.utils" is installed into OSGi framework
-        assertBundleState(Bundle.ACTIVE, "org.knowhowlab.osgi.testing.utils", 5, TimeUnit.SECONDS);
-        // assert bundle with symbolic name "org.knowhowlab.osgi.testing.utils" is installed into OSGi framework
-        assertBundleAvailable("org.knowhowlab.osgi.testing.utils");
-        // assert bundle with symbolic name "org.knowhowlab.osgi.testing.utils" and version "1.0.1"
+        // assert bundle with symbolic name "org.knowhowlab.osgi.testing.all" is installed into OSGi framework
+        assertBundleState(Bundle.ACTIVE, "org.knowhowlab.osgi.testing.all", 5, TimeUnit.SECONDS);
+        // assert bundle with symbolic name "org.knowhowlab.osgi.testing.all" is installed into OSGi framework
+        assertBundleAvailable("org.knowhowlab.osgi.testing.all");
+        // assert bundle with symbolic name "org.knowhowlab.osgi.testing.all" and version System.getProperty("project.version")
         // is installed into OSGi framework
-        assertBundleAvailable("org.knowhowlab.osgi.testing.utils", new Version("1.0.1"));
-        // assert bundle with symbolic name "org.knowhowlab.osgi.testing.utils" and version "2.0.0"
+        assertBundleAvailable("org.knowhowlab.osgi.testing.all", new Version(System.getProperty("project.version")));
+        // assert bundle with symbolic name "org.knowhowlab.osgi.testing.all" and version "2.0.0"
         // is not installed into OSGi framework
-        assertBundleUnavailable("org.knowhowlab.osgi.testing.utils", new Version("2.0.0"));
+        assertBundleUnavailable("org.knowhowlab.osgi.testing.all", new Version("2.0.0"));
     }
 
     @Test

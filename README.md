@@ -27,10 +27,15 @@ OSGi specific assertions and utility classes that help to write OSGi integration
     </dependency>
 
 ### Add dependency in PaxExam tests
-    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.utils").version("1.2.2"),
-    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.assertions").version("1.2.2")
+    mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.all").version("1.3.0"),
 
 ## Changes
+
+### 1.3.0 (xx xxx xxxx)
+
+- No more dependencies to JUnit.
+- added support of TestNG
+- .all bundle is available for tests that includes all assertions and utils
 
 ### 1.2.2 (14 May 2013)
 
