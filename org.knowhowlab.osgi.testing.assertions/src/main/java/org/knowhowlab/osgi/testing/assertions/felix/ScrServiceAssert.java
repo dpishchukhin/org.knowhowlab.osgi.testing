@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.knowhowlab.osgi.testing.assertions.cmpn;
+package org.knowhowlab.osgi.testing.assertions.felix;
 
 /**
  * A set of OSGi Felix SCR specific assertion methods useful for writing tests.
@@ -26,10 +26,10 @@ package org.knowhowlab.osgi.testing.assertions.cmpn;
  * @see AssertionError
  * @see org.knowhowlab.osgi.testing.assertions.OSGiAssert
  */
-public class FelixScrAssert {
+public class ScrServiceAssert {
     /**
      * Utility class. Only static methods are available.
      */
-    private FelixScrAssert() {
+    private ScrServiceAssert() {
     }
 }

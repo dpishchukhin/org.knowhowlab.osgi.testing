@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.knowhowlab.osgi.testing.utils.cmpn;
+package org.knowhowlab.osgi.testing.utils.felix;
 
 /**
  * OSGi Felix SCR utilities class
@@ -22,10 +22,10 @@ package org.knowhowlab.osgi.testing.utils.cmpn;
  * @author dpishchukhin
  * @see org.osgi.service.monitor.MonitorAdmin
  */
-public class FelixScrUtils {
+public class ScrServiceUtils {
     /**
      * Utility class. Only static methods are available.
      */
-    private FelixScrUtils() {
+    private ScrServiceUtils() {
     }
 }
