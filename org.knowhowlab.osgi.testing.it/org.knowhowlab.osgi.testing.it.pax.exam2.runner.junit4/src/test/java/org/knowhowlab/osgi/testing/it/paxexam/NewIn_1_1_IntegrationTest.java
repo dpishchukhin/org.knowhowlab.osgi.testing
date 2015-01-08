@@ -17,8 +17,7 @@
 package org.knowhowlab.osgi.testing.it.paxexam;
 
 import org.junit.Test;
-import org.knowhowlab.osgi.testing.it.testbundle.EchoImpl;
-import org.knowhowlab.osgi.testing.it.testbundle.service.Echo;
+import org.knowhowlab.osgi.testing.it.paxexam.service.TestService;
 import org.knowhowlab.osgi.testing.utils.ServiceUtils;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.Configuration;
@@ -83,21 +82,21 @@ public class NewIn_1_1_IntegrationTest extends AbstractTest {
     @Test
     public void test_RegisterService_Async() {
         // service unregistered
-        assertServiceUnavailable(Echo.class);
+        assertServiceUnavailable(TestService.class);
         // register service in 2 sec
-        registerServiceAsync(getBundleContext(), Echo.class, new EchoImpl(), null, 2, TimeUnit.SECONDS);
+        registerServiceAsync(getBundleContext(), TestService.class, new TestService(), null, 2, TimeUnit.SECONDS);
         // service still unregistered
-        assertServiceUnavailable(Echo.class);
+        assertServiceUnavailable(TestService.class);
         // service registered
-        assertServiceAvailable(Echo.class, 5, TimeUnit.SECONDS);
+        assertServiceAvailable(TestService.class, 5, TimeUnit.SECONDS);
     }
 
     @Test
     public void test_Service_Event() {
         // register service in 2 sec
-        registerServiceAsync(getBundleContext(), Echo.class, new EchoImpl(), null, 2, TimeUnit.SECONDS);
+        registerServiceAsync(getBundleContext(), TestService.class, new TestService(), null, 2, TimeUnit.SECONDS);
         // service registered within 5 sec
-        assertServiceEvent(ServiceEvent.REGISTERED, Echo.class, 5, TimeUnit.SECONDS);
+        assertServiceEvent(ServiceEvent.REGISTERED, TestService.class, 5, TimeUnit.SECONDS);
     }
 
     @Test
