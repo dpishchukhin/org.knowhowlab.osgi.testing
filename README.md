@@ -2,7 +2,7 @@
 
 OSGi specific assertions and utility classes that help to write OSGi integration/system tests.
 
-[![Build Status](https://travis-ci.org/dpishchukhin/org.knowhowlab.osgi.testing.svg?branch=1.3.x)](https://travis-ci.org/dpishchukhin/org.knowhowlab.osgi.testing)
+[![Build Status](https://travis-ci.org/dpishchukhin/org.knowhowlab.osgi.testing.svg?branch=master](https://travis-ci.org/dpishchukhin/org.knowhowlab.osgi.testing)
 
 ### Blog with more samples and tutorials
 
@@ -18,20 +18,29 @@ OSGi specific assertions and utility classes that help to write OSGi integration
     <dependency>
         <groupId>org.knowhowlab.osgi</groupId>
         <artifactId>org.knowhowlab.osgi.testing.utils</artifactId>
-        <version>1.2.2</version>
+        <version>1.3.0</version>
     </dependency>
     <dependency>
         <groupId>org.knowhowlab.osgi</groupId>
         <artifactId>org.knowhowlab.osgi.testing.assertions</artifactId>
-        <version>1.2.2</version>
+        <version>1.3.0</version>
     </dependency>
+
+or
+
+    <dependency>
+        <groupId>org.knowhowlab.osgi</groupId>
+        <artifactId>org.knowhowlab.osgi.testing.all</artifactId>
+        <version>1.3.0</version>
+    </dependency>
+
 
 ### Add dependency in PaxExam tests
     mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.all").version("1.3.0"),
 
 ## Changes
 
-### 1.3.0 (xx xxx xxxx)
+### 1.3.0 (08 Jan 2015)
 
 - No more dependencies to JUnit.
 - added support of TestNG
