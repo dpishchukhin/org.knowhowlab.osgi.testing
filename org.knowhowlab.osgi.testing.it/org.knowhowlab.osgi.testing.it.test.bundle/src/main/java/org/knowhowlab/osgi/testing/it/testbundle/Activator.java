@@ -24,6 +24,8 @@ import org.osgi.framework.ServiceRegistration;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Test bundle activator
  *
@@ -49,6 +51,9 @@ public class Activator implements BundleActivator {
     }
 
     public void stop(BundleContext bundleContext) throws Exception {
+        if (registration == null) {
+            sleep(1000);
+        }
         registration.unregister();
     }
 }

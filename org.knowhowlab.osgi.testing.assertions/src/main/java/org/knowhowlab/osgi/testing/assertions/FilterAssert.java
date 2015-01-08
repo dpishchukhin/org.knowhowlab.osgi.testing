@@ -19,8 +19,8 @@ package org.knowhowlab.osgi.testing.assertions;
 import org.osgi.framework.InvalidSyntaxException;
 
 import static java.lang.String.format;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.osgi.framework.FrameworkUtil.createFilter;
 
 /**
@@ -60,7 +60,7 @@ public class FilterAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertFilterCorrect(String message, String filter) {
-        assertNotNull("Filter is null", filter);
+        assertThat("Filter is null", filter, notNullValue());
         try {
             createFilter(filter);
         } catch (InvalidSyntaxException e) {
@@ -88,7 +88,7 @@ public class FilterAssert extends OSGiAssert {
      * @since 1.0
      */
     public static void assertFilterIncorrect(String message, String filter) {
-        assertNotNull("Filter is null", filter);
+        assertThat("Filter is null", filter, notNullValue());
         try {
             createFilter(filter);
             fail(message);

@@ -16,9 +16,10 @@
 
 package org.knowhowlab.osgi.testing.assertions;
 
-import org.junit.Assert;
 import org.osgi.framework.BundleContext;
 
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.osgi.framework.FrameworkUtil.getBundle;
 
 /**
@@ -54,7 +55,15 @@ public abstract class OSGiAssert {
         BundleContext bc = defaultBundleContext == null
                 ? getBundle(OSGiAssert.class).getBundleContext()
                 : defaultBundleContext;
-        Assert.assertNotNull("BundleContext is null", bc);
+        assertThat("BundleContext is null", bc, notNullValue());
         return bc;
+    }
+
+
+    public static void fail(String message) {
+        if (message == null)
+            throw new AssertionError();
+        else
+            throw new AssertionError(message);
     }
 }
