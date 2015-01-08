@@ -61,7 +61,8 @@ public abstract class AbstractTest {
                 mavenBundle("org.osgi", "org.osgi.compendium", "4.2.0"),
                 mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.all").version(System.getProperty("project.version")),
 
-                systemProperty("project.version").value(System.getProperty("project.version"))
+                systemProperty("project.version").value(System.getProperty("project.version")),
+                systemProperty("org.ops4j.pax.logging.DefaultServiceLog.level").value("WARN")
         );
         if (extraOptions != null) {
             options = combine(options, extraOptions);

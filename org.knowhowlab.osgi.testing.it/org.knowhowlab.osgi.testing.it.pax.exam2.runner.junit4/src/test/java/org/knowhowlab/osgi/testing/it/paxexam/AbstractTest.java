@@ -61,8 +61,10 @@ public abstract class AbstractTest {
                 // list of bundles that should be installed
                 mavenBundle().groupId("org.osgi").artifactId("org.osgi.compendium").version("4.2.0"),
                 mavenBundle().groupId("org.knowhowlab.osgi").artifactId("org.knowhowlab.osgi.testing.all").version(System.getProperty("project.version")),
-                
-                systemProperty("project.version").value(System.getProperty("project.version"))
+
+                systemProperty("project.version").value(System.getProperty("project.version")),
+                systemProperty("org.ops4j.pax.logging.DefaultServiceLog.level").value("WARN"),
+                rawPaxRunnerOption("log", "ERROR")
         );
         if (extraOptions != null) {
             options = combine(options, extraOptions);
