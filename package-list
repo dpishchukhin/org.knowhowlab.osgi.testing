@@ -1,0 +1,4 @@
+org.knowhowlab.osgi.testing.assertions
+org.knowhowlab.osgi.testing.assertions.cmpn
+org.knowhowlab.osgi.testing.utils
+org.knowhowlab.osgi.testing.utils.cmpn
