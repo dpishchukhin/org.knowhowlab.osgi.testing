@@ -4,6 +4,10 @@ OSGi specific assertions and utility classes that help to write OSGi integration
 
 [![Build Status](https://travis-ci.org/dpishchukhin/org.knowhowlab.osgi.testing.svg?branch=master)](https://travis-ci.org/dpishchukhin/org.knowhowlab.osgi.testing)
 
+### Javadoc
+
+[http://dpishchukhin.github.io/org.knowhowlab.osgi.testing/](http://dpishchukhin.github.io/org.knowhowlab.osgi.testing/)
+
 ### Blog with more samples and tutorials
 
 [http://knowhowlab.org](http://knowhowlab.org)
