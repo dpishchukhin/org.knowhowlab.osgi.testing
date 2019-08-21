@@ -4,6 +4,8 @@
 [![Build Status](https://travis-ci.org/dpishchukhin/org.knowhowlab.osgi.testing.svg?branch=master)](https://travis-ci.org/dpishchukhin/org.knowhowlab.osgi.testing)
 [![codecov](https://codecov.io/gh/dpishchukhin/org.knowhowlab.osgi.testing/branch/master/graph/badge.svg)](https://codecov.io/gh/dpishchukhin/org.knowhowlab.osgi.testing)
 
+[![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/dimi)
+
 OSGi specific assertions and utility classes that help to write OSGi integration/system tests.
 
 
